@@ -1,0 +1,464 @@
+/* =========================
+   Base / Reset
+   ========================= */
+* { box-sizing: border-box; }
+html, body { height: 100%; }
+
+body {
+  margin: 0;
+  font-family: Tahoma, Verdana, "Segoe UI", system-ui, sans-serif;
+  /* White background per request */
+  background: #ffffff;
+  color: #111;
+}
+
+/* =========================
+   Desktop (centers the window)
+   ========================= */
+.desk {
+  min-height: 100%;
+  display: grid;
+  place-items: center;
+  padding: 24px;
+}
+
+/* =========================
+   Main XP Window (flex layout so scrolling works)
+   ========================= */
+.xp-window {
+  width: min(920px, 92vw);
+  max-height: min(640px, 86vh);
+  background: #ece9d8;
+  border: 1px solid #1f6b4f;
+  border-radius: 7px;
+  box-shadow:
+    0 16px 40px rgba(0,0,0,.18),
+    inset 0 0 0 1px rgba(255,255,255,.35);
+  overflow: hidden;
+
+  display: flex;
+  flex-direction: column;
+}
+
+/* =========================
+   Title Bar (green XP style)
+   ========================= */
+.xp-titlebar {
+  height: 34px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0 8px;
+  color: #fff;
+
+  background: linear-gradient(#41b883, #2f8f66);
+  border-bottom: 1px solid rgba(0,0,0,.25);
+  flex: 0 0 auto;
+}
+
+.xp-title-left {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  min-width: 0;
+}
+
+.xp-icon {
+  width: 16px;
+  height: 16px;
+  border-radius: 3px;
+  background: linear-gradient(#fff, #c7ffe4);
+  box-shadow: inset 0 0 0 1px rgba(0,0,0,.25);
+}
+
+.xp-title {
+  font-size: 13px;
+  font-weight: 700;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+/* =========================
+   Window controls (min/max/close)
+   ========================= */
+.xp-controls { display: flex; gap: 6px; }
+
+.xp-btn {
+  width: 18px;
+  height: 18px;
+  border-radius: 3px;
+  border: 1px solid rgba(0,0,0,.35);
+  background: linear-gradient(#fefefe, #d9d9d9);
+  box-shadow: inset 0 0 0 1px rgba(255,255,255,.55);
+  padding: 0;
+  display: grid;
+  place-items: center;
+  cursor: default;
+}
+
+/* Icon glyphs */
+.xp-btn::before {
+  display: block;
+  font-weight: 900;
+  font-size: 12px;
+  line-height: 1;
+  color: #183226;
+  transform: translateY(-0.5px);
+}
+
+/* Minimize icon */
+.xp-min::before { content: "—"; transform: translateY(-2px); }
+
+/* Maximize icon */
+.xp-max::before { content: "□"; font-size: 11px; }
+
+/* Close icon */
+.xp-close {
+  background: linear-gradient(#ffb3b3, #ff4a4a);
+}
+.xp-close::before { content: "×"; color: #3a0b0b; font-size: 13px; }
+
+/* Close link button inside modal */
+.linkbtn { display: inline-block; text-decoration: none; }
+
+/* =========================
+   Menu Bar
+   ========================= */
+.xp-menubar {
+  display: flex;
+  align-items: center;
+  gap: 18px;
+  padding: 6px 10px;
+  background: #ece9d8;
+  border-bottom: 1px solid rgba(0,0,0,.18);
+  font-size: 13px;
+  flex: 0 0 auto;
+}
+
+.xp-menuitem {
+  padding: 2px 6px;
+  border-radius: 2px;
+  user-select: none;
+}
+
+.xp-menuitem:hover {
+  background: rgba(47, 143, 102, .14);
+  outline: 1px solid rgba(47, 143, 102, .32);
+}
+
+.xp-hint {
+  margin-left: auto;
+  font-size: 12px;
+  color: rgba(0,0,0,.55);
+  padding: 2px 6px;
+  border: 1px dashed rgba(0,0,0,.2);
+  border-radius: 4px;
+  cursor: move;
+}
+
+/* =========================
+   Window body layout (sidebar + content)
+   IMPORTANT: min-height:0 enables inner scroll
+   ========================= */
+.xp-body {
+  display: grid;
+  grid-template-columns: 280px 1fr;
+  flex: 1 1 auto;
+  min-height: 0;
+}
+
+/* =========================
+   Sidebar
+   ========================= */
+.xp-sidebar {
+  padding: 14px;
+  border-right: 1px solid rgba(0,0,0,.18);
+  background: linear-gradient(#f7f3df, #ece9d8);
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  min-height: 0;
+}
+
+.xp-photo {
+  width: 100%;
+  height: 170px;
+  object-fit: cover;
+  border-radius: 6px;
+  border: 1px solid rgba(0,0,0,.22);
+  box-shadow: inset 0 0 0 1px rgba(255,255,255,.5);
+  background: #ffffff;
+}
+
+.name {
+  margin: 0;
+  font-size: 18px;
+  line-height: 1.2;
+  color: #114a35;
+}
+
+.role {
+  margin: 0;
+  font-size: 13px;
+  color: #2a2a2a;
+}
+
+.xp-tags {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+}
+
+.tag {
+  font-size: 12px;
+  padding: 3px 8px;
+  border-radius: 999px;
+  border: 1px solid rgba(0,0,0,.18);
+  background: #fffdf3;
+}
+
+.xp-links {
+  margin-top: auto;
+  display: grid;
+  gap: 8px;
+}
+
+.xp-link {
+  display: inline-block;
+  font-size: 13px;
+  color: #1f6b4f;
+  text-decoration: none;
+  padding: 6px 8px;
+  border-radius: 4px;
+  border: 1px solid rgba(0,0,0,.15);
+  background: linear-gradient(#ffffff, #f1efe2);
+}
+
+.xp-link:hover { filter: brightness(0.98); }
+.xp-link:active { transform: translateY(1px); }
+
+/* =========================
+   Content area (scrollable)
+   ========================= */
+.xp-content {
+  padding: 14px 16px;
+  overflow: auto;
+  min-height: 0;
+}
+
+/* XP-ish scrollbars (Chromium/WebKit) */
+.xp-scroll::-webkit-scrollbar { width: 14px; height: 14px; }
+.xp-scroll::-webkit-scrollbar-track {
+  background: #ece9d8;
+  border-left: 1px solid rgba(0,0,0,.12);
+}
+.xp-scroll::-webkit-scrollbar-thumb {
+  background: linear-gradient(#ffffff, #d7d2bf);
+  border: 1px solid rgba(0,0,0,.25);
+  border-radius: 6px;
+  box-shadow: inset 0 0 0 1px rgba(255,255,255,.5);
+}
+.xp-scroll::-webkit-scrollbar-thumb:hover { filter: brightness(0.98); }
+
+/* =========================
+   Panels / groups
+   ========================= */
+.xp-group {
+  background: #fffdf3;
+  border: 1px solid rgba(0,0,0,.18);
+  border-radius: 8px;
+  padding: 12px;
+  margin-bottom: 12px;
+  box-shadow: inset 0 0 0 1px rgba(255,255,255,.6);
+}
+
+.group-head {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: 12px;
+}
+
+.tiny-link {
+  font-size: 12px;
+  color: #1f6b4f;
+  text-decoration: underline;
+}
+
+.xp-h2 {
+  margin: 0 0 6px;
+  font-size: 15px;
+  color: #114a35;
+}
+
+.xp-p {
+  margin: 0;
+  font-size: 13px;
+  color: #222;
+  line-height: 1.5;
+}
+
+/* =========================
+   Project card
+   ========================= */
+.card {
+  background: #ffffff;
+  border: 1px solid rgba(0,0,0,.16);
+  border-radius: 8px;
+  padding: 12px;
+}
+.card.single { margin-top: 8px; }
+
+.card-top {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 10px;
+}
+
+.badge {
+  font-size: 11px;
+  padding: 2px 8px;
+  border-radius: 999px;
+  border: 1px solid rgba(0,0,0,.16);
+  background: #eafff3;
+  color: #114a35;
+}
+
+/* In-progress badge (green, matching Web app badge) */
+.badge.in-progress {
+  margin-left: 8px;
+  background: #eafff3;
+  border-color: rgba(0,0,0,.16);
+  color: #114a35;
+}
+
+.card-title {
+  margin: 0;
+  font-size: 14px;
+  color: #114a35;
+}
+
+.card-p {
+  margin: 8px 0 10px;
+  font-size: 12.8px;
+  color: #333;
+}
+
+.features {
+  margin: 0 0 12px;
+  padding-left: 18px;
+  font-size: 12.8px;
+  color: #333;
+  line-height: 1.5;
+}
+
+/* Buttons */
+.card-actions { display: flex; gap: 8px; flex-wrap: wrap; }
+.btn {
+  font-size: 12.5px;
+  padding: 6px 10px;
+  border-radius: 4px;
+  border: 1px solid rgba(0,0,0,.25);
+  background: linear-gradient(#ffffff, #e7e7e7);
+  color: #111;
+  text-decoration: none;
+  box-shadow: inset 0 0 0 1px rgba(255,255,255,.55);
+}
+.btn:hover { filter: brightness(0.98); }
+.btn:active { transform: translateY(1px); }
+.btn-secondary { background: linear-gradient(#fffdf3, #efe9c9); }
+
+/* =========================
+   Education list
+   ========================= */
+.edu { display: grid; gap: 10px; margin-top: 10px; }
+
+.edu-item {
+  background: #ffffff;
+  border: 1px solid rgba(0,0,0,.14);
+  border-radius: 8px;
+  padding: 10px;
+}
+
+.edu-top {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: 10px;
+  font-size: 13px;
+  color: #114a35;
+}
+
+.edu-date { font-size: 12px; color: rgba(0,0,0,.65); }
+.edu-meta { font-size: 12.5px; color: #333; margin-top: 2px; }
+.edu-notes { font-size: 12.5px; color: rgba(0,0,0,.75); margin-top: 6px; }
+
+/* =========================
+   Status bar
+   ========================= */
+.xp-footerline {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  font-size: 12px;
+  color: #333;
+  margin-top: 8px;
+  padding: 6px 8px;
+  border: 1px solid rgba(0,0,0,.12);
+  border-radius: 6px;
+  background: linear-gradient(#ffffff, #f1efe2);
+}
+
+.status { color: #1e5e0a; font-weight: 700; }
+
+/* =========================
+   Modal / secondary window overlay (no JS)
+   ========================= */
+.overlay {
+  position: fixed;
+  inset: 0;
+  display: none;
+  place-items: center;
+  padding: 24px;
+  z-index: 50;
+}
+
+.overlay:target { display: grid; }
+
+.overlay-bg {
+  position: absolute;
+  inset: 0;
+  background: rgba(0,0,0,.35);
+}
+
+.xp-window.mini {
+  position: relative;
+  width: min(680px, 92vw);
+  max-height: min(520px, 86vh);
+  z-index: 60;
+}
+
+.xp-modal-body {
+  padding: 14px 16px;
+  overflow: auto;
+  background: #ece9d8;
+  min-height: 0;
+}
+
+/* =========================
+   Responsive adjustments
+   ========================= */
+@media (max-width: 860px) {
+  .xp-body { grid-template-columns: 1fr; }
+
+  .xp-sidebar {
+    border-right: none;
+    border-bottom: 1px solid rgba(0,0,0,.18);
+  }
+
+  .xp-window { max-height: none; }
+
+  .xp-photo { height: 200px; }
+}
