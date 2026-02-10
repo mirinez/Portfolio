@@ -1,24 +1,43 @@
 <!doctype html>
 <html lang="en">
 <head>
+  <!--
+    Basic metadata:
+    - UTF-8 for proper characters (accents, etc.)
+    - viewport for responsive layout on mobile
+  -->
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
+
+  <!-- Browser tab title -->
   <title>Portfolio — Míriam Domínguez Martínez</title>
+
+  <!-- Main stylesheet -->
   <link rel="stylesheet" href="styles.css" />
 </head>
 
 <body>
-  <!-- Desktop / page background -->
+  <!--
+    "Desktop" wrapper:
+    Centers the XP-like window in the page.
+  -->
   <main class="desk">
 
-    <!-- Main XP-style window -->
+    <!--
+      Main XP-style window:
+      This is the primary container that looks like a Windows XP window.
+    -->
     <section class="xp-window" aria-label="Portfolio window">
 
-      <!-- Title bar -->
+      <!--
+        Title bar:
+        Includes a small icon, the title text, and the window control buttons.
+        (Buttons are visual only, no JS behavior.)
+      -->
       <header class="xp-titlebar">
         <div class="xp-title-left">
           <span class="xp-icon" aria-hidden="true"></span>
-          <span class="xp-title">My Portfolio — Windows XP </span>
+          <span class="xp-title">My Portfolio — Windows XP Mode (Green Edition)</span>
         </div>
 
         <!-- Window controls (visual only) -->
@@ -29,32 +48,55 @@
         </div>
       </header>
 
-      <!-- Menu bar -->
+      <!--
+        Menu bar:
+        Mimics classic desktop app menus.
+        (No interactivity; purely aesthetic.)
+      -->
       <nav class="xp-menubar" aria-label="Menu bar">
         <span class="xp-menuitem">File</span>
         <span class="xp-menuitem">Edit</span>
         <span class="xp-menuitem">View</span>
         <span class="xp-menuitem">Help</span>
-        <span class="xp-hint" aria-hidden="true">Drag me (visual only)</span>
       </nav>
 
-      <!-- Window body (sidebar + content) -->
+      <!--
+        Window body:
+        Two-column layout:
+        - Sidebar (left)
+        - Main content (right, scrollable)
+      -->
       <div class="xp-body">
 
-        <!-- Sidebar -->
+        <!--
+          Sidebar:
+          Contains profile photo, name, role, tech tags, and links.
+        -->
         <aside class="xp-sidebar" aria-label="Sidebar">
+          <!--
+            Profile photo:
+            Put example.jpg next to index.html in the same folder.
+          -->
           <img class="xp-photo" src="./example.jpg" alt="Profile photo" />
 
+          <!-- Name + role -->
           <h1 class="name">Míriam Domínguez Martínez</h1>
           <p class="role">Full Stack Web Developer</p>
 
+          <!--
+            Tech tags:
+            Simple skill labels.
+            (Requested: only HTML and CSS for now.)
+          -->
           <div class="xp-tags" aria-label="Tech stack">
             <span class="tag">HTML</span>
             <span class="tag">CSS</span>
-            <span class="tag">JavaScript</span>
-            <span class="tag">React</span>
           </div>
 
+          <!--
+            Links:
+            External links open in a new tab.
+          -->
           <div class="xp-links" aria-label="Links">
             <a class="xp-link" href="https://github.com/mirinez" target="_blank" rel="noreferrer">GitHub</a>
             <a class="xp-link" href="https://www.linkedin.com/in/miriam-dominguezm" target="_blank" rel="noreferrer">LinkedIn</a>
@@ -62,10 +104,13 @@
           </div>
         </aside>
 
-        <!-- Main content (scrolls) -->
+        <!--
+          Main content area:
+          Scrolls vertically when content is longer than the window.
+        -->
         <section class="xp-content xp-scroll" aria-label="Main content">
 
-          <!-- About -->
+          <!-- About section -->
           <div class="xp-group">
             <h2 class="xp-h2">About</h2>
             <p class="xp-p">
@@ -75,10 +120,15 @@
             </p>
           </div>
 
-          <!-- Project -->
+          <!-- Project section (single featured project) -->
           <div class="xp-group">
             <div class="group-head">
               <h2 class="xp-h2">Project</h2>
+
+              <!--
+                Opens a secondary "window" using :target in CSS.
+                Clicking it navigates to #studyportal, which displays the modal overlay.
+              -->
               <a class="tiny-link" href="#studyportal" title="Open window">Open “StudyPortal.exe”</a>
             </div>
 
@@ -100,6 +150,7 @@
                 <li>Study groups (join/create, shared notes &amp; sessions)</li>
               </ul>
 
+              <!-- Buttons are placeholders until you add real URLs -->
               <div class="card-actions">
                 <a href="#" class="btn">Live Demo</a>
                 <a href="#" class="btn btn-secondary">Source Code</a>
@@ -107,12 +158,11 @@
             </article>
           </div>
 
-          <!-- Education -->
+          <!-- Education section -->
           <div class="xp-group" id="education">
             <h2 class="xp-h2">Education</h2>
 
             <div class="edu">
-
               <div class="edu-item">
                 <div class="edu-top">
                   <strong>Technician in Microcomputer Systems and Networks</strong>
@@ -146,11 +196,10 @@
                   <span class="badge in-progress">In progress</span>
                 </div>
               </div>
-
             </div>
           </div>
 
-          <!-- Status bar -->
+          <!-- Status bar (bottom of content) -->
           <div class="xp-footerline">
             <span>Status:</span>
             <span class="status">Online ☑</span>
@@ -160,29 +209,39 @@
       </div>
     </section>
 
-    <!-- Secondary window overlay (pure CSS via :target) -->
+    <!--
+      Secondary window overlay:
+      Pure CSS modal using :target.
+      When URL hash is #studyportal, this overlay becomes visible.
+    -->
     <section class="overlay" id="studyportal" aria-label="StudyPortal window">
+      <!-- Background overlay click closes the modal by navigating back to "#" -->
       <a class="overlay-bg" href="#" aria-label="Close window"></a>
 
+      <!-- Secondary XP-like window -->
       <div class="xp-window mini" role="dialog" aria-modal="true">
+
+        <!-- Modal title bar -->
         <header class="xp-titlebar">
           <div class="xp-title-left">
             <span class="xp-icon" aria-hidden="true"></span>
             <span class="xp-title">StudyPortal.exe</span>
           </div>
 
+          <!-- Close button as a link -->
           <div class="xp-controls" aria-label="Window controls">
             <a class="xp-btn xp-close linkbtn" href="#" aria-label="Close"></a>
           </div>
         </header>
 
+        <!-- Modal menu bar -->
         <nav class="xp-menubar" aria-label="Menu bar">
           <span class="xp-menuitem">File</span>
           <span class="xp-menuitem">Tools</span>
           <span class="xp-menuitem">Help</span>
-          <span class="xp-hint" aria-hidden="true">Modal window</span>
         </nav>
 
+        <!-- Modal content (scrollable if needed) -->
         <div class="xp-modal-body xp-scroll" aria-label="Modal content">
           <div class="xp-group">
             <h2 class="xp-h2">Study Portal — Summary</h2>
@@ -207,9 +266,13 @@
             <span class="status">This window is pure CSS ✨</span>
           </div>
         </div>
+
       </div>
     </section>
 
   </main>
 </body>
 </html>
+
+
+
