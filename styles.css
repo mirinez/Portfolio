@@ -7,33 +7,47 @@ html, body { height: 100%; }
 body {
   margin: 0;
   font-family: Tahoma, Verdana, "Segoe UI", system-ui, sans-serif;
-  /* White background per request */
+
+  /* White background (requested) */
   background: #ffffff;
   color: #111;
 }
 
 /* =========================
-   Desktop (centers the window)
+   "Desktop" wrapper
+   - Centers the window horizontally and vertically
+   - Keeps padding symmetric on mobile so the window looks centered
    ========================= */
 .desk {
   min-height: 100%;
-  display: grid;
-  place-items: center;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  /* Equal padding left/right/top/bottom */
   padding: 24px;
 }
 
 /* =========================
-   Main XP Window (flex layout so scrolling works)
+   XP Window container
+   - Uses flex so the inner content can scroll correctly
    ========================= */
 .xp-window {
   width: min(920px, 92vw);
   max-height: min(640px, 86vh);
+
+  /* XP-ish background */
   background: #ece9d8;
+
+  /* Green accent border */
   border: 1px solid #1f6b4f;
   border-radius: 7px;
+
+  /* Subtle window shadow + inner highlight */
   box-shadow:
     0 16px 40px rgba(0,0,0,.18),
     inset 0 0 0 1px rgba(255,255,255,.35);
+
   overflow: hidden;
 
   display: flex;
@@ -41,17 +55,20 @@ body {
 }
 
 /* =========================
-   Title Bar (green XP style)
+   Title Bar (green XP vibe)
    ========================= */
 .xp-titlebar {
   height: 34px;
   display: flex;
   align-items: center;
   justify-content: space-between;
+
   padding: 0 8px;
   color: #fff;
 
+  /* Green gradient */
   background: linear-gradient(#41b883, #2f8f66);
+
   border-bottom: 1px solid rgba(0,0,0,.25);
   flex: 0 0 auto;
 }
@@ -63,6 +80,7 @@ body {
   min-width: 0;
 }
 
+/* Small “app icon” */
 .xp-icon {
   width: 16px;
   height: 16px;
@@ -71,6 +89,7 @@ body {
   box-shadow: inset 0 0 0 1px rgba(0,0,0,.25);
 }
 
+/* Title text truncates nicely */
 .xp-title {
   font-size: 13px;
   font-weight: 700;
@@ -80,24 +99,33 @@ body {
 }
 
 /* =========================
-   Window controls (min/max/close)
+   Window control buttons
+   - Visual-only controls: minimize, maximize, close
+   - Icons are drawn using ::before
    ========================= */
-.xp-controls { display: flex; gap: 6px; }
+.xp-controls {
+  display: flex;
+  gap: 6px;
+}
 
 .xp-btn {
   width: 18px;
   height: 18px;
   border-radius: 3px;
+
   border: 1px solid rgba(0,0,0,.35);
   background: linear-gradient(#fefefe, #d9d9d9);
+
   box-shadow: inset 0 0 0 1px rgba(255,255,255,.55);
+
   padding: 0;
   display: grid;
   place-items: center;
+
   cursor: default;
 }
 
-/* Icon glyphs */
+/* Default icon style */
 .xp-btn::before {
   display: block;
   font-weight: 900;
@@ -108,31 +136,48 @@ body {
 }
 
 /* Minimize icon */
-.xp-min::before { content: "—"; transform: translateY(-2px); }
+.xp-min::before {
+  content: "—";
+  transform: translateY(-2px);
+}
 
 /* Maximize icon */
-.xp-max::before { content: "□"; font-size: 11px; }
+.xp-max::before {
+  content: "□";
+  font-size: 11px;
+}
 
-/* Close icon */
+/* Close icon (red button) */
 .xp-close {
   background: linear-gradient(#ffb3b3, #ff4a4a);
 }
-.xp-close::before { content: "×"; color: #3a0b0b; font-size: 13px; }
 
-/* Close link button inside modal */
-.linkbtn { display: inline-block; text-decoration: none; }
+.xp-close::before {
+  content: "×";
+  color: #3a0b0b;
+  font-size: 13px;
+}
+
+/* When we use a link as a button (modal close) */
+.linkbtn {
+  display: inline-block;
+  text-decoration: none;
+}
 
 /* =========================
-   Menu Bar
+   Menu Bar (File/Edit/View/Help)
    ========================= */
 .xp-menubar {
   display: flex;
   align-items: center;
   gap: 18px;
+
   padding: 6px 10px;
   background: #ece9d8;
+
   border-bottom: 1px solid rgba(0,0,0,.18);
   font-size: 13px;
+
   flex: 0 0 auto;
 }
 
@@ -147,23 +192,14 @@ body {
   outline: 1px solid rgba(47, 143, 102, .32);
 }
 
-.xp-hint {
-  margin-left: auto;
-  font-size: 12px;
-  color: rgba(0,0,0,.55);
-  padding: 2px 6px;
-  border: 1px dashed rgba(0,0,0,.2);
-  border-radius: 4px;
-  cursor: move;
-}
-
 /* =========================
-   Window body layout (sidebar + content)
-   IMPORTANT: min-height:0 enables inner scroll
+   Window body (sidebar + content)
+   - min-height: 0 is the key that lets the content area scroll
    ========================= */
 .xp-body {
   display: grid;
   grid-template-columns: 280px 1fr;
+
   flex: 1 1 auto;
   min-height: 0;
 }
@@ -174,23 +210,30 @@ body {
 .xp-sidebar {
   padding: 14px;
   border-right: 1px solid rgba(0,0,0,.18);
+
   background: linear-gradient(#f7f3df, #ece9d8);
+
   display: flex;
   flex-direction: column;
   gap: 10px;
+
   min-height: 0;
 }
 
+/* Profile image */
 .xp-photo {
   width: 100%;
   height: 170px;
   object-fit: cover;
+
   border-radius: 6px;
   border: 1px solid rgba(0,0,0,.22);
+
   box-shadow: inset 0 0 0 1px rgba(255,255,255,.5);
   background: #ffffff;
 }
 
+/* Name and role */
 .name {
   margin: 0;
   font-size: 18px;
@@ -204,6 +247,7 @@ body {
   color: #2a2a2a;
 }
 
+/* Skill tags */
 .xp-tags {
   display: flex;
   flex-wrap: wrap;
@@ -214,10 +258,12 @@ body {
   font-size: 12px;
   padding: 3px 8px;
   border-radius: 999px;
+
   border: 1px solid rgba(0,0,0,.18);
   background: #fffdf3;
 }
 
+/* Sidebar links */
 .xp-links {
   margin-top: auto;
   display: grid;
@@ -229,8 +275,10 @@ body {
   font-size: 13px;
   color: #1f6b4f;
   text-decoration: none;
+
   padding: 6px 8px;
   border-radius: 4px;
+
   border: 1px solid rgba(0,0,0,.15);
   background: linear-gradient(#ffffff, #f1efe2);
 }
@@ -244,35 +292,43 @@ body {
 .xp-content {
   padding: 14px 16px;
   overflow: auto;
+
+  /* Needed so the scroll container can shrink inside the window */
   min-height: 0;
 }
 
-/* XP-ish scrollbars (Chromium/WebKit) */
+/* XP-ish scrollbars (Chromium/WebKit browsers) */
 .xp-scroll::-webkit-scrollbar { width: 14px; height: 14px; }
+
 .xp-scroll::-webkit-scrollbar-track {
   background: #ece9d8;
   border-left: 1px solid rgba(0,0,0,.12);
 }
+
 .xp-scroll::-webkit-scrollbar-thumb {
   background: linear-gradient(#ffffff, #d7d2bf);
   border: 1px solid rgba(0,0,0,.25);
   border-radius: 6px;
   box-shadow: inset 0 0 0 1px rgba(255,255,255,.5);
 }
+
 .xp-scroll::-webkit-scrollbar-thumb:hover { filter: brightness(0.98); }
 
 /* =========================
-   Panels / groups
+   Panels / Groups
    ========================= */
 .xp-group {
   background: #fffdf3;
   border: 1px solid rgba(0,0,0,.18);
   border-radius: 8px;
+
   padding: 12px;
   margin-bottom: 12px;
+
   box-shadow: inset 0 0 0 1px rgba(255,255,255,.6);
 }
 
+/* Header row inside a group (title + small action link) */
 .group-head {
   display: flex;
   align-items: baseline;
@@ -280,12 +336,14 @@ body {
   gap: 12px;
 }
 
+/* Small action link */
 .tiny-link {
   font-size: 12px;
   color: #1f6b4f;
   text-decoration: underline;
 }
 
+/* Headings and paragraph text */
 .xp-h2 {
   margin: 0 0 6px;
   font-size: 15px;
@@ -308,6 +366,7 @@ body {
   border-radius: 8px;
   padding: 12px;
 }
+
 .card.single { margin-top: 8px; }
 
 .card-top {
@@ -317,16 +376,18 @@ body {
   gap: 10px;
 }
 
+/* Badge (green pill) */
 .badge {
   font-size: 11px;
   padding: 2px 8px;
   border-radius: 999px;
+
   border: 1px solid rgba(0,0,0,.16);
   background: #eafff3;
   color: #114a35;
 }
 
-/* In-progress badge (green, matching Web app badge) */
+/* In-progress badge (requested to match the green badge) */
 .badge.in-progress {
   margin-left: 8px;
   background: #eafff3;
@@ -346,6 +407,7 @@ body {
   color: #333;
 }
 
+/* Feature list */
 .features {
   margin: 0 0 12px;
   padding-left: 18px;
@@ -354,26 +416,42 @@ body {
   line-height: 1.5;
 }
 
-/* Buttons */
-.card-actions { display: flex; gap: 8px; flex-wrap: wrap; }
+/* Buttons (placeholders until you add real URLs) */
+.card-actions {
+  display: flex;
+  gap: 8px;
+  flex-wrap: wrap;
+}
+
 .btn {
   font-size: 12.5px;
   padding: 6px 10px;
+
   border-radius: 4px;
   border: 1px solid rgba(0,0,0,.25);
+
   background: linear-gradient(#ffffff, #e7e7e7);
   color: #111;
   text-decoration: none;
+
   box-shadow: inset 0 0 0 1px rgba(255,255,255,.55);
 }
+
 .btn:hover { filter: brightness(0.98); }
 .btn:active { transform: translateY(1px); }
-.btn-secondary { background: linear-gradient(#fffdf3, #efe9c9); }
+
+.btn-secondary {
+  background: linear-gradient(#fffdf3, #efe9c9);
+}
 
 /* =========================
    Education list
    ========================= */
-.edu { display: grid; gap: 10px; margin-top: 10px; }
+.edu {
+  display: grid;
+  gap: 10px;
+  margin-top: 10px;
+}
 
 .edu-item {
   background: #ffffff;
@@ -387,13 +465,27 @@ body {
   align-items: baseline;
   justify-content: space-between;
   gap: 10px;
+
   font-size: 13px;
   color: #114a35;
 }
 
-.edu-date { font-size: 12px; color: rgba(0,0,0,.65); }
-.edu-meta { font-size: 12.5px; color: #333; margin-top: 2px; }
-.edu-notes { font-size: 12.5px; color: rgba(0,0,0,.75); margin-top: 6px; }
+.edu-date {
+  font-size: 12px;
+  color: rgba(0,0,0,.65);
+}
+
+.edu-meta {
+  font-size: 12.5px;
+  color: #333;
+  margin-top: 2px;
+}
+
+.edu-notes {
+  font-size: 12.5px;
+  color: rgba(0,0,0,.75);
+  margin-top: 6px;
+}
 
 /* =========================
    Status bar
@@ -402,37 +494,52 @@ body {
   display: flex;
   justify-content: space-between;
   align-items: center;
+
   font-size: 12px;
   color: #333;
+
   margin-top: 8px;
   padding: 6px 8px;
+
   border: 1px solid rgba(0,0,0,.12);
   border-radius: 6px;
+
   background: linear-gradient(#ffffff, #f1efe2);
 }
 
-.status { color: #1e5e0a; font-weight: 700; }
+.status {
+  color: #1e5e0a;
+  font-weight: 700;
+}
 
 /* =========================
-   Modal / secondary window overlay (no JS)
+   Modal overlay (secondary window)
+   - Uses :target in HTML (#studyportal) to show/hide
    ========================= */
 .overlay {
   position: fixed;
   inset: 0;
+
   display: none;
   place-items: center;
+
   padding: 24px;
   z-index: 50;
 }
 
-.overlay:target { display: grid; }
+/* When URL hash matches the overlay id, show it */
+.overlay:target {
+  display: grid;
+}
 
+/* Dark translucent background behind the modal */
 .overlay-bg {
   position: absolute;
   inset: 0;
   background: rgba(0,0,0,.35);
 }
 
+/* Secondary window sizing */
 .xp-window.mini {
   position: relative;
   width: min(680px, 92vw);
@@ -440,6 +547,7 @@ body {
   z-index: 60;
 }
 
+/* Modal content container (scrollable if needed) */
 .xp-modal-body {
   padding: 14px 16px;
   overflow: auto;
@@ -448,17 +556,35 @@ body {
 }
 
 /* =========================
-   Responsive adjustments
+   Responsive rules
+   - Stacks sidebar above content on small screens
+   - Ensures symmetric margins on mobile
    ========================= */
 @media (max-width: 860px) {
-  .xp-body { grid-template-columns: 1fr; }
+  .desk {
+    padding: 16px; /* equal padding left/right */
+  }
+
+  .xp-window {
+    width: min(920px, 100%);
+    max-height: none; /* allow natural height on mobile */
+  }
+
+  .xp-body {
+    grid-template-columns: 1fr;
+  }
 
   .xp-sidebar {
     border-right: none;
     border-bottom: 1px solid rgba(0,0,0,.18);
   }
 
-  .xp-window { max-height: none; }
+  .xp-photo {
+    height: 200px;
+  }
 
-  .xp-photo { height: 200px; }
+  .xp-content {
+    padding: 12px;
+  }
 }
+
