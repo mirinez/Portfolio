@@ -37,7 +37,7 @@
       <header class="xp-titlebar">
         <div class="xp-title-left">
           <span class="xp-icon" aria-hidden="true"></span>
-          <span class="xp-title">My Portfolio — Windows XP</span>
+          <span class="xp-title">My Portfolio — Windows XP Mode</span>
         </div>
 
         <!-- Window controls (visual only) -->
@@ -73,30 +73,20 @@
           Contains profile photo, name, role, tech tags, and links.
         -->
         <aside class="xp-sidebar" aria-label="Sidebar">
-          <!--
-            Profile photo:
-            Put example.jpg next to index.html in the same folder.
-          -->
+          <!-- Profile photo -->
           <img class="xp-photo" src="./example.jpg" alt="Profile photo" />
 
           <!-- Name + role -->
           <h1 class="name">Míriam Domínguez Martínez</h1>
           <p class="role">Full Stack Web Developer</p>
 
-          <!--
-            Tech tags:
-            Simple skill labels.
-            (Requested: only HTML and CSS for now.)
-          -->
+          <!-- Tech tags (only HTML + CSS for now) -->
           <div class="xp-tags" aria-label="Tech stack">
             <span class="tag">HTML</span>
             <span class="tag">CSS</span>
           </div>
 
-          <!--
-            Links:
-            External links open in a new tab.
-          -->
+          <!-- Links -->
           <div class="xp-links" aria-label="Links">
             <a class="xp-link" href="https://github.com/mirinez" target="_blank" rel="noreferrer">GitHub</a>
             <a class="xp-link" href="https://www.linkedin.com/in/miriam-dominguezm" target="_blank" rel="noreferrer">LinkedIn</a>
@@ -124,11 +114,6 @@
           <div class="xp-group">
             <div class="group-head">
               <h2 class="xp-h2">Project</h2>
-
-              <!--
-                Opens a secondary "window" using :target in CSS.
-                Clicking it navigates to #studyportal, which displays the modal overlay.
-              -->
               <a class="tiny-link" href="#studyportal" title="Open window">Open “StudyPortal.exe”</a>
             </div>
 
@@ -150,7 +135,6 @@
                 <li>Study groups (join/create, shared notes &amp; sessions)</li>
               </ul>
 
-              <!-- Buttons are placeholders until you add real URLs -->
               <div class="card-actions">
                 <a href="#" class="btn">Live Demo</a>
                 <a href="#" class="btn btn-secondary">Source Code</a>
@@ -193,13 +177,17 @@
                 <div class="edu-meta">Professional Development — DBE Academy (Online)</div>
                 <div class="edu-notes">
                   Frontend &amp; Backend Development, Web Architecture, and Git version control.
+                </div>
+
+                <!-- In-progress moved to its own line (prevents cutoff on small screens) -->
+                <div class="edu-progress">
                   <span class="badge in-progress">In progress</span>
                 </div>
               </div>
             </div>
           </div>
 
-          <!-- Status bar (bottom of content) -->
+          <!-- Status bar -->
           <div class="xp-footerline">
             <span>Status:</span>
             <span class="status">Online ☑</span>
@@ -241,7 +229,10 @@
           <span class="xp-menuitem">Help</span>
         </nav>
 
-        <!-- Modal content (scrollable if needed) -->
+        <!--
+          Modal content:
+          Scrollable if it exceeds max height.
+        -->
         <div class="xp-modal-body xp-scroll" aria-label="Modal content">
           <div class="xp-group">
             <h2 class="xp-h2">Study Portal — Summary</h2>
@@ -273,6 +264,8 @@
   </main>
 </body>
 </html>
+
+
 
 
 
