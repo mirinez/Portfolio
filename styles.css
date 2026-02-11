@@ -8,42 +8,36 @@ body {
   margin: 0;
   font-family: Tahoma, Verdana, "Segoe UI", system-ui, sans-serif;
 
-  /* White background (requested) */
+  /* White background */
   background: #ffffff;
   color: #111;
 }
 
 /* =========================
    "Desktop" wrapper
-   - Centers the window horizontally and vertically
-   - Keeps padding symmetric on mobile so the window looks centered
+   - Centers the main window
+   - Uses symmetric padding so mobile margins look even
    ========================= */
 .desk {
   min-height: 100%;
   display: flex;
   justify-content: center;
   align-items: center;
-
-  /* Equal padding left/right/top/bottom */
   padding: 24px;
 }
 
 /* =========================
    XP Window container
-   - Uses flex so the inner content can scroll correctly
+   - Flex column layout allows inner scrolling areas to work properly
    ========================= */
 .xp-window {
   width: min(920px, 92vw);
   max-height: min(640px, 86vh);
-
-  /* XP-ish background */
   background: #ece9d8;
 
-  /* Green accent border */
   border: 1px solid #1f6b4f;
   border-radius: 7px;
 
-  /* Subtle window shadow + inner highlight */
   box-shadow:
     0 16px 40px rgba(0,0,0,.18),
     inset 0 0 0 1px rgba(255,255,255,.35);
@@ -66,10 +60,9 @@ body {
   padding: 0 8px;
   color: #fff;
 
-  /* Green gradient */
   background: linear-gradient(#41b883, #2f8f66);
-
   border-bottom: 1px solid rgba(0,0,0,.25);
+
   flex: 0 0 auto;
 }
 
@@ -80,7 +73,6 @@ body {
   min-width: 0;
 }
 
-/* Small “app icon” */
 .xp-icon {
   width: 16px;
   height: 16px;
@@ -89,7 +81,6 @@ body {
   box-shadow: inset 0 0 0 1px rgba(0,0,0,.25);
 }
 
-/* Title text truncates nicely */
 .xp-title {
   font-size: 13px;
   font-weight: 700;
@@ -100,32 +91,24 @@ body {
 
 /* =========================
    Window control buttons
-   - Visual-only controls: minimize, maximize, close
-   - Icons are drawn using ::before
+   - Icons are drawn with ::before
    ========================= */
-.xp-controls {
-  display: flex;
-  gap: 6px;
-}
+.xp-controls { display: flex; gap: 6px; }
 
 .xp-btn {
   width: 18px;
   height: 18px;
   border-radius: 3px;
-
   border: 1px solid rgba(0,0,0,.35);
   background: linear-gradient(#fefefe, #d9d9d9);
-
   box-shadow: inset 0 0 0 1px rgba(255,255,255,.55);
 
   padding: 0;
   display: grid;
   place-items: center;
-
   cursor: default;
 }
 
-/* Default icon style */
 .xp-btn::before {
   display: block;
   font-weight: 900;
@@ -135,37 +118,18 @@ body {
   transform: translateY(-0.5px);
 }
 
-/* Minimize icon */
-.xp-min::before {
-  content: "—";
-  transform: translateY(-2px);
-}
+.xp-min::before { content: "—"; transform: translateY(-2px); }
+.xp-max::before { content: "□"; font-size: 11px; }
 
-/* Maximize icon */
-.xp-max::before {
-  content: "□";
-  font-size: 11px;
-}
-
-/* Close icon (red button) */
 .xp-close {
   background: linear-gradient(#ffb3b3, #ff4a4a);
 }
+.xp-close::before { content: "×"; color: #3a0b0b; font-size: 13px; }
 
-.xp-close::before {
-  content: "×";
-  color: #3a0b0b;
-  font-size: 13px;
-}
-
-/* When we use a link as a button (modal close) */
-.linkbtn {
-  display: inline-block;
-  text-decoration: none;
-}
+.linkbtn { display: inline-block; text-decoration: none; }
 
 /* =========================
-   Menu Bar (File/Edit/View/Help)
+   Menu Bar
    ========================= */
 .xp-menubar {
   display: flex;
@@ -193,8 +157,8 @@ body {
 }
 
 /* =========================
-   Window body (sidebar + content)
-   - min-height: 0 is the key that lets the content area scroll
+   Body layout (sidebar + content)
+   - min-height: 0 enables scrolling inside nested flex/grid layouts
    ========================= */
 .xp-body {
   display: grid;
@@ -220,7 +184,6 @@ body {
   min-height: 0;
 }
 
-/* Profile image */
 .xp-photo {
   width: 100%;
   height: 170px;
@@ -233,7 +196,6 @@ body {
   background: #ffffff;
 }
 
-/* Name and role */
 .name {
   margin: 0;
   font-size: 18px;
@@ -247,7 +209,7 @@ body {
   color: #2a2a2a;
 }
 
-/* Skill tags */
+/* Tags */
 .xp-tags {
   display: flex;
   flex-wrap: wrap;
@@ -258,12 +220,11 @@ body {
   font-size: 12px;
   padding: 3px 8px;
   border-radius: 999px;
-
   border: 1px solid rgba(0,0,0,.18);
   background: #fffdf3;
 }
 
-/* Sidebar links */
+/* Links */
 .xp-links {
   margin-top: auto;
   display: grid;
@@ -292,12 +253,10 @@ body {
 .xp-content {
   padding: 14px 16px;
   overflow: auto;
-
-  /* Needed so the scroll container can shrink inside the window */
   min-height: 0;
 }
 
-/* XP-ish scrollbars (Chromium/WebKit browsers) */
+/* XP-ish scrollbars (Chromium/WebKit) */
 .xp-scroll::-webkit-scrollbar { width: 14px; height: 14px; }
 
 .xp-scroll::-webkit-scrollbar-track {
@@ -315,7 +274,7 @@ body {
 .xp-scroll::-webkit-scrollbar-thumb:hover { filter: brightness(0.98); }
 
 /* =========================
-   Panels / Groups
+   Groups / panels
    ========================= */
 .xp-group {
   background: #fffdf3;
@@ -328,7 +287,6 @@ body {
   box-shadow: inset 0 0 0 1px rgba(255,255,255,.6);
 }
 
-/* Header row inside a group (title + small action link) */
 .group-head {
   display: flex;
   align-items: baseline;
@@ -336,14 +294,12 @@ body {
   gap: 12px;
 }
 
-/* Small action link */
 .tiny-link {
   font-size: 12px;
   color: #1f6b4f;
   text-decoration: underline;
 }
 
-/* Headings and paragraph text */
 .xp-h2 {
   margin: 0 0 6px;
   font-size: 15px;
@@ -376,7 +332,7 @@ body {
   gap: 10px;
 }
 
-/* Badge (green pill) */
+/* Badge pills */
 .badge {
   font-size: 11px;
   padding: 2px 8px;
@@ -387,9 +343,7 @@ body {
   color: #114a35;
 }
 
-/* In-progress badge (requested to match the green badge) */
 .badge.in-progress {
-  margin-left: 8px;
   background: #eafff3;
   border-color: rgba(0,0,0,.16);
   color: #114a35;
@@ -407,7 +361,6 @@ body {
   color: #333;
 }
 
-/* Feature list */
 .features {
   margin: 0 0 12px;
   padding-left: 18px;
@@ -416,7 +369,7 @@ body {
   line-height: 1.5;
 }
 
-/* Buttons (placeholders until you add real URLs) */
+/* Buttons */
 .card-actions {
   display: flex;
   gap: 8px;
@@ -465,26 +418,22 @@ body {
   align-items: baseline;
   justify-content: space-between;
   gap: 10px;
-
   font-size: 13px;
   color: #114a35;
 }
 
-.edu-date {
-  font-size: 12px;
-  color: rgba(0,0,0,.65);
-}
-
-.edu-meta {
-  font-size: 12.5px;
-  color: #333;
-  margin-top: 2px;
-}
+.edu-date { font-size: 12px; color: rgba(0,0,0,.65); }
+.edu-meta { font-size: 12.5px; color: #333; margin-top: 2px; }
 
 .edu-notes {
   font-size: 12.5px;
   color: rgba(0,0,0,.75);
   margin-top: 6px;
+}
+
+/* In-progress line under education notes */
+.edu-progress {
+  margin-top: 8px;
 }
 
 /* =========================
@@ -514,25 +463,30 @@ body {
 
 /* =========================
    Modal overlay (secondary window)
-   - Uses :target in HTML (#studyportal) to show/hide
+   - Fixes mobile asymmetry by using viewport-based centering and equal side padding
    ========================= */
 .overlay {
   position: fixed;
   inset: 0;
 
   display: none;
-  place-items: center;
 
+  /* Use flex for consistent centering on mobile */
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  /* IMPORTANT: equal padding helps equal margins on both sides */
   padding: 24px;
+
   z-index: 50;
 }
 
-/* When URL hash matches the overlay id, show it */
-.overlay:target {
-  display: grid;
-}
+/* Only visible when targeted */
+.overlay { display: none; }
+.overlay:target { display: flex; }
 
-/* Dark translucent background behind the modal */
+/* Backdrop behind the modal window */
 .overlay-bg {
   position: absolute;
   inset: 0;
@@ -542,12 +496,12 @@ body {
 /* Secondary window sizing */
 .xp-window.mini {
   position: relative;
-  width: min(680px, 92vw);
-  max-height: min(520px, 86vh);
+  width: min(680px, calc(100vw - 48px)); /* ensures symmetric margins */
+  max-height: min(520px, calc(100vh - 48px));
   z-index: 60;
 }
 
-/* Modal content container (scrollable if needed) */
+/* Modal content container */
 .xp-modal-body {
   padding: 14px 16px;
   overflow: auto;
@@ -557,34 +511,31 @@ body {
 
 /* =========================
    Responsive rules
-   - Stacks sidebar above content on small screens
-   - Ensures symmetric margins on mobile
    ========================= */
 @media (max-width: 860px) {
-  .desk {
-    padding: 16px; /* equal padding left/right */
-  }
+  .desk { padding: 16px; }
 
   .xp-window {
     width: min(920px, 100%);
-    max-height: none; /* allow natural height on mobile */
+    max-height: none;
   }
 
-  .xp-body {
-    grid-template-columns: 1fr;
-  }
+  .xp-body { grid-template-columns: 1fr; }
 
   .xp-sidebar {
     border-right: none;
     border-bottom: 1px solid rgba(0,0,0,.18);
   }
 
-  .xp-photo {
-    height: 200px;
-  }
+  .xp-photo { height: 200px; }
 
-  .xp-content {
-    padding: 12px;
+  .xp-content { padding: 12px; }
+
+  /* Modal overlay padding reduced for small screens */
+  .overlay { padding: 16px; }
+
+  .xp-window.mini {
+    width: min(680px, calc(100vw - 32px));
+    max-height: min(520px, calc(100vh - 32px));
   }
 }
-
