@@ -2,40 +2,39 @@
    Base / Reset
    ========================= */
 * { box-sizing: border-box; }
-
-html, body {
-  height: 100%;
-}
+html, body { height: 100%; }
 
 body {
   margin: 0;
   font-family: Tahoma, Verdana, "Segoe UI", system-ui, sans-serif;
 
-  /* Clean white background */
+  /* White background per your request */
   background: #ffffff;
   color: #111;
 }
 
 /* =========================
-   Desktop wrapper
-   - Centers the XP window
-   - Symmetric padding keeps layout visually balanced
+   "Desktop" wrapper
+   - Centers the main window
+   - Symmetric padding avoids left/right imbalance on mobile
    ========================= */
 .desk {
   min-height: 100%;
   display: flex;
   justify-content: center;
   align-items: center;
+
+  /* equal padding left/right */
   padding: 24px;
 }
 
 /* =========================
    XP Window container
-   - Flex column layout
-   - overflow: visible allows Piki to sit outside the top border
+   - Flex column layout allows inner scrolling areas to work properly
    ========================= */
 .xp-window {
-  position: relative; /* Needed for absolute-positioned Piki */
+  /* positioning context for any absolute children (none right now) */
+  position: relative;
 
   width: min(920px, 92vw);
   max-height: min(640px, 86vh);
@@ -49,15 +48,15 @@ body {
     0 16px 40px rgba(0,0,0,.18),
     inset 0 0 0 1px rgba(255,255,255,.35);
 
-  /* IMPORTANT: allow elements to overflow (Piki sticker) */
-  overflow: visible;
+  /* keep window edges clean */
+  overflow: hidden;
 
   display: flex;
   flex-direction: column;
 }
 
 /* =========================
-   Title Bar (XP green style)
+   Title Bar (green XP vibe)
    ========================= */
 .xp-titlebar {
   height: 34px;
@@ -70,12 +69,15 @@ body {
 
   background: linear-gradient(#41b883, #2f8f66);
   border-bottom: 1px solid rgba(0,0,0,.25);
+
+  flex: 0 0 auto;
 }
 
 .xp-title-left {
   display: flex;
   align-items: center;
   gap: 8px;
+  min-width: 0;
 }
 
 .xp-icon {
@@ -90,76 +92,91 @@ body {
   font-size: 13px;
   font-weight: 700;
   white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
 }
 
 /* =========================
    Window control buttons
+   - Icons are drawn with ::before
    ========================= */
-.xp-controls {
-  display: flex;
-  gap: 6px;
-}
+.xp-controls { display: flex; gap: 6px; }
 
 .xp-btn {
   width: 18px;
   height: 18px;
   border-radius: 3px;
+
   border: 1px solid rgba(0,0,0,.35);
   background: linear-gradient(#fefefe, #d9d9d9);
   box-shadow: inset 0 0 0 1px rgba(255,255,255,.55);
 
+  padding: 0;
   display: grid;
   place-items: center;
-  padding: 0;
   cursor: default;
+
+  /* remove default button styles where possible */
+  outline: none;
 }
 
 .xp-btn::before {
-  font-weight: bold;
+  display: block;
+  font-weight: 900;
   font-size: 12px;
+  line-height: 1;
   color: #183226;
+  transform: translateY(-0.5px);
 }
 
-.xp-min::before { content: "—"; }
-.xp-max::before { content: "□"; }
+.xp-min::before { content: "—"; transform: translateY(-2px); }
+.xp-max::before { content: "□"; font-size: 11px; }
 
 .xp-close {
   background: linear-gradient(#ffb3b3, #ff4a4a);
 }
+.xp-close::before { content: "×"; color: #3a0b0b; font-size: 13px; }
 
-.xp-close::before {
-  content: "×";
-  color: #3a0b0b;
-}
+/* When we use a link as a button (modal close) */
+.linkbtn { display: inline-block; text-decoration: none; }
 
 /* =========================
    Menu Bar
    ========================= */
 .xp-menubar {
   display: flex;
+  align-items: center;
   gap: 18px;
+
   padding: 6px 10px;
   background: #ece9d8;
+
   border-bottom: 1px solid rgba(0,0,0,.18);
   font-size: 13px;
+
+  flex: 0 0 auto;
 }
 
 .xp-menuitem {
   padding: 2px 6px;
+  border-radius: 2px;
+  user-select: none;
 }
 
 .xp-menuitem:hover {
-  background: rgba(47,143,102,.15);
+  background: rgba(47, 143, 102, .14);
+  outline: 1px solid rgba(47, 143, 102, .32);
 }
 
 /* =========================
-   Window body layout
-   - Sidebar + Content grid
+   Body layout (sidebar + content)
+   - min-height: 0 enables scrolling inside nested flex/grid layouts
    ========================= */
 .xp-body {
   display: grid;
   grid-template-columns: 280px 1fr;
-  flex: 1;
+
+  flex: 1 1 auto;
   min-height: 0;
 }
 
@@ -169,44 +186,53 @@ body {
 .xp-sidebar {
   padding: 14px;
   border-right: 1px solid rgba(0,0,0,.18);
+
   background: linear-gradient(#f7f3df, #ece9d8);
 
   display: flex;
   flex-direction: column;
   gap: 10px;
+
+  min-height: 0;
 }
 
 .xp-photo {
   width: 100%;
   height: 170px;
   object-fit: cover;
+
   border-radius: 6px;
   border: 1px solid rgba(0,0,0,.22);
-  background: #fff;
+
+  box-shadow: inset 0 0 0 1px rgba(255,255,255,.5);
+  background: #ffffff;
 }
 
 .name {
   margin: 0;
   font-size: 18px;
+  line-height: 1.2;
   color: #114a35;
 }
 
 .role {
   margin: 0;
   font-size: 13px;
+  color: #2a2a2a;
 }
 
 /* Skill tags */
 .xp-tags {
   display: flex;
-  gap: 6px;
   flex-wrap: wrap;
+  gap: 6px;
 }
 
 .tag {
   font-size: 12px;
   padding: 3px 8px;
   border-radius: 999px;
+
   border: 1px solid rgba(0,0,0,.18);
   background: #fffdf3;
 }
@@ -219,14 +245,20 @@ body {
 }
 
 .xp-link {
+  display: inline-block;
   font-size: 13px;
+  color: #1f6b4f;
+  text-decoration: none;
+
   padding: 6px 8px;
   border-radius: 4px;
+
   border: 1px solid rgba(0,0,0,.15);
   background: linear-gradient(#ffffff, #f1efe2);
-  text-decoration: none;
-  color: #1f6b4f;
 }
+
+.xp-link:hover { filter: brightness(0.98); }
+.xp-link:active { transform: translateY(1px); }
 
 /* =========================
    Content area (scrollable)
@@ -237,15 +269,48 @@ body {
   min-height: 0;
 }
 
+/* XP-ish scrollbars (Chromium/WebKit) */
+.xp-scroll::-webkit-scrollbar { width: 14px; height: 14px; }
+
+.xp-scroll::-webkit-scrollbar-track {
+  background: #ece9d8;
+  border-left: 1px solid rgba(0,0,0,.12);
+}
+
+.xp-scroll::-webkit-scrollbar-thumb {
+  background: linear-gradient(#ffffff, #d7d2bf);
+  border: 1px solid rgba(0,0,0,.25);
+  border-radius: 6px;
+  box-shadow: inset 0 0 0 1px rgba(255,255,255,.5);
+}
+
+.xp-scroll::-webkit-scrollbar-thumb:hover { filter: brightness(0.98); }
+
 /* =========================
-   Panels / Sections
+   Panels / Groups
    ========================= */
 .xp-group {
   background: #fffdf3;
   border: 1px solid rgba(0,0,0,.18);
   border-radius: 8px;
+
   padding: 12px;
   margin-bottom: 12px;
+
+  box-shadow: inset 0 0 0 1px rgba(255,255,255,.6);
+}
+
+.group-head {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: 12px;
+}
+
+.tiny-link {
+  font-size: 12px;
+  color: #1f6b4f;
+  text-decoration: underline;
 }
 
 .xp-h2 {
@@ -255,16 +320,103 @@ body {
 }
 
 .xp-p {
+  margin: 0;
   font-size: 13px;
+  color: #222;
   line-height: 1.5;
 }
 
 /* =========================
-   Education layout
+   Project card
+   ========================= */
+.card {
+  background: #ffffff;
+  border: 1px solid rgba(0,0,0,.16);
+  border-radius: 8px;
+  padding: 12px;
+}
+.card.single { margin-top: 8px; }
+
+.card-top {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 10px;
+}
+
+/* Badge (green pill) */
+.badge {
+  font-size: 11px;
+  padding: 2px 8px;
+  border-radius: 999px;
+
+  border: 1px solid rgba(0,0,0,.16);
+  background: #eafff3;
+  color: #114a35;
+}
+
+/* In-progress badge (same green look) */
+.badge.in-progress {
+  background: #eafff3;
+  border-color: rgba(0,0,0,.16);
+  color: #114a35;
+}
+
+.card-title {
+  margin: 0;
+  font-size: 14px;
+  color: #114a35;
+}
+
+.card-p {
+  margin: 8px 0 10px;
+  font-size: 12.8px;
+  color: #333;
+}
+
+.features {
+  margin: 0 0 12px;
+  padding-left: 18px;
+  font-size: 12.8px;
+  color: #333;
+  line-height: 1.5;
+}
+
+/* Buttons (placeholders) */
+.card-actions {
+  display: flex;
+  gap: 8px;
+  flex-wrap: wrap;
+}
+
+.btn {
+  font-size: 12.5px;
+  padding: 6px 10px;
+
+  border-radius: 4px;
+  border: 1px solid rgba(0,0,0,.25);
+
+  background: linear-gradient(#ffffff, #e7e7e7);
+  color: #111;
+  text-decoration: none;
+
+  box-shadow: inset 0 0 0 1px rgba(255,255,255,.55);
+}
+
+.btn:hover { filter: brightness(0.98); }
+.btn:active { transform: translateY(1px); }
+
+.btn-secondary {
+  background: linear-gradient(#fffdf3, #efe9c9);
+}
+
+/* =========================
+   Education list
    ========================= */
 .edu {
   display: grid;
   gap: 10px;
+  margin-top: 10px;
 }
 
 .edu-item {
@@ -274,96 +426,121 @@ body {
   padding: 10px;
 }
 
-.edu-progress {
-  margin-top: 8px;
-}
+.edu-top {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: 10px;
 
-.badge {
-  font-size: 11px;
-  padding: 2px 8px;
-  border-radius: 999px;
-  border: 1px solid rgba(0,0,0,.16);
-  background: #eafff3;
+  font-size: 13px;
   color: #114a35;
 }
 
+.edu-date { font-size: 12px; color: rgba(0,0,0,.65); }
+.edu-meta { font-size: 12.5px; color: #333; margin-top: 2px; }
+.edu-notes { font-size: 12.5px; color: rgba(0,0,0,.75); margin-top: 6px; }
+
+/* In-progress line under education notes */
+.edu-progress { margin-top: 8px; }
+
 /* =========================
-   Piki Sticker
-   - Positioned outside top border
-   - Looks like a floating sticker
+   Status bar (used in main window and modal)
    ========================= */
-.piki {
-  position: absolute;
-  top: -50px;     /* pushes above window border */
-  right: 12px;
-  z-index: 50;
-
+.xp-footerline {
   display: flex;
+  justify-content: space-between;
   align-items: center;
-  gap: 10px;
 
-  pointer-events: none;
-}
-
-.piki-img {
-  width: 44px;
-  height: 44px;
-  object-fit: contain;
-  filter: drop-shadow(0 4px 8px rgba(0,0,0,.25));
-}
-
-.piki-bubble {
-  position: relative;
-  padding: 6px 10px;
   font-size: 12px;
-  background: #fffdf3;
-  border: 1px solid rgba(0,0,0,.25);
-  border-radius: 10px;
-  box-shadow: 0 10px 22px rgba(0,0,0,.14);
-  white-space: nowrap;
+  color: #333;
+
+  margin-top: 8px;
+  padding: 6px 8px;
+
+  border: 1px solid rgba(0,0,0,.12);
+  border-radius: 6px;
+
+  background: linear-gradient(#ffffff, #f1efe2);
 }
 
-/* Speech bubble tail */
-.piki-bubble::after {
-  content: "";
+.status { color: #1e5e0a; font-weight: 700; }
+
+/* =========================
+   Modal overlay (secondary window)
+   - Uses :target (#studyportal) to show/hide
+   - Uses flex so margins stay symmetric on mobile
+   ========================= */
+.overlay {
+  position: fixed;
+  inset: 0;
+
+  display: none;            /* hidden by default */
+  justify-content: center;  /* horizontal center */
+  align-items: center;      /* vertical center */
+
+  padding: 24px;            /* equal padding -> symmetric margins */
+  z-index: 50;
+}
+
+/* When URL hash matches the overlay id, show it */
+.overlay:target { display: flex; }
+
+/* Dark translucent background behind the modal */
+.overlay-bg {
   position: absolute;
-  left: 14px;
-  bottom: -6px;
-  width: 10px;
-  height: 10px;
-  background: #fffdf3;
-  border-right: 1px solid rgba(0,0,0,.25);
-  border-bottom: 1px solid rgba(0,0,0,.25);
-  transform: rotate(45deg);
+  inset: 0;
+  background: rgba(0,0,0,.35);
+}
+
+/* Secondary window sizing (modal) */
+.xp-window.mini {
+  position: relative;
+  z-index: 60;
+
+  /* Symmetric sizing based on viewport + overlay padding */
+  width: min(680px, calc(100vw - 48px));
+  max-height: min(520px, calc(100vh - 48px));
+}
+
+/* Modal content container (scrollable if needed) */
+.xp-modal-body {
+  padding: 14px 16px;
+  overflow: auto;
+  background: #ece9d8;
+
+  /* allow scroll container to shrink properly */
+  min-height: 0;
 }
 
 /* =========================
-   Responsive layout
-   - Sidebar stacks on top
-   - Piki slightly adjusted
+   Responsive rules
+   - Stacks sidebar above content on small screens
+   - Keeps modal margins symmetric on mobile
    ========================= */
 @media (max-width: 860px) {
+  .desk { padding: 16px; }
 
-  .xp-body {
-    grid-template-columns: 1fr;
+  .xp-window {
+    width: min(920px, 100%);
+    max-height: none; /* allow natural height on mobile */
   }
+
+  .xp-body { grid-template-columns: 1fr; }
 
   .xp-sidebar {
     border-right: none;
     border-bottom: 1px solid rgba(0,0,0,.18);
   }
 
-  .piki {
-    top: -42px;
-    right: 8px;
-  }
+  .xp-photo { height: 200px; }
 
-  .piki-img {
-    width: 38px;
-    height: 38px;
-  }
+  .xp-content { padding: 12px; }
 
-  .piki-bubble {
-    font-size: 11px;
+  /* Modal overlay padding reduced on small screens */
+  .overlay { padding: 16px; }
+
+  .xp-window.mini {
+    width: min(680px, calc(100vw - 32px));
+    max-height: min(520px, calc(100vh - 32px));
   }
 }
