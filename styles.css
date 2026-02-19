@@ -1,0 +1,540 @@
+/*
+	styles.css
+	- Minimal, whitespace-heavy layout with editorial serif accents.
+	- No external fonts (uses system serif/sans stacks).
+	- Split sections: label on the left, content on the right.
+	- Education titles + project titles use serif (matches hero subtitle voice).
+	- Skills/tags are typographic (no pill backgrounds).
+	- GitHub block is minimal: heatmap + CTA link.
+	- Project descriptions match the hero-body typographic voice.
+	- Contact uses a mailto form + minimal links inside a green footer zone.
+*/
+
+/* =========================
+   CSS Variables / Theme
+   ========================= */
+:root{
+	--bg: #ffffff;
+	--text: #0b0f14;
+	--muted: #5c6572;
+
+	/* Main accent (green) */
+	--accent: #1A7F4B;
+	--accent-2: #0F6D3D;
+
+	--line: rgba(15, 20, 30, 0.12);
+
+	/* Footer green zone */
+	--green-zone: #1A7F4B;
+	--green-zone-2: #0F6D3D;
+
+	/* Typography stacks (no external fonts) */
+	--serif: ui-serif, "Iowan Old Style", "Palatino Linotype", Palatino, Georgia, serif;
+	--sans: ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial, "Apple Color Emoji","Segoe UI Emoji";
+}
+
+/* =========================
+   Base / Resets
+   ========================= */
+*{ box-sizing: border-box; }
+html, body{ height: 100%; }
+
+body{
+	margin: 0;
+	background: var(--bg);
+	color: var(--text);
+	font-family: var(--sans);
+	line-height: 1.55;
+}
+
+a{ color: inherit; }
+
+/* Accessible focus styles */
+a:focus-visible,
+button:focus-visible,
+input:focus-visible,
+textarea:focus-visible{
+	outline: 2px solid var(--accent);
+	outline-offset: 3px;
+	border-radius: 10px;
+}
+
+/* =========================
+   Layout Container
+   ========================= */
+.page{
+	max-width: 980px;
+	margin: 0 auto;
+	padding: 120px 24px 90px;
+}
+
+/* Top fixed header slot (empty for now) */
+.top{
+	position: fixed;
+	top: 20px;
+	left: 20px;
+	z-index: 40;
+}
+
+/* =========================
+   Hero Section
+   ========================= */
+.hero-title{
+	margin: 0 0 8px;
+	font-family: var(--serif);
+	font-weight: 500;
+	font-size: clamp(34px, 5.4vw, 58px);
+	letter-spacing: -0.03em;
+}
+
+.hero-title em{
+	font-style: italic;
+	font-weight: 500;
+}
+
+.hero-subtitle{
+	margin: 0 0 26px;
+	font-family: var(--serif);
+	font-size: clamp(20px, 3vw, 28px);
+	letter-spacing: -0.01em;
+	color: rgba(11,15,20,0.88);
+}
+
+.hero-subtitle em{ font-style: italic; }
+
+/* Narrative body text (reference typography for project descriptions) */
+.hero-body{
+	max-width: 560px;
+	color: rgba(11,15,20,0.78);
+	font-size: 14.5px;
+}
+
+.hero-body p{ margin: 0 0 14px; }
+
+/* Closing line (serif voice, like Education/Projects titles) */
+.hero-closing{
+	font-family: var(--serif);
+	font-size: 20px;
+	font-style: italic;
+	letter-spacing: -0.01em;
+	color: rgba(11,15,20,0.85);
+	margin-top: 18px;
+}
+
+/* Accent styling used across the page */
+.accent{
+	color: var(--accent);
+	font-style: italic;
+}
+
+/* =========================
+   Split Sections (Label + Content)
+   ========================= */
+.split{
+	display: grid;
+	grid-template-columns: 160px 1fr;
+	gap: 24px;
+	margin-top: 52px;
+}
+
+.kicker{
+	font-family: var(--serif);
+	color: rgba(11,15,20,0.65);
+	font-size: 14px;
+	padding-top: 12px;
+}
+
+.split-content{ min-width: 0; }
+
+/* =========================
+   Education (.xp)
+   ========================= */
+.xp{
+	list-style: none;
+	padding: 0;
+	margin: 0;
+}
+
+.xp-row{
+	margin-bottom: 2rem;
+}
+
+/*
+	xp-head grid:
+	Row 1: title (left) + date (right)
+	Row 2: school (left) + date (right, spanning)
+*/
+.xp-head{
+	display: grid;
+	grid-template-columns: 1fr auto;
+	grid-template-areas:
+		"title date"
+		"school date";
+	column-gap: 1.25rem;
+	row-gap: 0.25rem;
+	align-items: baseline;
+}
+
+/* Education titles: serif voice (matches hero subtitle) */
+.xp-where{
+	grid-area: title;
+	font-family: var(--serif);
+	font-size: 16px;
+	font-weight: 500;
+	letter-spacing: -0.01em;
+}
+
+.xp-meta{
+	grid-area: date;
+	justify-self: end;
+	align-self: baseline;
+}
+
+.xp-location{
+	grid-area: school;
+	color: rgba(11,15,20,0.62);
+	font-size: 14px;
+	margin-top: 2px;
+}
+
+.xp-body{
+	margin-top: 0.65rem;
+	max-width: 650px;
+}
+
+/* Date pill used in Education */
+.timeline{
+	border: 1px solid rgba(15, 20, 30, 0.12);
+	background: rgba(255,255,255,0.75);
+	padding: 7px 10px;
+	border-radius: 999px;
+	font-size: 13px;
+	color: rgba(11,15,20,0.70);
+}
+
+/* Minimal typographic tags (also reused in Projects) */
+.skills{
+	list-style: none;
+	padding: 0;
+	margin: 0;
+
+	display: flex;
+	flex-wrap: wrap;
+	gap: 0.35rem 0.9rem;
+}
+
+.skills li{
+	padding: 0;
+	border: 0;
+	background: transparent;
+
+	font-size: 13px;
+	font-style: italic;
+	color: rgba(11,15,20,0.62);
+	line-height: 1.4;
+}
+
+/* Dot separator between tags */
+.skills li::before{
+	content: "·";
+	margin-right: 0.5rem;
+	color: rgba(11,15,20,0.25);
+}
+
+.skills li:first-child::before{
+	content: "";
+	margin-right: 0;
+}
+
+/* =========================
+   GitHub Section
+   ========================= */
+.gh-block{
+	margin-top: 6px;
+	padding: 0;
+}
+
+/* 42 columns matches a typical "weeks" grid feel */
+.heatmap{
+	display: grid;
+	grid-template-columns: repeat(42, 10px);
+	gap: 4px;
+
+	width: max-content;
+	padding: 8px 0 6px;
+}
+
+/* Heatmap cell intensity uses CSS var --a (set in JS) */
+.cell{
+	width: 10px;
+	height: 10px;
+	border-radius: 2px;
+	background: rgba(26,127,75, var(--a));
+}
+
+.gh-bottom{ margin-top: 10px; }
+
+.gh-cta{
+	font-size: 14px;
+	color: rgba(11,15,20,0.70);
+	text-decoration: none;
+}
+
+.gh-cta:hover{ text-decoration: underline; }
+
+/* =========================
+   Projects Section
+   ========================= */
+.projects{
+	list-style: none;
+	padding: 0;
+	margin: 0;
+	display: grid;
+	gap: 16px;
+}
+
+.project{
+	border: 1px solid rgba(15, 20, 30, 0.08);
+	border-radius: 16px;
+	padding: 14px 14px 12px;
+	background: rgba(255,255,255,0.6);
+}
+
+/* Title left + links right */
+.project-head{
+	display: grid;
+	grid-template-columns: 1fr auto;
+	align-items: baseline;
+	gap: 10px;
+}
+
+/* Project titles: serif voice to match Education titles */
+.project-title{
+	font-family: var(--serif);
+	font-size: 16px;
+	font-weight: 500;
+	letter-spacing: -0.01em;
+}
+
+.project-links{
+	display: inline-flex;
+	gap: 10px;
+}
+
+.project-link{
+	font-size: 13px;
+	color: rgba(11,15,20,0.70);
+	text-decoration: none;
+}
+
+.project-link:hover{ text-decoration: underline; }
+
+/* Project descriptions match the hero-body typography */
+.project-desc{
+	margin: 8px 0 10px;
+	font-family: var(--sans);
+	font-size: 14.5px;
+	line-height: 1.55;
+	color: rgba(11,15,20,0.78);
+}
+
+.project-tags{ margin-top: 2px; }
+
+/* =========================
+   Contact / Footer Section
+   ========================= */
+/*
+	Green background zone.
+	Creates a strong visual ending and separation from the main content.
+*/
+.green-zone{
+	background: linear-gradient(
+		90deg,
+		var(--green-zone) 0%,
+		var(--green-zone) 82%,
+		var(--green-zone-2) 82%,
+		var(--green-zone-2) 100%
+	);
+	padding: 110px 18px 90px;
+}
+
+.green-inner{
+	max-width: 1120px;
+	margin: 0 auto;
+}
+
+/*
+	Contact container:
+	Centered, compact width, white text for contrast on green.
+*/
+.contact{
+	max-width: 620px;
+	margin: 0 auto;
+	color: rgba(255,255,255,0.95);
+	text-align: center;
+}
+
+.contact-col-title{
+	font-family: var(--serif);
+	font-style: italic;
+	margin-bottom: 22px;
+}
+
+/* Contact form layout (mailto-based) */
+.contact-form{
+	display: grid;
+	gap: 12px;
+	margin: 0 auto;
+	max-width: 520px;
+	text-align: left;
+}
+
+.field{
+	display: grid;
+	gap: 6px;
+}
+
+.field-label{
+	font-family: var(--serif);
+	font-style: italic;
+	font-size: 13px;
+	opacity: 0.9;
+}
+
+/* Shared input styles for input/textarea */
+.input{
+	width: 100%;
+	border: 1px solid rgba(255,255,255,0.25);
+	background: rgba(255,255,255,0.06);
+	color: rgba(255,255,255,0.95);
+	border-radius: 12px;
+	padding: 10px 12px;
+	outline: none;
+}
+
+.input::placeholder{
+	color: rgba(255,255,255,0.65);
+}
+
+.input:focus{
+	border-color: rgba(255,255,255,0.45);
+	background: rgba(255,255,255,0.10);
+}
+
+.textarea{
+	resize: vertical;
+	min-height: 120px;
+}
+
+/* Buttons row under the form */
+.form-actions{
+	display: flex;
+	gap: 10px;
+	align-items: center;
+	justify-content: flex-start;
+	margin-top: 6px;
+}
+
+/* Primary action button */
+.send{
+	border: 1px solid rgba(255,255,255,0.25);
+	background: rgba(255,255,255,0.14);
+	color: rgba(255,255,255,0.95);
+	padding: 10px 12px;
+	border-radius: 12px;
+	cursor: pointer;
+	font-family: var(--serif);
+	font-style: italic;
+}
+
+.send:hover{
+	background: rgba(255,255,255,0.18);
+}
+
+/* Secondary action button (copy email) */
+.copy{
+	border: 1px solid rgba(255,255,255,0.25);
+	background: transparent;
+	color: rgba(255,255,255,0.95);
+	padding: 10px 12px;
+	border-radius: 12px;
+	cursor: pointer;
+}
+
+.copy:hover{
+	background: rgba(255,255,255,0.10);
+}
+
+/* Links under the form */
+.contact-links{
+	margin-top: 18px;
+	display: flex;
+	gap: 16px;
+	justify-content: center;
+}
+
+.contact-link{
+	color: rgba(255,255,255,0.92);
+	text-decoration: none;
+	font-size: 14px;
+}
+
+.contact-link:hover{
+	text-decoration: underline;
+}
+
+/* Closing quote + footer bits */
+.quote{
+	margin-top: 50px;
+	text-align: center;
+	font-family: var(--serif);
+	font-style: italic;
+	opacity: 0.9;
+}
+
+.divider{
+	height: 1px;
+	background: rgba(255,255,255,0.3);
+	margin: 26px auto 16px;
+	width: 100%;
+	max-width: 520px;
+}
+
+.copyright{
+	text-align: center;
+	font-size: 13px;
+	opacity: 0.85;
+}
+
+/* =========================
+   Responsive
+   ========================= */
+@media (max-width: 860px){
+	.split{
+		grid-template-columns: 1fr;
+		gap: 10px;
+	}
+
+	.kicker{ padding-top: 0; }
+
+	/* Slight downscale so the heatmap doesn't feel too wide */
+	.heatmap{
+		transform: scale(0.95);
+		transform-origin: left top;
+	}
+}
+
+@media (max-width: 700px){
+	.page{ padding-top: 100px; }
+
+	/* Stack the form buttons on very small screens if needed */
+	.form-actions{
+		flex-direction: column;
+		align-items: stretch;
+	}
+
+	.send,
+	.copy{
+		width: 100%;
+	}
+}
