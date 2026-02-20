@@ -1,153 +1,99 @@
 /*
 	script.js
-	- Generates a deterministic "GitHub-ish" heatmap inside #heatmap (no external APIs).
-	- Adds a simple "copy to clipboard" behavior for any button with [data-copy].
-	- Includes optional <dialog> menu logic (safe to keep even if the dialog isn't in the HTML).
-	  If you don't have a menu dialog, nothing breaks because everything is null-checked.
+	- Generates a deterministic "GitHub-ish" heatmap inside #heatmap.
+	- Purely decorative: no external APIs, no GitHub data, no network requests.
+	- Auto-fits the number of columns to reach the right edge of the content column.
+	- Applies a subtle fade-out to the right so the fill "disappears" gracefully.
 */
 
 (() => {
 	/* =========================
-	   Optional: Menu dialog controls
-	   =========================
-	   This project originally supported a <dialog> menu.
-	   Your current HTML may not include it, and that's fine:
-	   the code below uses optional chaining and will simply do nothing.
-	*/
-	const dialog = document.getElementById("menuDialog");
-	const openBtn = document.querySelector(".menu-btn");
-	const closeBtn = dialog?.querySelector("[data-close]");
+	   GitHub-ish Heatmap Generator
+	   ========================= */
+	const heatmap = document.getElementById("heatmap");
+	if (!heatmap) return;
 
-	const setExpanded = (value) => {
-		if (!openBtn) return;
-		openBtn.setAttribute("aria-expanded", String(value));
+	// Measure from a stable parent width (split-content), not the heatmap itself
+	const content = heatmap.closest(".split-content") || heatmap.parentElement;
+
+	/* Layout knobs (must match CSS sizing) */
+	const CELL = 10; // px
+	const GAP = 4;   // px
+	const rows = 8;  // stylized "days-ish" rows
+
+	/* Deterministic pseudo-random generator (stable pattern) */
+	let seed = 1337;
+	const rand = () => {
+		seed = (seed * 9301 + 49297) % 233280;
+		return seed / 233280;
 	};
 
-	openBtn?.addEventListener("click", () => {
-		if (!dialog) return;
-		dialog.showModal();
-		setExpanded(true);
-	});
+	const computeCols = (width) => {
+		// Each column consumes CELL + GAP, last column doesn't need a trailing gap
+		return Math.max(1, Math.floor((width + GAP) / (CELL + GAP)));
+	};
 
-	closeBtn?.addEventListener("click", () => {
-		dialog?.close();
-		setExpanded(false);
-	});
+	const build = () => {
+		// Read available width (fallbacks included)
+		const w = Math.floor(
+			content?.clientWidth ||
+			heatmap.parentElement?.clientWidth ||
+			heatmap.clientWidth ||
+			0
+		);
 
-	// Close dialog when clicking on the backdrop (outside the inner content)
-	dialog?.addEventListener("click", (e) => {
-		const rect = dialog.getBoundingClientRect();
-		const clickedInside =
-			e.clientX >= rect.left &&
-			e.clientX <= rect.right &&
-			e.clientY >= rect.top &&
-			e.clientY <= rect.bottom;
-
-		// If click is outside the dialog box area, close it
-		if (!clickedInside) {
-			dialog.close();
-			setExpanded(false);
+		// If layout isn't ready yet, retry next frame
+		if (w < 50) {
+			requestAnimationFrame(build);
+			return;
 		}
-	});
 
-	dialog?.addEventListener("close", () => setExpanded(false));
-
-	// Optional smooth scroll for menu links (anchors with [data-nav])
-	dialog?.querySelectorAll("[data-nav]")?.forEach((a) => {
-		a.addEventListener("click", (e) => {
-			const href = a.getAttribute("href");
-			if (!href || !href.startsWith("#")) return;
-
-			e.preventDefault();
-			dialog.close();
-			setExpanded(false);
-
-			document.querySelector(href)?.scrollIntoView({
-				behavior: "smooth",
-				block: "start",
-			});
-		});
-	});
-
-	/* =========================
-	   GitHub-ish heatmap generator
-	   =========================
-	   The heatmap is purely decorative: we generate a fixed-looking grid
-	   so the portfolio feels "alive" without calling GitHub APIs.
-	*/
-	const heatmap = document.getElementById("heatmap");
-
-	if (heatmap) {
-		// Clear existing cells (useful if script runs twice in dev)
 		heatmap.innerHTML = "";
 
-		const cols = 42;  // weeks
-		const rows = 8;   // days-ish (stylized; not exact GitHub calendar)
+		const cols = computeCols(w);
 		const total = cols * rows;
 
-		// Deterministic pseudo-random generator
-		// (so it looks designed and doesn't change on every refresh)
-		let seed = 1337;
-		const rand = () => {
-			seed = (seed * 9301 + 49297) % 233280;
-			return seed / 233280;
-		};
+		// Set the grid columns dynamically so it fills the width
+		heatmap.style.gridTemplateColumns = `repeat(${cols}, ${CELL}px)`;
 
 		for (let i = 0; i < total; i++) {
 			const cell = document.createElement("span");
 			cell.className = "cell";
 
-			// Shape intensity so the right side is slightly stronger
 			const col = i % cols;
-			const bias = col / (cols - 1); // 0..1
+			const bias = col / (cols - 1 || 1); // 0..1
 			const noise = rand();
 
-			// Mostly light, occasional medium, a few stronger toward the right edge
-			let a = 0.10 + 0.38 * Math.pow(bias, 1.7) + 0.18 * (noise - 0.5);
-			a = Math.max(0.08, Math.min(0.75, a));
+			/*
+				Fade-out to the right:
+				- Left side feels more present
+				- Right side gradually disappears (cells remain)
+			*/
+			const fade = 1 - bias;
 
-			// Sparsify slightly (some near-empty cells)
-			if (noise < 0.07) a = 0.05;
+			// Base intensity + gentle randomness
+			let a = 0.18 + 0.25 * noise;
 
-			// CSS uses rgba(..., var(--a)) to set intensity
+			// Apply fade curve (increase exponent for stronger fade)
+			a *= Math.pow(fade, 1.8);
+
+			// Clamp intensity range
+			a = Math.max(0.04, Math.min(0.6, a));
+
 			cell.style.setProperty("--a", a.toFixed(2));
 			heatmap.appendChild(cell);
 		}
-	}
+	};
 
-	/* =========================
-	   Copy to clipboard (email)
-	   =========================
-	   Any button with [data-copy="..."] will copy that value on click.
-	   Uses modern Clipboard API with a fallback for older browsers.
-	*/
-	document.querySelectorAll("[data-copy]").forEach((btn) => {
-		btn.addEventListener("click", async () => {
-			const value = btn.getAttribute("data-copy") || "";
-			if (!value) return;
+	// Build after layout settles (two frames improves reliability)
+	requestAnimationFrame(() => requestAnimationFrame(() => {
+		seed = 1337;
+		build();
+	}));
 
-			const oldLabel = btn.textContent;
-
-			try {
-				await navigator.clipboard.writeText(value);
-				btn.textContent = "Copied";
-				setTimeout(() => (btn.textContent = oldLabel), 900);
-			} catch {
-				// Fallback: temporary textarea selection
-				const ta = document.createElement("textarea");
-				ta.value = value;
-				ta.setAttribute("readonly", "");
-				ta.style.position = "absolute";
-				ta.style.left = "-9999px";
-
-				document.body.appendChild(ta);
-				ta.select();
-				document.execCommand("copy");
-				document.body.removeChild(ta);
-
-				btn.textContent = "Copied";
-				setTimeout(() => (btn.textContent = oldLabel), 900);
-			}
-		});
+	// Rebuild on resize (keep the same stable pattern)
+	window.addEventListener("resize", () => {
+		seed = 1337;
+		build();
 	});
 })();
