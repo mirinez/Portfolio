@@ -102,6 +102,29 @@ textarea:focus-visible{
 
 .hero-subtitle em{ font-style: italic; }
 
+/* Hero Decorative Animation */
+
+.hero{
+	position: relative;
+}
+
+.hero-decoration{
+	position: absolute;
+	bottom: 40px;
+	top: auto;
+	right: -10px;
+	width: 120px;
+	opacity: 0.65;
+
+	pointer-events: none;
+}
+
+.hero-decoration img{
+	width: 100%;
+	height: auto;
+	display: block;
+}
+
 /* Narrative body text (reference typography for project descriptions) */
 .hero-body{
 	max-width: 560px;
@@ -111,10 +134,10 @@ textarea:focus-visible{
 
 .hero-body p{ margin: 0 0 14px; }
 
-/* Closing line (serif voice, like Education/Projects titles) */
+/* Closing line */
 .hero-closing{
 	font-family: var(--serif);
-	font-size: 20px;
+	font-size: 16px;
 	font-style: italic;
 	letter-spacing: -0.01em;
 	color: rgba(11,15,20,0.85);
@@ -247,32 +270,54 @@ textarea:focus-visible{
 }
 
 /* =========================
-   GitHub Section
+   GitHub Section (Heatmap)
    ========================= */
+
+/*
+	GitHub block wrapper.
+	Kept minimal: the heatmap itself is the main visual element.
+*/
 .gh-block{
 	margin-top: 6px;
-	padding: 0;
 }
 
-/* 42 columns matches a typical "weeks" grid feel */
+/*
+	Heatmap container:
+	- Must be width:100% so the JS can calculate how many columns fit.
+	- min-width:0 prevents grid/flex "overflow sizing" issues.
+	- grid-template-columns is set dynamically by JS.
+*/
 .heatmap{
 	display: grid;
-	grid-template-columns: repeat(42, 10px);
 	gap: 4px;
 
-	width: max-content;
+	width: 100%;
+	min-width: 0;
+
 	padding: 8px 0 6px;
 }
 
-/* Heatmap cell intensity uses CSS var --a (set in JS) */
+/*
+	Each heatmap cell:
+	- Intensity is controlled via CSS variable --a (set per cell in JS).
+	- display:block avoids empty inline rendering quirks.
+*/
 .cell{
 	width: 10px;
 	height: 10px;
 	border-radius: 2px;
+	display: block;
+
 	background: rgba(26,127,75, var(--a));
 }
 
-.gh-bottom{ margin-top: 10px; }
+/*
+	CTA row under the heatmap.
+	Keep it subtle and consistent with the rest of the page.
+*/
+.gh-bottom{
+	margin-top: 12px;
+}
 
 .gh-cta{
 	font-size: 14px;
@@ -280,7 +325,16 @@ textarea:focus-visible{
 	text-decoration: none;
 }
 
-.gh-cta:hover{ text-decoration: underline; }
+.gh-cta:hover{
+	text-decoration: underline;
+}
+
+/* Optional: hide decoration on smaller screens to keep mobile clean */
+@media (max-width: 900px){
+	.gh-decoration{
+		display: none;
+	}
+}
 
 /* =========================
    Projects Section
@@ -347,6 +401,16 @@ textarea:focus-visible{
 	Green background zone.
 	Creates a strong visual ending and separation from the main content.
 */
+
+/* Force all text inside the green footer to be white */
+.green-zone,
+.green-zone a,
+.green-zone .quote,
+.green-zone .copyright,
+.green-zone .contact-link {
+	color: rgba(255,255,255,0.95);
+}
+
 .green-zone{
 	background: linear-gradient(
 		90deg,
@@ -355,116 +419,13 @@ textarea:focus-visible{
 		var(--green-zone-2) 82%,
 		var(--green-zone-2) 100%
 	);
-	padding: 110px 18px 90px;
+	padding: 60px 18px 50px;
 }
 
 .green-inner{
 	max-width: 1120px;
 	margin: 0 auto;
 }
-
-/*
-	Contact container:
-	Centered, compact width, white text for contrast on green.
-*/
-.contact{
-	max-width: 620px;
-	margin: 0 auto;
-	color: rgba(255,255,255,0.95);
-	text-align: center;
-}
-
-.contact-col-title{
-	font-family: var(--serif);
-	font-style: italic;
-	margin-bottom: 22px;
-}
-
-/* Contact form layout (mailto-based) */
-.contact-form{
-	display: grid;
-	gap: 12px;
-	margin: 0 auto;
-	max-width: 520px;
-	text-align: left;
-}
-
-.field{
-	display: grid;
-	gap: 6px;
-}
-
-.field-label{
-	font-family: var(--serif);
-	font-style: italic;
-	font-size: 13px;
-	opacity: 0.9;
-}
-
-/* Shared input styles for input/textarea */
-.input{
-	width: 100%;
-	border: 1px solid rgba(255,255,255,0.25);
-	background: rgba(255,255,255,0.06);
-	color: rgba(255,255,255,0.95);
-	border-radius: 12px;
-	padding: 10px 12px;
-	outline: none;
-}
-
-.input::placeholder{
-	color: rgba(255,255,255,0.65);
-}
-
-.input:focus{
-	border-color: rgba(255,255,255,0.45);
-	background: rgba(255,255,255,0.10);
-}
-
-.textarea{
-	resize: vertical;
-	min-height: 120px;
-}
-
-/* Buttons row under the form */
-.form-actions{
-	display: flex;
-	gap: 10px;
-	align-items: center;
-	justify-content: flex-start;
-	margin-top: 6px;
-}
-
-/* Primary action button */
-.send{
-	border: 1px solid rgba(255,255,255,0.25);
-	background: rgba(255,255,255,0.14);
-	color: rgba(255,255,255,0.95);
-	padding: 10px 12px;
-	border-radius: 12px;
-	cursor: pointer;
-	font-family: var(--serif);
-	font-style: italic;
-}
-
-.send:hover{
-	background: rgba(255,255,255,0.18);
-}
-
-/* Secondary action button (copy email) */
-.copy{
-	border: 1px solid rgba(255,255,255,0.25);
-	background: transparent;
-	color: rgba(255,255,255,0.95);
-	padding: 10px 12px;
-	border-radius: 12px;
-	cursor: pointer;
-}
-
-.copy:hover{
-	background: rgba(255,255,255,0.10);
-}
-
 /* Links under the form */
 .contact-links{
 	margin-top: 18px;
@@ -485,7 +446,7 @@ textarea:focus-visible{
 
 /* Closing quote + footer bits */
 .quote{
-	margin-top: 50px;
+	margin-top: 35px;
 	text-align: center;
 	font-family: var(--serif);
 	font-style: italic;
@@ -495,7 +456,7 @@ textarea:focus-visible{
 .divider{
 	height: 1px;
 	background: rgba(255,255,255,0.3);
-	margin: 26px auto 16px;
+	margin: 20px auto 14px;
 	width: 100%;
 	max-width: 520px;
 }
@@ -536,5 +497,10 @@ textarea:focus-visible{
 	.send,
 	.copy{
 		width: 100%;
+	}
+	@media (max-width: 900px){
+	.hero-decoration{
+		display: none;
+	}
 	}
 }
