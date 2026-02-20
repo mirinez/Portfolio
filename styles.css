@@ -1,506 +1,99 @@
 /*
-	styles.css
-	- Minimal, whitespace-heavy layout with editorial serif accents.
-	- No external fonts (uses system serif/sans stacks).
-	- Split sections: label on the left, content on the right.
-	- Education titles + project titles use serif (matches hero subtitle voice).
-	- Skills/tags are typographic (no pill backgrounds).
-	- GitHub block is minimal: heatmap + CTA link.
-	- Project descriptions match the hero-body typographic voice.
-	- Contact uses a mailto form + minimal links inside a green footer zone.
+	script.js
+	- Generates a deterministic "GitHub-ish" heatmap inside #heatmap.
+	- Purely decorative: no external APIs, no GitHub data, no network requests.
+	- Auto-fits the number of columns to reach the right edge of the content column.
+	- Applies a subtle fade-out to the right so the fill "disappears" gracefully.
 */
 
-/* =========================
-   CSS Variables / Theme
-   ========================= */
-:root{
-	--bg: #ffffff;
-	--text: #0b0f14;
-	--muted: #5c6572;
-
-	/* Main accent (green) */
-	--accent: #1A7F4B;
-	--accent-2: #0F6D3D;
-
-	--line: rgba(15, 20, 30, 0.12);
-
-	/* Footer green zone */
-	--green-zone: #1A7F4B;
-	--green-zone-2: #0F6D3D;
-
-	/* Typography stacks (no external fonts) */
-	--serif: ui-serif, "Iowan Old Style", "Palatino Linotype", Palatino, Georgia, serif;
-	--sans: ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial, "Apple Color Emoji","Segoe UI Emoji";
-}
-
-/* =========================
-   Base / Resets
-   ========================= */
-*{ box-sizing: border-box; }
-html, body{ height: 100%; }
-
-body{
-	margin: 0;
-	background: var(--bg);
-	color: var(--text);
-	font-family: var(--sans);
-	line-height: 1.55;
-}
-
-a{ color: inherit; }
-
-/* Accessible focus styles */
-a:focus-visible,
-button:focus-visible,
-input:focus-visible,
-textarea:focus-visible{
-	outline: 2px solid var(--accent);
-	outline-offset: 3px;
-	border-radius: 10px;
-}
-
-/* =========================
-   Layout Container
-   ========================= */
-.page{
-	max-width: 980px;
-	margin: 0 auto;
-	padding: 120px 24px 90px;
-}
-
-/* Top fixed header slot (empty for now) */
-.top{
-	position: fixed;
-	top: 20px;
-	left: 20px;
-	z-index: 40;
-}
-
-/* =========================
-   Hero Section
-   ========================= */
-.hero-title{
-	margin: 0 0 8px;
-	font-family: var(--serif);
-	font-weight: 500;
-	font-size: clamp(34px, 5.4vw, 58px);
-	letter-spacing: -0.03em;
-}
-
-.hero-title em{
-	font-style: italic;
-	font-weight: 500;
-}
-
-.hero-subtitle{
-	margin: 0 0 26px;
-	font-family: var(--serif);
-	font-size: clamp(20px, 3vw, 28px);
-	letter-spacing: -0.01em;
-	color: rgba(11,15,20,0.88);
-}
-
-.hero-subtitle em{ font-style: italic; }
-
-/* Hero Decorative Animation */
-
-.hero{
-	position: relative;
-}
-
-.hero-decoration{
-	position: absolute;
-	bottom: 40px;
-	top: auto;
-	right: -10px;
-	width: 120px;
-	opacity: 0.65;
-
-	pointer-events: none;
-}
-
-.hero-decoration img{
-	width: 100%;
-	height: auto;
-	display: block;
-}
-
-/* Narrative body text (reference typography for project descriptions) */
-.hero-body{
-	max-width: 560px;
-	color: rgba(11,15,20,0.78);
-	font-size: 14.5px;
-}
-
-.hero-body p{ margin: 0 0 14px; }
-
-/* Closing line */
-.hero-closing{
-	font-family: var(--serif);
-	font-size: 16px;
-	font-style: italic;
-	letter-spacing: -0.01em;
-	color: rgba(11,15,20,0.85);
-	margin-top: 18px;
-}
-
-/* Accent styling used across the page */
-.accent{
-	color: var(--accent);
-	font-style: italic;
-}
-
-/* =========================
-   Split Sections (Label + Content)
-   ========================= */
-.split{
-	display: grid;
-	grid-template-columns: 160px 1fr;
-	gap: 24px;
-	margin-top: 52px;
-}
-
-.kicker{
-	font-family: var(--serif);
-	color: rgba(11,15,20,0.65);
-	font-size: 14px;
-	padding-top: 12px;
-}
-
-.split-content{ min-width: 0; }
-
-/* =========================
-   Education (.xp)
-   ========================= */
-.xp{
-	list-style: none;
-	padding: 0;
-	margin: 0;
-}
-
-.xp-row{
-	margin-bottom: 2rem;
-}
-
-/*
-	xp-head grid:
-	Row 1: title (left) + date (right)
-	Row 2: school (left) + date (right, spanning)
-*/
-.xp-head{
-	display: grid;
-	grid-template-columns: 1fr auto;
-	grid-template-areas:
-		"title date"
-		"school date";
-	column-gap: 1.25rem;
-	row-gap: 0.25rem;
-	align-items: baseline;
-}
-
-/* Education titles: serif voice (matches hero subtitle) */
-.xp-where{
-	grid-area: title;
-	font-family: var(--serif);
-	font-size: 16px;
-	font-weight: 500;
-	letter-spacing: -0.01em;
-}
-
-.xp-meta{
-	grid-area: date;
-	justify-self: end;
-	align-self: baseline;
-}
-
-.xp-location{
-	grid-area: school;
-	color: rgba(11,15,20,0.62);
-	font-size: 14px;
-	margin-top: 2px;
-}
-
-.xp-body{
-	margin-top: 0.65rem;
-	max-width: 650px;
-}
-
-/* Date pill used in Education */
-.timeline{
-	border: 1px solid rgba(15, 20, 30, 0.12);
-	background: rgba(255,255,255,0.75);
-	padding: 7px 10px;
-	border-radius: 999px;
-	font-size: 13px;
-	color: rgba(11,15,20,0.70);
-}
-
-/* Minimal typographic tags (also reused in Projects) */
-.skills{
-	list-style: none;
-	padding: 0;
-	margin: 0;
-
-	display: flex;
-	flex-wrap: wrap;
-	gap: 0.35rem 0.9rem;
-}
-
-.skills li{
-	padding: 0;
-	border: 0;
-	background: transparent;
-
-	font-size: 13px;
-	font-style: italic;
-	color: rgba(11,15,20,0.62);
-	line-height: 1.4;
-}
-
-/* Dot separator between tags */
-.skills li::before{
-	content: "·";
-	margin-right: 0.5rem;
-	color: rgba(11,15,20,0.25);
-}
-
-.skills li:first-child::before{
-	content: "";
-	margin-right: 0;
-}
-
-/* =========================
-   GitHub Section (Heatmap)
-   ========================= */
-
-/*
-	GitHub block wrapper.
-	Kept minimal: the heatmap itself is the main visual element.
-*/
-.gh-block{
-	margin-top: 6px;
-}
-
-/*
-	Heatmap container:
-	- Must be width:100% so the JS can calculate how many columns fit.
-	- min-width:0 prevents grid/flex "overflow sizing" issues.
-	- grid-template-columns is set dynamically by JS.
-*/
-.heatmap{
-	display: grid;
-	gap: 4px;
-
-	width: 100%;
-	min-width: 0;
-
-	padding: 8px 0 6px;
-}
-
-/*
-	Each heatmap cell:
-	- Intensity is controlled via CSS variable --a (set per cell in JS).
-	- display:block avoids empty inline rendering quirks.
-*/
-.cell{
-	width: 10px;
-	height: 10px;
-	border-radius: 2px;
-	display: block;
-
-	background: rgba(26,127,75, var(--a));
-}
-
-/*
-	CTA row under the heatmap.
-	Keep it subtle and consistent with the rest of the page.
-*/
-.gh-bottom{
-	margin-top: 12px;
-}
-
-.gh-cta{
-	font-size: 14px;
-	color: rgba(11,15,20,0.70);
-	text-decoration: none;
-}
-
-.gh-cta:hover{
-	text-decoration: underline;
-}
-
-/* Optional: hide decoration on smaller screens to keep mobile clean */
-@media (max-width: 900px){
-	.gh-decoration{
-		display: none;
-	}
-}
-
-/* =========================
-   Projects Section
-   ========================= */
-.projects{
-	list-style: none;
-	padding: 0;
-	margin: 0;
-	display: grid;
-	gap: 16px;
-}
-
-.project{
-	border: 1px solid rgba(15, 20, 30, 0.08);
-	border-radius: 16px;
-	padding: 14px 14px 12px;
-	background: rgba(255,255,255,0.6);
-}
-
-/* Title left + links right */
-.project-head{
-	display: grid;
-	grid-template-columns: 1fr auto;
-	align-items: baseline;
-	gap: 10px;
-}
-
-/* Project titles: serif voice to match Education titles */
-.project-title{
-	font-family: var(--serif);
-	font-size: 16px;
-	font-weight: 500;
-	letter-spacing: -0.01em;
-}
-
-.project-links{
-	display: inline-flex;
-	gap: 10px;
-}
-
-.project-link{
-	font-size: 13px;
-	color: rgba(11,15,20,0.70);
-	text-decoration: none;
-}
-
-.project-link:hover{ text-decoration: underline; }
-
-/* Project descriptions match the hero-body typography */
-.project-desc{
-	margin: 8px 0 10px;
-	font-family: var(--sans);
-	font-size: 14.5px;
-	line-height: 1.55;
-	color: rgba(11,15,20,0.78);
-}
-
-.project-tags{ margin-top: 2px; }
-
-/* =========================
-   Contact / Footer Section
-   ========================= */
-/*
-	Green background zone.
-	Creates a strong visual ending and separation from the main content.
-*/
-
-/* Force all text inside the green footer to be white */
-.green-zone,
-.green-zone a,
-.green-zone .quote,
-.green-zone .copyright,
-.green-zone .contact-link {
-	color: rgba(255,255,255,0.95);
-}
-
-.green-zone{
-	background: linear-gradient(
-		90deg,
-		var(--green-zone) 0%,
-		var(--green-zone) 82%,
-		var(--green-zone-2) 82%,
-		var(--green-zone-2) 100%
-	);
-	padding: 60px 18px 50px;
-}
-
-.green-inner{
-	max-width: 1120px;
-	margin: 0 auto;
-}
-/* Links under the form */
-.contact-links{
-	margin-top: 18px;
-	display: flex;
-	gap: 16px;
-	justify-content: center;
-}
-
-.contact-link{
-	color: rgba(255,255,255,0.92);
-	text-decoration: none;
-	font-size: 14px;
-}
-
-.contact-link:hover{
-	text-decoration: underline;
-}
-
-/* Closing quote + footer bits */
-.quote{
-	margin-top: 35px;
-	text-align: center;
-	font-family: var(--serif);
-	font-style: italic;
-	opacity: 0.9;
-}
-
-.divider{
-	height: 1px;
-	background: rgba(255,255,255,0.3);
-	margin: 20px auto 14px;
-	width: 100%;
-	max-width: 520px;
-}
-
-.copyright{
-	text-align: center;
-	font-size: 13px;
-	opacity: 0.85;
-}
-
-/* =========================
-   Responsive
-   ========================= */
-@media (max-width: 860px){
-	.split{
-		grid-template-columns: 1fr;
-		gap: 10px;
-	}
-
-	.kicker{ padding-top: 0; }
-
-	/* Slight downscale so the heatmap doesn't feel too wide */
-	.heatmap{
-		transform: scale(0.95);
-		transform-origin: left top;
-	}
-}
-
-@media (max-width: 700px){
-	.page{ padding-top: 100px; }
-
-	/* Stack the form buttons on very small screens if needed */
-	.form-actions{
-		flex-direction: column;
-		align-items: stretch;
-	}
-
-	.send,
-	.copy{
-		width: 100%;
-	}
-	@media (max-width: 900px){
-	.hero-decoration{
-		display: none;
-	}
-	}
-}
+(() => {
+	/* =========================
+	   GitHub-ish Heatmap Generator
+	   ========================= */
+	const heatmap = document.getElementById("heatmap");
+	if (!heatmap) return;
+
+	// Measure from a stable parent width (split-content), not the heatmap itself
+	const content = heatmap.closest(".split-content") || heatmap.parentElement;
+
+	/* Layout knobs (must match CSS sizing) */
+	const CELL = 10; // px
+	const GAP = 4;   // px
+	const rows = 8;  // stylized "days-ish" rows
+
+	/* Deterministic pseudo-random generator (stable pattern) */
+	let seed = 1337;
+	const rand = () => {
+		seed = (seed * 9301 + 49297) % 233280;
+		return seed / 233280;
+	};
+
+	const computeCols = (width) => {
+		// Each column consumes CELL + GAP, last column doesn't need a trailing gap
+		return Math.max(1, Math.floor((width + GAP) / (CELL + GAP)));
+	};
+
+	const build = () => {
+		// Read available width (fallbacks included)
+		const w = Math.floor(
+			content?.clientWidth ||
+			heatmap.parentElement?.clientWidth ||
+			heatmap.clientWidth ||
+			0
+		);
+
+		// If layout isn't ready yet, retry next frame
+		if (w < 50) {
+			requestAnimationFrame(build);
+			return;
+		}
+
+		heatmap.innerHTML = "";
+
+		const cols = computeCols(w);
+		const total = cols * rows;
+
+		// Set the grid columns dynamically so it fills the width
+		heatmap.style.gridTemplateColumns = `repeat(${cols}, ${CELL}px)`;
+
+		for (let i = 0; i < total; i++) {
+			const cell = document.createElement("span");
+			cell.className = "cell";
+
+			const col = i % cols;
+			const bias = col / (cols - 1 || 1); // 0..1
+			const noise = rand();
+
+			/*
+				Fade-out to the right:
+				- Left side feels more present
+				- Right side gradually disappears (cells remain)
+			*/
+			const fade = 1 - bias;
+
+			// Base intensity + gentle randomness
+			let a = 0.18 + 0.25 * noise;
+
+			// Apply fade curve (increase exponent for stronger fade)
+			a *= Math.pow(fade, 1.8);
+
+			// Clamp intensity range
+			a = Math.max(0.04, Math.min(0.6, a));
+
+			cell.style.setProperty("--a", a.toFixed(2));
+			heatmap.appendChild(cell);
+		}
+	};
+
+	// Build after layout settles (two frames improves reliability)
+	requestAnimationFrame(() => requestAnimationFrame(() => {
+		seed = 1337;
+		build();
+	}));
+
+	// Rebuild on resize (keep the same stable pattern)
+	window.addEventListener("resize", () => {
+		seed = 1337;
+		build();
+	});
+})();
