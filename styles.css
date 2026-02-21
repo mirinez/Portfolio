@@ -7,7 +7,6 @@
 	- Skills/tags are typographic (no pill backgrounds).
 	- GitHub block is minimal: heatmap + CTA link.
 	- Project descriptions match the hero-body typographic voice.
-	- Contact uses a mailto form + minimal links inside a green footer zone.
 */
 
 /* =========================
@@ -502,5 +501,30 @@ textarea:focus-visible{
 	.hero-decoration{
 		display: none;
 	}
+	}
+}
+/* =========================
+   Mobile Hero Spacing
+   ========================= */
+
+@media (max-width: 520px){
+	.page{
+		padding-left: 28px;
+		padding-right: 28px;
+	}
+
+	.hero-title{
+		font-size: 40px;
+		line-height: 1.05;
+	}
+
+	.hero-subtitle{
+		font-size: 20px;
+		line-height: 1.35;
+		max-width: 30ch;
+	}
+
+	.hero-body{
+		max-width: 34ch;
 	}
 }
