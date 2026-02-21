@@ -98,6 +98,9 @@ textarea:focus-visible{
 	letter-spacing: -0.01em;
 	color: rgba(11,15,20,0.88);
 }
+.hero-subtitle .accent{
+	white-space: nowrap;
+}
 
 .hero-subtitle em{ font-style: italic; }
 
@@ -502,25 +505,32 @@ textarea:focus-visible{
 	}
 }
 /* =========================
-   Mobile Hero Spacing
+   Mobile Hero Refinement
    ========================= */
 
 @media (max-width: 520px){
+
 	.page{
 		padding-left: 28px;
 		padding-right: 28px;
 	}
 
 	.hero-title{
-		font-size: 40px;
+		font-size: 38px;
 		line-height: 1.05;
 	}
 
 	.hero-subtitle{
-		max-width: 32ch;
+		font-size: 19px;
+		line-height: 1.4;
+		max-width: none;
+		overflow-wrap: normal;
+		word-break: normal;
+		hyphens: none;
 	}
+
 	.hero-body{
-		max-width: 36ch; 
+		max-width: none;
 	}
 }
 /* =========================
