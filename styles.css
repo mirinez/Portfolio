@@ -104,6 +104,11 @@ textarea:focus-visible{
 
 .hero-subtitle em{ font-style: italic; }
 
+/* Keeps short ending bits together (prevents lonely emoji wraps) */
+.nowrap{
+	white-space: nowrap;
+}
+
 /* Hero Decorative Animation */
 
 .hero{
