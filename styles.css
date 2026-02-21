@@ -477,10 +477,8 @@ textarea:focus-visible{
 
 	.kicker{ padding-top: 0; }
 
-	/* Slight downscale so the heatmap doesn't feel too wide */
 	.heatmap{
-		transform: scale(0.95);
-		transform-origin: left top;
+		justify-content: space-between;
 	}
 }
 
@@ -519,12 +517,21 @@ textarea:focus-visible{
 	}
 
 	.hero-subtitle{
-		font-size: 20px;
-		line-height: 1.35;
-		max-width: 30ch;
+		max-width: 32ch;
 	}
-
 	.hero-body{
-		max-width: 34ch;
+		max-width: 36ch; 
+	}
+}
+/* =========================
+   Mobile text wrapping fixes
+   ========================= */
+
+@media (max-width: 520px){
+	.hero-subtitle,
+	.hero-closing{
+		overflow-wrap: anywhere;  /* prevents the "2 characters dangling" look */
+		word-break: normal;
+		hyphens: auto;
 	}
 }
