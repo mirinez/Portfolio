@@ -1,99 +1,121 @@
 /*
-	script.js
-	- Generates a deterministic "GitHub-ish" heatmap inside #heatmap.
-	- Purely decorative: no external APIs, no GitHub data, no network requests.
-	- Auto-fits the number of columns to reach the right edge of the content column.
-	- Applies a subtle fade-out to the right so the fill "disappears" gracefully.
+	script.js (GitHub heatmap only)
+	- Generates a decorative "GitHub-ish" heatmap inside #heatmap.
+	- No APIs, no real GitHub data: purely visual.
+	- JS sets grid-template-columns so the heatmap stretches to the container width.
 */
 
 (() => {
 	/* =========================
-	   GitHub-ish Heatmap Generator
+	   Helpers
 	   ========================= */
-	const heatmap = document.getElementById("heatmap");
-	if (!heatmap) return;
 
-	// Measure from a stable parent width (split-content), not the heatmap itself
-	const content = heatmap.closest(".split-content") || heatmap.parentElement;
+	const clamp = (n, min, max) => Math.max(min, Math.min(max, n));
 
-	/* Layout knobs (must match CSS sizing) */
-	const CELL = 10; // px
-	const GAP = 4;   // px
-	const rows = 8;  // stylized "days-ish" rows
-
-	/* Deterministic pseudo-random generator (stable pattern) */
-	let seed = 1337;
-	const rand = () => {
-		seed = (seed * 9301 + 49297) % 233280;
-		return seed / 233280;
+	// Simple debounce so resize doesn't spam re-render
+	const debounce = (fn, delay = 120) => {
+		let t;
+		return (...args) => {
+			clearTimeout(t);
+			t = setTimeout(() => fn(...args), delay);
+		};
 	};
 
-	const computeCols = (width) => {
-		// Each column consumes CELL + GAP, last column doesn't need a trailing gap
-		return Math.max(1, Math.floor((width + GAP) / (CELL + GAP)));
-	};
+	/* =========================
+	   Heatmap renderer
+	   ========================= */
 
-	const build = () => {
-		// Read available width (fallbacks included)
-		const w = Math.floor(
-			content?.clientWidth ||
-			heatmap.parentElement?.clientWidth ||
-			heatmap.clientWidth ||
-			0
-		);
+	const renderHeatmap = () => {
+		const heatmap = document.getElementById("heatmap");
+		if (!heatmap) return;
 
-		// If layout isn't ready yet, retry next frame
-		if (w < 50) {
-			requestAnimationFrame(build);
+		// Read computed sizes (cell + gap) so CSS controls the look
+		const cellSize = 10; // must match .cell width/height
+		const gap = 4;       // must match .heatmap gap
+
+		// IMPORTANT: ensure the container has a measurable width
+		const width = heatmap.clientWidth;
+
+		// If width is 0, layout isn't ready yet; try next frame
+		if (!width) {
+			requestAnimationFrame(renderHeatmap);
 			return;
 		}
 
-		heatmap.innerHTML = "";
+		/*
+			Compute how many columns fit:
+			cols * cellSize + (cols - 1) * gap <= width
+		*/
+		const cols = Math.max(1, Math.floor((width + gap) / (cellSize + gap)));
 
-		const cols = computeCols(w);
+		// Choose a stable number of rows (stylized)
+		const rows = 8;
 		const total = cols * rows;
 
-		// Set the grid columns dynamically so it fills the width
-		heatmap.style.gridTemplateColumns = `repeat(${cols}, ${CELL}px)`;
+		// Apply columns to CSS grid (this is what prevents the 1-column bug)
+		heatmap.style.gridTemplateColumns = `repeat(${cols}, ${cellSize}px)`;
 
+		// Clear cells before re-rendering
+		heatmap.innerHTML = "";
+
+		// Deterministic pseudo-random generator (stable pattern)
+		let seed = 1337;
+		const rand = () => {
+			seed = (seed * 9301 + 49297) % 233280;
+			return seed / 233280;
+		};
+
+		/*
+			Fade logic:
+			- Left side: more visible.
+			- Right side: gradually fades the fill (but squares remain).
+			- This creates the "disappearing fill" effect you wanted.
+		*/
 		for (let i = 0; i < total; i++) {
 			const cell = document.createElement("span");
 			cell.className = "cell";
 
 			const col = i % cols;
-			const bias = col / (cols - 1 || 1); // 0..1
+			const x = col / Math.max(1, cols - 1); // 0..1
 			const noise = rand();
 
-			/*
-				Fade-out to the right:
-				- Left side feels more present
-				- Right side gradually disappears (cells remain)
-			*/
-			const fade = 1 - bias;
+			// Base intensity (GitHub-ish: mostly light)
+			let a = 0.14 + 0.30 * (noise - 0.5);
 
-			// Base intensity + gentle randomness
-			let a = 0.18 + 0.25 * noise;
+			// Slight structure (subtle rhythm)
+			a += 0.12 * Math.sin(x * Math.PI * 1.2);
 
-			// Apply fade curve (increase exponent for stronger fade)
-			a *= Math.pow(fade, 1.8);
+			// Fade to the right (this makes the fill disappear gradually)
+			const fade = 1 - Math.pow(x, 1.6); // strong fade near the far right
+			a *= clamp(fade, 0.10, 1);
 
-			// Clamp intensity range
-			a = Math.max(0.04, Math.min(0.6, a));
+			// Keep within safe bounds
+			a = clamp(a, 0.05, 0.55);
+
+			// Some sparse near-empty cells for texture
+			if (noise < 0.06) a = 0.05;
 
 			cell.style.setProperty("--a", a.toFixed(2));
 			heatmap.appendChild(cell);
 		}
 	};
 
-	// Build after layout settles (two frames improves reliability)
-	requestAnimationFrame(() => requestAnimationFrame(() => {
-		seed = 1337;
-		build();
-	}));
+	/* =========================
+	   Init + responsive updates
+	   ========================= */
 
-	// Rebuild on resize (keep the same stable pattern)
-	window.addEventListener("resize", () => {
-		seed = 1337;
-		build();
-	});
+	const safeInit = () => {
+		// Wait a frame so layout widths are correct (prevents cols=1 bug)
+		requestAnimationFrame(renderHeatmap);
+	};
+
+	// Run when DOM is ready
+	if (document.readyState === "loading") {
+		document.addEventListener("DOMContentLoaded", safeInit);
+	} else {
+		safeInit();
+	}
+
+	// Re-render on resize (debounced)
+	window.addEventListener("resize", debounce(renderHeatmap, 140));
 })();
