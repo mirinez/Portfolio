@@ -3,8 +3,8 @@
 	- Minimal, whitespace-heavy layout with editorial serif accents.
 	- No external fonts (uses system serif/sans stacks).
 	- Split sections: label on the left, content on the right.
-	- Education titles + project titles use serif (matches hero subtitle voice).
-	- Skills/tags are typographic (no pill backgrounds).
+	- Education titles + project titles use serif.
+	- Skills/tags are typographic.
 	- GitHub block is minimal: heatmap + CTA link.
 	- Footer is clean white.
 */
@@ -48,7 +48,7 @@ body{
 
 a{ color: inherit; }
 
-/* Accessible focus styles */
+/* Accessible focus styles (keyboard navigation) */
 a:focus-visible,
 button:focus-visible,
 input:focus-visible,
@@ -58,7 +58,7 @@ textarea:focus-visible{
 	border-radius: 10px;
 }
 
-/* Utility: prevent awkward line breaks */
+/* Utility: keep small ending bits together (prevents lonely emoji wraps) */
 .nowrap{
 	white-space: nowrap;
 }
@@ -79,12 +79,22 @@ textarea:focus-visible{
 /* =====================================================
    Layout Container
 ===================================================== */
+/*
+	Main centered page column:
+	- Max width matches the reference rhythm.
+	- Padding gives generous whitespace on desktop.
+*/
 .page{
 	max-width: 980px;
 	margin: 0 auto;
 	padding: 120px 24px 90px;
 }
 
+/*
+	Top header slot:
+	- Intentionally empty in your HTML right now.
+	- Kept as a placeholder if you add a small pill/menu later.
+*/
 .top{
 	position: fixed;
 	top: 20px;
@@ -95,10 +105,14 @@ textarea:focus-visible{
 /* =====================================================
    Hero Section
 ===================================================== */
+/*
+	Hero acts as a positioning context for the decorative GIF.
+*/
 .hero{
 	position: relative;
 }
 
+/* Main hero title */
 .hero-title{
 	margin: 0 0 8px;
 	font-family: var(--serif);
@@ -112,6 +126,7 @@ textarea:focus-visible{
 	font-weight: 500;
 }
 
+/* Subtitle line under the title */
 .hero-subtitle{
 	margin: 0 0 26px;
 	font-family: var(--serif);
@@ -122,6 +137,11 @@ textarea:focus-visible{
 
 .hero-subtitle em{ font-style: italic; }
 
+/*
+	Narrative body text:
+	- This is your main "about" typography voice.
+	- Project descriptions mirror this same style.
+*/
 .hero-body{
 	max-width: 560px;
 	color: rgba(11,15,20,0.78);
@@ -132,6 +152,9 @@ textarea:focus-visible{
 	margin: 0 0 14px;
 }
 
+/*
+	Closing line in serif voice (matches section titles).
+*/
 .hero-closing{
 	font-family: var(--serif);
 	font-size: 16px;
@@ -141,6 +164,7 @@ textarea:focus-visible{
 	margin-top: 18px;
 }
 
+/* Accent styling used across the page */
 .accent{
 	color: var(--accent);
 	font-style: italic;
@@ -149,6 +173,11 @@ textarea:focus-visible{
 /* =====================================================
    Hero Decorative GIF
 ===================================================== */
+/*
+	Decorative image that floats in the hero whitespace.
+	- pointer-events:none ensures it never blocks clicks/taps.
+	- opacity keeps it subtle.
+*/
 .hero-decoration{
 	position: absolute;
 	right: -10px;
@@ -165,8 +194,13 @@ textarea:focus-visible{
 }
 
 /* =====================================================
-   Split Sections
+   Split Sections (Label + Content)
 ===================================================== */
+/*
+	Reusable section layout:
+	- Left column for the label (“Education / GitHub / Projects”).
+	- Right column for the content.
+*/
 .split{
 	display: grid;
 	grid-template-columns: 160px 1fr;
@@ -174,6 +208,7 @@ textarea:focus-visible{
 	margin-top: 52px;
 }
 
+/* Left column label */
 .kicker{
 	font-family: var(--serif);
 	color: rgba(11,15,20,0.65);
@@ -181,12 +216,13 @@ textarea:focus-visible{
 	padding-top: 12px;
 }
 
+/* Prevent content overflow issues in CSS grid */
 .split-content{
 	min-width: 0;
 }
 
 /* =====================================================
-   Education
+   Education (.xp)
 ===================================================== */
 .xp{
 	list-style: none;
@@ -198,6 +234,11 @@ textarea:focus-visible{
 	margin-bottom: 2rem;
 }
 
+/*
+	xp-head grid:
+	Row 1: title (left) + date pill (right)
+	Row 2: school line (left) + date (right, spanning)
+*/
 .xp-head{
 	display: grid;
 	grid-template-columns: 1fr auto;
@@ -209,6 +250,7 @@ textarea:focus-visible{
 	align-items: baseline;
 }
 
+/* Education titles: serif voice (matches hero subtitle) */
 .xp-where{
 	grid-area: title;
 	font-family: var(--serif);
@@ -223,6 +265,7 @@ textarea:focus-visible{
 	align-self: baseline;
 }
 
+/* School / location line under title */
 .xp-location{
 	grid-area: school;
 	color: rgba(11,15,20,0.62);
@@ -235,6 +278,7 @@ textarea:focus-visible{
 	max-width: 650px;
 }
 
+/* Date pill used in Education */
 .timeline{
 	border: 1px solid rgba(15, 20, 30, 0.12);
 	background: rgba(255,255,255,0.75);
@@ -245,18 +289,28 @@ textarea:focus-visible{
 }
 
 /* =====================================================
-   Skills / Tags
+   Skills / Tags (Education + Projects)
 ===================================================== */
+/*
+	Minimal typographic tags:
+	- No pill background, just italic text.
+	- Dot separator created via ::before.
+*/
 .skills{
 	list-style: none;
 	padding: 0;
 	margin: 0;
+
 	display: flex;
 	flex-wrap: wrap;
 	gap: 0.35rem 0.9rem;
 }
 
 .skills li{
+	padding: 0;
+	border: 0;
+	background: transparent;
+
 	font-size: 13px;
 	font-style: italic;
 	color: rgba(11,15,20,0.62);
@@ -275,20 +329,31 @@ textarea:focus-visible{
 }
 
 /* =====================================================
-   GitHub Heatmap
+   GitHub Section (Heatmap)
 ===================================================== */
 .gh-block{
 	margin-top: 6px;
 }
 
+/*
+	Heatmap container:
+	- Must be width:100% so JS can calculate how many columns fit.
+	- grid-template-columns is set dynamically by JS.
+*/
 .heatmap{
 	display: grid;
 	gap: 4px;
+
 	width: 100%;
 	min-width: 0;
+
 	padding: 8px 0 6px;
 }
 
+/*
+	Heatmap cell:
+	- Intensity controlled via --a (set per cell in JS).
+*/
 .cell{
 	width: 10px;
 	height: 10px;
@@ -297,6 +362,7 @@ textarea:focus-visible{
 	background: rgba(26,127,75, var(--a));
 }
 
+/* CTA row under the heatmap */
 .gh-bottom{
 	margin-top: 12px;
 }
@@ -312,12 +378,13 @@ textarea:focus-visible{
 }
 
 /* =====================================================
-   Projects
+   Projects Section
 ===================================================== */
 .projects{
 	list-style: none;
 	padding: 0;
 	margin: 0;
+
 	display: grid;
 	gap: 16px;
 }
@@ -336,6 +403,7 @@ textarea:focus-visible{
 	gap: 10px;
 }
 
+/* Project titles: serif voice to match Education titles */
 .project-title{
 	font-family: var(--serif);
 	font-size: 16px;
@@ -358,16 +426,31 @@ textarea:focus-visible{
 	text-decoration: underline;
 }
 
+/*
+	Project description typography:
+	- Matches hero-body (narrative voice).
+*/
 .project-desc{
 	margin: 8px 0 10px;
+	font-family: var(--sans);
 	font-size: 14.5px;
 	line-height: 1.55;
 	color: rgba(11,15,20,0.78);
 }
 
+.project-tags{
+	margin-top: 2px;
+}
+
 /* =====================================================
-   Footer
+   Footer Section (Clean White)
 ===================================================== */
+/*
+  Footer wrapper:
+  - Clean white background.
+  - No fog/gradient layers.
+  - position: relative keeps the critter positioned correctly.
+*/
 .footer{
 	position: relative;
 	background: #ffffff;
@@ -375,17 +458,23 @@ textarea:focus-visible{
 	margin: 0;
 }
 
+/*
+  Inner container:
+  - Aligns footer content with the rest of the page width.
+*/
 .footer-inner{
 	max-width: 980px;
 	margin: 0 auto;
 	position: relative;
 }
 
+/* Center column */
 .footer-center{
 	text-align: center;
 	padding-bottom: 14px;
 }
 
+/* Main line (quote / statement) */
 .footer-title{
 	margin: 0 0 12px;
 	font-family: var(--serif);
@@ -395,9 +484,10 @@ textarea:focus-visible{
 	color: rgba(11,15,20,0.86);
 }
 
+/* Tiny terminal-ish line */
 .footer-terminal{
 	margin: 0 0 18px;
-	font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Courier New", monospace;
+	font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace;
 	font-size: 12.5px;
 	color: rgba(11,15,20,0.55);
 }
@@ -406,6 +496,7 @@ textarea:focus-visible{
 .footer-terminal .t-quote{ opacity: 0.9; }
 .footer-terminal .t-ok{ color: rgba(26,127,75,0.95); }
 
+/* Minimal input + button */
 .footer-form{
 	display: inline-flex;
 	align-items: center;
@@ -420,11 +511,22 @@ textarea:focus-visible{
 	color: rgba(11,15,20,0.85);
 	border-radius: 999px;
 	padding: 10px 14px;
+	outline: none;
+}
+
+.footer-input::placeholder{
+	color: rgba(11,15,20,0.45);
+}
+
+.footer-input:focus{
+	border-color: rgba(26,127,75,0.55);
+	box-shadow: 0 0 0 3px rgba(26,127,75,0.12);
 }
 
 .footer-btn{
 	border: 1px solid rgba(15, 20, 30, 0.12);
 	background: rgba(26,127,75,0.10);
+	color: rgba(11,15,20,0.78);
 	border-radius: 999px;
 	padding: 10px 14px;
 	cursor: pointer;
@@ -437,6 +539,7 @@ textarea:focus-visible{
 	transform: translateY(-1px);
 }
 
+/* Links */
 .footer-links{
 	display: flex;
 	justify-content: center;
@@ -446,6 +549,7 @@ textarea:focus-visible{
 
 .footer-link{
 	text-decoration: none;
+	color: rgba(11,15,20,0.70);
 	font-size: 14px;
 	border-bottom: 1px solid rgba(26,127,75,0.25);
 }
@@ -454,21 +558,33 @@ textarea:focus-visible{
 	border-bottom-color: rgba(26,127,75,0.7);
 }
 
+/* Small copyright line */
 .footer-small{
+	margin: 0;
 	font-size: 13px;
 	color: rgba(11,15,20,0.55);
 }
 
-/* Easter Egg */
+/* =========================
+   Easter Egg Critter
+========================= */
+/*
+  Decorative button.
+  Keep it floating at the right side (as before).
+*/
 .critter{
 	position: absolute;
 	right: 14px;
 	bottom: 92px;
-	font-size: 18px;
-	background: transparent;
+
 	border: 0;
+	background: transparent;
+	padding: 0;
+
+	font-size: 18px;
 	cursor: pointer;
 	opacity: 0.55;
+
 	transform: rotate(-6deg);
 	transition: transform 0.18s ease, opacity 0.18s ease;
 }
@@ -476,4 +592,88 @@ textarea:focus-visible{
 .critter:hover{
 	opacity: 0.95;
 	transform: translateY(-2px) rotate(6deg);
+}
+
+/* =====================================================
+   Responsive
+===================================================== */
+@media (max-width: 860px){
+	/* Collapse split sections into one column */
+	.split{
+		grid-template-columns: 1fr;
+		gap: 10px;
+	}
+
+	.kicker{
+		padding-top: 0;
+	}
+
+	/*
+		On smaller screens we let the heatmap distribute space nicely.
+		(JS still controls columns; this simply avoids awkward alignment.)
+	*/
+	.heatmap{
+		justify-content: space-between;
+	}
+}
+
+/*
+	Hide the hero decoration on mobile/tablet:
+	IMPORTANT: keep this OUTSIDE of other @media blocks.
+*/
+@media (max-width: 900px){
+	.hero-decoration{
+		display: none;
+	}
+}
+
+/*
+	Small-screen typography refinements:
+	- Increase side padding to avoid the "cut-off" look.
+	- Slightly reduce hero title/subtitle.
+*/
+@media (max-width: 520px){
+	.page{
+		padding-left: 28px;
+		padding-right: 28px;
+	}
+
+	.hero-title{
+		font-size: 38px;
+		line-height: 1.05;
+	}
+
+	.hero-subtitle{
+		font-size: 19px;
+		line-height: 1.4;
+		max-width: none;
+
+		/* Keep wrapping natural, avoid weird breaks */
+		overflow-wrap: normal;
+		word-break: normal;
+		hyphens: none;
+	}
+
+	.hero-body{
+		max-width: none;
+	}
+
+	/* Slightly tighter footer spacing on small screens */
+	.footer{
+		padding-top: 70px;
+		padding-bottom: 80px;
+	}
+}
+
+/*
+	Additional mobile wrapping safety:
+	- Helps avoid the “last 2 characters dangling” effect on some devices.
+*/
+@media (max-width: 520px){
+	.hero-subtitle,
+	.hero-closing{
+		overflow-wrap: anywhere;
+		word-break: normal;
+		hyphens: auto;
+	}
 }
