@@ -6,12 +6,12 @@
 	- Education titles + project titles use serif (matches hero subtitle voice).
 	- Skills/tags are typographic (no pill backgrounds).
 	- GitHub block is minimal: heatmap + CTA link.
-	- Project descriptions match the hero-body typographic voice.
+	- Footer uses a subtle decorative fog gradient that starts AFTER the content.
 */
 
-/* =========================
+/* =====================================================
    CSS Variables / Theme
-   ========================= */
+===================================================== */
 :root{
 	--bg: #ffffff;
 	--text: #0b0f14;
@@ -21,6 +21,7 @@
 	--accent: #1A7F4B;
 	--accent-2: #0F6D3D;
 
+	/* Subtle UI line color */
 	--line: rgba(15, 20, 30, 0.12);
 
 	/* Typography stacks (no external fonts) */
@@ -28,11 +29,14 @@
 	--sans: ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial, "Apple Color Emoji","Segoe UI Emoji";
 }
 
-/* =========================
+/* =====================================================
    Base / Resets
-   ========================= */
+===================================================== */
 *{ box-sizing: border-box; }
-html, body{ height: 100%; }
+
+html, body{
+	height: 100%;
+}
 
 body{
 	margin: 0;
@@ -44,7 +48,7 @@ body{
 
 a{ color: inherit; }
 
-/* Accessible focus styles */
+/* Accessible focus styles (keyboard navigation) */
 a:focus-visible,
 button:focus-visible,
 input:focus-visible,
@@ -54,18 +58,61 @@ textarea:focus-visible{
 	border-radius: 10px;
 }
 
-/* =========================
+/* Utility: keep small ending bits together (prevents lonely emoji wraps) */
+.nowrap{
+	white-space: nowrap;
+}
+
+/* Screen-reader-only helper */
+.sr-only{
+	position: absolute;
+	width: 1px;
+	height: 1px;
+	padding: 0;
+	margin: -1px;
+	overflow: hidden;
+	clip: rect(0,0,0,0);
+	white-space: nowrap;
+	border: 0;
+}
+
+/* =====================================================
    Layout Container
-   ========================= */
+===================================================== */
+/*
+	Main centered page column:
+	- Max width matches the reference rhythm.
+	- Padding gives generous whitespace on desktop.
+*/
 .page{
 	max-width: 980px;
 	margin: 0 auto;
 	padding: 120px 24px 90px;
 }
 
-/* =========================
+/*
+	Top header slot:
+	- Intentionally empty in your HTML right now.
+	- Kept as a placeholder if you add a small pill/menu later.
+*/
+.top{
+	position: fixed;
+	top: 20px;
+	left: 20px;
+	z-index: 40;
+}
+
+/* =====================================================
    Hero Section
-   ========================= */
+===================================================== */
+/*
+	Hero acts as a positioning context for the decorative GIF.
+*/
+.hero{
+	position: relative;
+}
+
+/* Main hero title */
 .hero-title{
 	margin: 0 0 8px;
 	font-family: var(--serif);
@@ -79,6 +126,7 @@ textarea:focus-visible{
 	font-weight: 500;
 }
 
+/* Subtitle line under the title */
 .hero-subtitle{
 	margin: 0 0 26px;
 	font-family: var(--serif);
@@ -89,38 +137,24 @@ textarea:focus-visible{
 
 .hero-subtitle em{ font-style: italic; }
 
-/* Keeps short ending bits together (prevents lonely emoji wraps) */
-.nowrap{ white-space: nowrap; }
-
-/* Hero Decorative Animation */
-.hero{ position: relative; }
-
-.hero-decoration{
-	position: absolute;
-	bottom: 40px;
-	top: auto;
-	right: -10px;
-	width: 120px;
-	opacity: 0.65;
-	pointer-events: none;
-}
-
-.hero-decoration img{
-	width: 100%;
-	height: auto;
-	display: block;
-}
-
-/* Narrative body text (reference typography for project descriptions) */
+/*
+	Narrative body text:
+	- This is your main "about" typography voice.
+	- Project descriptions mirror this same style.
+*/
 .hero-body{
 	max-width: 560px;
 	color: rgba(11,15,20,0.78);
 	font-size: 14.5px;
 }
 
-.hero-body p{ margin: 0 0 14px; }
+.hero-body p{
+	margin: 0 0 14px;
+}
 
-/* Closing line */
+/*
+	Closing line in serif voice (matches section titles).
+*/
 .hero-closing{
 	font-family: var(--serif);
 	font-size: 16px;
@@ -136,9 +170,37 @@ textarea:focus-visible{
 	font-style: italic;
 }
 
-/* =========================
+/* =====================================================
+   Hero Decorative GIF
+===================================================== */
+/*
+	Decorative image that floats in the hero whitespace.
+	- pointer-events:none ensures it never blocks clicks/taps.
+	- opacity keeps it subtle.
+*/
+.hero-decoration{
+	position: absolute;
+	right: -10px;
+	bottom: 40px;
+	width: 120px;
+	opacity: 0.65;
+	pointer-events: none;
+}
+
+.hero-decoration img{
+	width: 100%;
+	height: auto;
+	display: block;
+}
+
+/* =====================================================
    Split Sections (Label + Content)
-   ========================= */
+===================================================== */
+/*
+	Reusable section layout:
+	- Left column for the label (“Education / GitHub / Projects”).
+	- Right column for the content.
+*/
 .split{
 	display: grid;
 	grid-template-columns: 160px 1fr;
@@ -146,6 +208,7 @@ textarea:focus-visible{
 	margin-top: 52px;
 }
 
+/* Left column label */
 .kicker{
 	font-family: var(--serif);
 	color: rgba(11,15,20,0.65);
@@ -153,19 +216,29 @@ textarea:focus-visible{
 	padding-top: 12px;
 }
 
-.split-content{ min-width: 0; }
+/* Prevent content overflow issues in CSS grid */
+.split-content{
+	min-width: 0;
+}
 
-/* =========================
+/* =====================================================
    Education (.xp)
-   ========================= */
+===================================================== */
 .xp{
 	list-style: none;
 	padding: 0;
 	margin: 0;
 }
 
-.xp-row{ margin-bottom: 2rem; }
+.xp-row{
+	margin-bottom: 2rem;
+}
 
+/*
+	xp-head grid:
+	Row 1: title (left) + date pill (right)
+	Row 2: school line (left) + date (right, spanning)
+*/
 .xp-head{
 	display: grid;
 	grid-template-columns: 1fr auto;
@@ -177,6 +250,7 @@ textarea:focus-visible{
 	align-items: baseline;
 }
 
+/* Education titles: serif voice (matches hero subtitle) */
 .xp-where{
 	grid-area: title;
 	font-family: var(--serif);
@@ -191,6 +265,7 @@ textarea:focus-visible{
 	align-self: baseline;
 }
 
+/* School / location line under title */
 .xp-location{
 	grid-area: school;
 	color: rgba(11,15,20,0.62);
@@ -203,6 +278,7 @@ textarea:focus-visible{
 	max-width: 650px;
 }
 
+/* Date pill used in Education */
 .timeline{
 	border: 1px solid rgba(15, 20, 30, 0.12);
 	background: rgba(255,255,255,0.75);
@@ -212,11 +288,19 @@ textarea:focus-visible{
 	color: rgba(11,15,20,0.70);
 }
 
-/* Minimal typographic tags (also reused in Projects) */
+/* =====================================================
+   Skills / Tags (Education + Projects)
+===================================================== */
+/*
+	Minimal typographic tags:
+	- No pill background, just italic text.
+	- Dot separator created via ::before.
+*/
 .skills{
 	list-style: none;
 	padding: 0;
 	margin: 0;
+
 	display: flex;
 	flex-wrap: wrap;
 	gap: 0.35rem 0.9rem;
@@ -226,9 +310,10 @@ textarea:focus-visible{
 	padding: 0;
 	border: 0;
 	background: transparent;
+
 	font-size: 13px;
 	font-style: italic;
-	color: #0F6D3D;
+	color: rgba(11,15,20,0.62);
 	line-height: 1.4;
 }
 
@@ -243,23 +328,17 @@ textarea:focus-visible{
 	margin-right: 0;
 }
 
-/* =========================
+/* =====================================================
    GitHub Section (Heatmap)
-   ========================= */
-
-/*
-	GitHub block wrapper.
-	Kept minimal: the heatmap itself is the main visual element.
-*/
+===================================================== */
 .gh-block{
 	margin-top: 6px;
 }
 
 /*
 	Heatmap container:
-	- display:grid is required.
-	- grid-template-columns is set by JS so it always fills the available width.
-	- min-width:0 prevents overflow sizing issues inside CSS Grid parents.
+	- Must be width:100% so JS can calculate how many columns fit.
+	- grid-template-columns is set dynamically by JS.
 */
 .heatmap{
 	display: grid;
@@ -273,8 +352,7 @@ textarea:focus-visible{
 
 /*
 	Heatmap cell:
-	- Fixed square size.
-	- Intensity is controlled via --a (set per cell in JS).
+	- Intensity controlled via --a (set per cell in JS).
 */
 .cell{
 	width: 10px;
@@ -284,7 +362,7 @@ textarea:focus-visible{
 	background: rgba(26,127,75, var(--a));
 }
 
-/* CTA below the heatmap */
+/* CTA row under the heatmap */
 .gh-bottom{
 	margin-top: 12px;
 }
@@ -299,13 +377,14 @@ textarea:focus-visible{
 	text-decoration: underline;
 }
 
-/* =========================
+/* =====================================================
    Projects Section
-   ========================= */
+===================================================== */
 .projects{
 	list-style: none;
 	padding: 0;
 	margin: 0;
+
 	display: grid;
 	gap: 16px;
 }
@@ -324,6 +403,7 @@ textarea:focus-visible{
 	gap: 10px;
 }
 
+/* Project titles: serif voice to match Education titles */
 .project-title{
 	font-family: var(--serif);
 	font-size: 16px;
@@ -342,8 +422,14 @@ textarea:focus-visible{
 	text-decoration: none;
 }
 
-.project-link:hover{ text-decoration: underline; }
+.project-link:hover{
+	text-decoration: underline;
+}
 
+/*
+	Project description typography:
+	- Matches hero-body (narrative voice).
+*/
 .project-desc{
 	margin: 8px 0 10px;
 	font-family: var(--sans);
@@ -352,61 +438,138 @@ textarea:focus-visible{
 	color: rgba(11,15,20,0.78);
 }
 
-.project-tags{ margin-top: 2px; }
+.project-tags{
+	margin-top: 2px;
+}
 
-/* =========================
-   Footer Section (Meadow Silhouette)
-   ========================= */
+/* =====================================================
+   Footer Section (Subtle Green Fog, starts AFTER content)
+===================================================== */
 
 /*
   Footer wrapper:
-  - Clean white background so the footer content feels light.
-  - Positioning context for the meadow (which is absolutely positioned at the bottom).
-  - overflow:hidden prevents any horizontal scroll caused by full-bleed SVG math (100vw).
-  - --meadow-h reserves vertical space so the meadow never overlaps the footer content.
+  - Content stays on clean white.
+  - A reserved white gap exists below the content.
+  - Fog lives ONLY in the reserved bottom artwork area.
 */
 .footer{
-	background: #ffffff;
 	position: relative;
 	overflow: hidden;
-
-	/* Meadow height (reserved space + SVG height) */
-	--meadow-h: 240px; /* increase/decrease to taste */
-
-	/* Grass palette (4 layers) */
-	--grass-1: #C0E992; /* light */
-	--grass-2: #5FD372; /* bright */
-	--grass-3: #59AF7D; /* medium */
-	--grass-4: #59896C; /* dark */
+	background: #ffffff;
+	margin: 0;
 
 	/*
-	  Spacing:
-	  - Keep the top padding comfortable.
-	  - Bottom padding equals the meadow height so content sits above the grass.
+	  Fog layout controls:
+	  --fog-h    = height of the fog artwork area (also extends the footer)
+	  --fog-gap  = pure white breathing room BELOW the content (no fog)
+	  --fog-soft = how gradually the fog fades in from the top of the fog area
 	*/
-	padding: 80px 18px var(--meadow-h);
-	margin: 0;
+	--fog-h: 420px;
+	--fog-gap: 90px;
+	--fog-soft: 90px;
+
+	/*
+	  Footer spacing:
+	  - Bottom padding reserves real space for "gap + fog".
+	  - This guarantees the fog never overlaps the footer content.
+	*/
+	padding: 80px 18px calc(var(--fog-gap) + var(--fog-h));
+}
+
+/* Ensure no legacy pseudo-layer competes with the fog */
+.footer::before{
+	content: none;
+}
+
+/*
+  Fog layer:
+  - Anchored to the bottom.
+  - Height is fixed to --fog-h (so the effect stays tall).
+  - Sits behind content (z-index:0).
+*/
+.footer::after{
+	content: "";
+	position: absolute;
+	left: 0;
+	right: 0;
+	bottom: 0;
+	height: var(--fog-h);
+	z-index: 0;
+	pointer-events: none;
+
+	/*
+	  Fog paint (stacked gradients for depth).
+	  Kept subtle so content above remains readable.
+	*/
+	background:
+		radial-gradient(
+			ellipse at 50% 120%,
+			rgba(26,127,75,0.22) 0%,
+			rgba(26,127,75,0.12) 42%,
+			rgba(26,127,75,0.06) 66%,
+			rgba(255,255,255,0) 86%
+		),
+		radial-gradient(
+			ellipse at 18% 120%,
+			rgba(26,127,75,0.08) 0%,
+			rgba(255,255,255,0) 74%
+		),
+		radial-gradient(
+			ellipse at 82% 125%,
+			rgba(26,127,75,0.08) 0%,
+			rgba(255,255,255,0) 74%
+		),
+		linear-gradient(
+			to top,
+			rgba(234,247,240,0.95) 0%,
+			rgba(234,247,240,0.55) 50%,
+			rgba(255,255,255,0) 100%
+		);
+
+	/*
+	  Fade-in from the TOP of the fog area:
+	  - Makes the fog start softly (no hard rectangle edge).
+	  - The fog area itself already starts below content due to padding.
+	*/
+	-webkit-mask-image: linear-gradient(
+		to bottom,
+		transparent 0%,
+		transparent 10%,
+		rgba(0,0,0,0.25) calc(10% + (var(--fog-soft) * 0.15)),
+		#000 calc(10% + var(--fog-soft)),
+		#000 100%
+	);
+	mask-image: linear-gradient(
+		to bottom,
+		transparent 0%,
+		transparent 10%,
+		rgba(0,0,0,0.25) calc(10% + (var(--fog-soft) * 0.15)),
+		#000 calc(10% + var(--fog-soft)),
+		#000 100%
+	);
 }
 
 /*
   Inner container:
-  - Matches the page rhythm (same max-width as main content).
-  - Keeps footer text aligned with the rest of the layout.
+  - Aligns content with the rest of the page.
+  - z-index keeps it above the fog.
 */
 .footer-inner{
 	max-width: 980px;
 	margin: 0 auto;
 	position: relative;
-	padding-bottom: 0;
+	z-index: 1;
 }
 
-/* Center column: everything in the footer is vertically stacked and centered */
+/* =========================
+   Footer Content (Centered)
+========================= */
 .footer-center{
 	text-align: center;
 	padding-bottom: 14px;
 }
 
-/* Main line (quote / statement) */
+/* Main quote */
 .footer-title{
 	margin: 0 0 12px;
 	font-family: var(--serif);
@@ -416,18 +579,21 @@ textarea:focus-visible{
 	color: rgba(11,15,20,0.86);
 }
 
-/* Tiny terminal-ish line (fun, “dev-y” detail) */
+/* Terminal-style line */
 .footer-terminal{
 	margin: 0 0 18px;
 	font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace;
 	font-size: 12.5px;
 	color: rgba(11,15,20,0.55);
 }
+
 .footer-terminal .t-muted{ opacity: 0.75; }
 .footer-terminal .t-quote{ opacity: 0.9; }
 .footer-terminal .t-ok{ color: rgba(26,127,75,0.95); }
 
-/* Minimal input + button (newsletter-ish / message-ish) */
+/* =========================
+   Footer Email Form
+========================= */
 .footer-form{
 	display: inline-flex;
 	align-items: center;
@@ -470,7 +636,9 @@ textarea:focus-visible{
 	transform: translateY(-1px);
 }
 
-/* Links row */
+/* =========================
+   Footer Links
+========================= */
 .footer-links{
 	display: flex;
 	justify-content: center;
@@ -489,115 +657,34 @@ textarea:focus-visible{
 	border-bottom-color: rgba(26,127,75,0.7);
 }
 
-/* Small copyright line */
+/* Copyright */
 .footer-small{
-	margin: 0 0 18px;
+	margin: 0;
 	font-size: 13px;
 	color: rgba(11,15,20,0.55);
 }
 
-/* (Optional) legacy helper – can stay, but it's no longer needed */
-.footer-grass{
-	margin-top: -10px;
-}
-
 /* =========================
-   Meadow (full-bleed, bottom-anchored)
-   ========================= */
-
+   Easter Egg Critter
+========================= */
 /*
-  Meadow wrapper:
-  - FULL-BLEED (edge-to-edge): width:100vw escapes the max-width container.
-  - Anchored to the bottom of the footer so there is never a gap below.
-  - pointer-events:none because it's purely decorative.
-*/
-.meadow{
-	position: absolute;
-	left: 50%;
-	bottom: 0;
-	transform: translateX(-50%);
-	width: 100vw;
-	line-height: 0;
-	pointer-events: none;
-}
-
-/*
-  SVG sizing:
-  - Height matches the reserved footer padding (--meadow-h).
-  - preserveAspectRatio is handled in the SVG markup (typically "none") so it stretches cleanly.
-*/
-.meadow svg{
-	display: block;
-	width: 100%;
-	height: var(--meadow-h);
-}
-
-/*
-  Meadow layers:
-  - 4 layers for more depth and color variation.
-  - Slight opacity differences keep the stack from feeling too flat.
-*/
-.meadow .grass--back{  fill: var(--grass-1); opacity: 0.95; }
-.meadow .grass--mid{   fill: var(--grass-2); opacity: 0.92; }
-.meadow .grass--mid2{  fill: var(--grass-3); opacity: 0.92; }
-.meadow .grass--front{ fill: var(--grass-4); opacity: 0.98; }
-
-/*
-  Optional: if you still see tiny lateral white gaps on some browsers
-  because of 100vw/scrollbar math, uncomment this global rule.
-*/
-/*
-html, body{
-	overflow-x: hidden;
-}
-*/
-
-/* =========================
-   Footer Responsive Notes
-   ========================= */
-
-/*
-  On very small screens:
-  - Keep the form usable (input shrinks automatically via width:min()).
-  - You can reduce meadow height if it feels too tall on mobile.
-*/
-@media (max-width: 520px){
-	.footer{
-		--meadow-h: 210px;
-		padding-top: 70px;
-	}
-}
-
-/* =========================
-   Responsive adjustments
-   ========================= */
-@media (max-width: 520px){
-	.footer{
-		--meadow-h: 200px; /* slightly shorter on small screens */
-		padding-top: 60px;
-	}
-}
-
-/* =========================
-   Easter egg critter (anchored to the meadow)
-   ========================= */
-
-/*
-  Place the critter relative to the footer,
-  but align it visually just above the meadow silhouette.
+  Floating decorative button (purely playful):
+  - Positioned inside .footer-inner (which is relative).
+  - bottom is set to visually align around the email row.
 */
 .critter{
 	position: absolute;
 	right: 14px;
-
-	/* Anchor it above the grass height (tweak the - part if you change --meadow-h) */
-	bottom: calc(var(--meadow-h) - 70px);
+	bottom: 92px;
 
 	border: 0;
 	background: transparent;
+	padding: 0;
+
 	font-size: 18px;
 	cursor: pointer;
 	opacity: 0.55;
+
 	transform: rotate(-6deg);
 	transition: transform 0.18s ease, opacity 0.18s ease;
 }
@@ -607,44 +694,44 @@ html, body{
 	transform: translateY(-2px) rotate(6deg);
 }
 
-/* =========================
-   Screen-reader-only utility
-   ========================= */
-.sr-only{
-	position: absolute;
-	width: 1px;
-	height: 1px;
-	padding: 0;
-	margin: -1px;
-	overflow: hidden;
-	clip: rect(0,0,0,0);
-	white-space: nowrap;
-	border: 0;
-}
-
-/* =========================
+/* =====================================================
    Responsive
-   ========================= */
+===================================================== */
 @media (max-width: 860px){
+	/* Collapse split sections into one column */
 	.split{
 		grid-template-columns: 1fr;
 		gap: 10px;
 	}
 
-	.kicker{ padding-top: 0; }
+	.kicker{
+		padding-top: 0;
+	}
 
+	/*
+		On smaller screens we let the heatmap distribute space nicely.
+		(JS still controls columns; this simply avoids awkward alignment.)
+	*/
 	.heatmap{
 		justify-content: space-between;
 	}
 }
 
-@media (max-width: 700px){
-	.page{ padding-top: 100px; }
+/*
+	Hide the hero decoration on mobile/tablet:
+	IMPORTANT: keep this OUTSIDE of other @media blocks.
+*/
+@media (max-width: 900px){
+	.hero-decoration{
+		display: none;
+	}
 }
 
-/* =========================
-   Mobile Hero Refinement
-   ========================= */
+/*
+	Small-screen typography refinements:
+	- Increase side padding to avoid the "cut-off" look.
+	- Slightly reduce hero title/subtitle.
+*/
 @media (max-width: 520px){
 	.page{
 		padding-left: 28px;
@@ -660,6 +747,8 @@ html, body{
 		font-size: 19px;
 		line-height: 1.4;
 		max-width: none;
+
+		/* Keep wrapping natural, avoid weird breaks */
 		overflow-wrap: normal;
 		word-break: normal;
 		hyphens: none;
@@ -669,21 +758,27 @@ html, body{
 		max-width: none;
 	}
 
+	/*
+	  Footer on mobile:
+	  - Keep the fog present but less dominant.
+	  - Increase the gap slightly so it never feels cramped.
+	*/
 	.footer{
-		padding-top: 64px;
+		--fog-h: 260px;
+		--fog-gap: 110px;
+		--fog-soft: 100px;
 	}
-	.meadow svg{
-		height: 140px;
-	}
+
+	/* Keep the critter from dropping too low on small screens */
 	.critter{
-		right: 10px;
-		bottom: 76px;
+		bottom: 110px;
 	}
 }
 
-/* =========================
-   Mobile text wrapping fixes
-   ========================= */
+/*
+	Additional mobile wrapping safety:
+	- Helps avoid the “last 2 characters dangling” effect on some devices.
+*/
 @media (max-width: 520px){
 	.hero-subtitle,
 	.hero-closing{
