@@ -266,7 +266,6 @@ textarea:focus-visible{
 .xp-body{
 	margin-top: 0.65rem;
 	max-width: 650px;
-	color: var(--accent);
 }
 
 /* Date */
@@ -303,14 +302,14 @@ textarea:focus-visible{
 
 	font-size: 13px;
 	font-style: italic;
-	color: rgba(11,15,20,0.62);
+	color: #1A7F4B;
 	line-height: 1.4;
 }
 
 .skills li::before{
 	content: "·";
 	margin-right: 0.5rem;
-	color: rgba(11,15,20,0.25);
+	color: #1A7F4B;
 }
 
 .skills li:first-child::before{
@@ -430,6 +429,7 @@ textarea:focus-visible{
 
 .project-tags{
 	margin-top: 2px;
+	color: #1A7F4B;
 }
 
 /* =====================================================
