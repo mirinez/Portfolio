@@ -85,31 +85,48 @@
 			</div>
 		</section>
 
-		<!-- =========================
-		     Education Section (.xp in CSS)
-		     ========================= -->
+		<!-- =====================================================
+     	     Education Section
+             ===================================================== -->
 		<section id="education" class="split" aria-label="Education">
-			<!-- Left label column -->
-			<div class="split-label">
-				<div class="kicker"><b><em>✦ Education</em></b></div>
-			</div>
+			<!-- Left label column (section kicker) -->
+				<div class="split-label">
+					<div class="kicker"><b><em>✦ Education</em></b></div>
+				</div>
 
 			<!-- Right content column -->
 			<div class="split-content">
+				<!--
+					Education list:
+					- Each item uses a "top row" layout:
+			  		Title | flexible divider line | Status (date or "Now")
+					- The divider line is purely visual (helps rhythm/alignment).
+					- The status can optionally show a green dot (current item).
+				-->
 				<ul class="xp" aria-label="Education list">
 
-					<!-- Education item 1 -->
+					<!-- =========================
+			     		 Education item 1
+			     		 ========================= -->
 					<li class="xp-row">
 						<div class="xp-head">
-							<div class="xp-where">✧ Technician in Microcomputer Systems and Networks</div>
-
-							<div class="xp-meta">
-								<span class="timeline">2017 – 2019</span>
+							<!--
+								Top row:
+								- Left: program/title
+								- Middle: flex line (fills available space)
+								- Right: date range
+							-->
+							<div class="xp-top">
+								<div class="xp-where">✧ Technician in Microcomputer Systems and Networks</div>
+								<span class="xp-line" aria-hidden="true"></span>
+								<span class="xp-status" aria-label="Dates">2017 – 2019</span>
 							</div>
 
+							<!-- School / location line (secondary) -->
 							<div class="xp-location">I.E.S. Mare Nostrum, Alicante - Spain</div>
 						</div>
 
+						<!-- Skills are minimal typographic tags (not pills) -->
 						<div class="xp-body">
 							<ul class="skills" aria-label="Skills">
 								<li>IT Support</li>
@@ -121,13 +138,15 @@
 						</div>
 					</li>
 
-					<!-- Education item 2 -->
+					<!-- =========================
+			     		 Education item 2
+			     	 	 ========================= -->
 					<li class="xp-row">
 						<div class="xp-head">
-							<div class="xp-where">✧ Google IT Support</div>
-
-							<div class="xp-meta">
-								<span class="timeline">2022 – 2023</span>
+							<div class="xp-top">
+								<div class="xp-where">✧ Google IT Support</div>
+								<span class="xp-line" aria-hidden="true"></span>
+								<span class="xp-status" aria-label="Dates">2022 – 2023</span>
 							</div>
 
 							<div class="xp-location">Professional Certificate – Coursera (6 courses)</div>
@@ -142,13 +161,23 @@
 						</div>
 					</li>
 
-					<!-- Education item 3 -->
+					<!-- =========================
+			     	 	 Education item 3 (Current)
+				     	 ========================= -->
 					<li class="xp-row">
 						<div class="xp-head">
-							<div class="xp-where">✧ Full Stack Web Developer</div>
+							<!--
+								Current item status:
+								- Uses a green dot + "Now" to show it is ongoing.
+							-->
+							<div class="xp-top">
+								<div class="xp-where">✧ Full Stack Web Developer</div>
+								<span class="xp-line" aria-hidden="true"></span>
 
-							<div class="xp-meta">
-								<span class="timeline">2026 – Now</span>
+								<span class="xp-status xp-status--current" aria-label="Current status">
+									<span class="xp-dot" aria-hidden="true"></span>
+									Now
+								</span>
 							</div>
 
 							<div class="xp-location">DBE Academy (Bootcamp)</div>
@@ -162,7 +191,6 @@
 							</ul>
 						</div>
 					</li>
-
 				</ul>
 			</div>
 		</section>
