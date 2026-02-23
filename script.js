@@ -3,6 +3,7 @@
 	- Generates a decorative "GitHub-ish" heatmap inside #heatmap.
 	- No APIs, no real GitHub data: purely visual.
 	- JS sets grid-template-columns so the heatmap stretches to the container width.
+	- Not my idea, not my code.
 */
 
 (() => {
