@@ -13,7 +13,6 @@ This portfolio was designed as a clean 🍀, editorial-style layout focused on t
 It follows a split-section layout pattern:
 - Left column for section labels.
 - Right column for structured content.
-- A full-width green footer for contact.
 
 The goal was to create something calm, intentional, and readable — not overloaded.
 
@@ -37,7 +36,6 @@ The goal was to create something calm, intentional, and readable — not overloa
 - Editorial typography system (serif + sans pairing)
 - Accessible focus states
 - Minimalist contact section
-- Custom rounded favicon
 
 ---
 
@@ -55,7 +53,8 @@ The emphasis is on structure and intentional simplicity.
 
 ## ✧ Live Version
 
-[View Portfolio](https://mirinez.github.io/portfolio/) ☘️
+[View Portfolio]
+(https://mirinez.github.io/portfolio/) ☘️
 
 ---
 
