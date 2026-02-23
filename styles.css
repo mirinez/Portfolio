@@ -212,8 +212,13 @@ textarea:focus-visible{
 }
 
 /* =====================================================
-   Education (.xp)
+   Education Section (Updated "Title — Line — Status" Row)
 ===================================================== */
+
+/*
+	Title | flexible divider line | Status
+*/
+
 .xp{
 	list-style: none;
 	padding: 0;
@@ -225,57 +230,104 @@ textarea:focus-visible{
 }
 
 /*
-	xp-head grid:
-	Row 1: title (left) + date pill (right)
-	Row 2: school line (left) + date (right, spanning)
+	xp-head:
+	- Wraps the top row + the location line.
+	- Simple vertical flow (no grid areas needed here).
 */
 .xp-head{
 	display: grid;
-	grid-template-columns: 1fr auto;
-	grid-template-areas:
-		"title date"
-		"school date";
-	column-gap: 1.25rem;
 	row-gap: 0.25rem;
-	align-items: baseline;
+	align-items: start;
 }
 
-/* Education, GitHub and Projects titles: serif voice */
+/*
+	xp-top:
+	- Single horizontal row
+	- Title on the left
+	- Divider line stretches
+	- Status on the right
+*/
+.xp-top{
+	display: flex;
+	align-items: center;
+	gap: 14px;
+}
+
+/* Title (serif voice, matches your hero vibe) */
 .xp-where{
-	grid-area: title;
 	font-family: var(--serif);
 	font-size: 16px;
 	font-weight: 500;
 	letter-spacing: -0.01em;
+
+	/* Prevent awkward title breaks in the middle of the row */
+	white-space: nowrap;
 }
 
-.xp-meta{
-	grid-area: date;
-	justify-self: end;
-	align-self: baseline;
+/*
+	Flexible divider line:
+	- This is the "editorial" line that fills the empty space.
+	- It adapts automatically to any screen width.
+*/
+.xp-line{
+	flex: 1;
+	height: 1px;
+	background: rgba(11,15,20,0.15);
 }
 
-/* School / location line under title */
+/* Status text (date range or "Now") */
+.xp-status{
+	display: inline-flex;
+	align-items: center;
+	gap: 6px;
+
+	font-size: 13px;
+	color: rgba(11,15,20,0.65);
+	white-space: nowrap;
+}
+
+/* Green dot used for the current item */
+.xp-dot{
+	width: 6px;
+	height: 6px;
+	border-radius: 50%;
+	background: var(--accent);
+}
+
+/* Slight emphasis for the current status */
+.xp-status--current{
+	color: rgba(11,15,20,0.85);
+	font-weight: 500;
+}
+
+/* Location line under the top row */
 .xp-location{
-	grid-area: school;
 	color: rgba(11,15,20,0.62);
 	font-size: 14px;
 	margin-top: 2px;
 }
 
+/* Body spacing + max width (keeps the rhythm clean) */
 .xp-body{
 	margin-top: 0.65rem;
 	max-width: 650px;
 }
 
-/* Date */
-.timeline{
-	border: 1px solid rgba(15, 20, 30, 0.12);
-	background: rgba(255,255,255,0.75);
-	padding: 7px 10px;
-	border-radius: 999px;
-	font-size: 13px;
-	color: rgba(11,15,20,0.70);
+/* =====================================================
+   Responsive: simplify the row on small screens
+===================================================== */
+/*
+	On very small screens the divider line can feel cramped.
+	Hiding it keeps the layout clean and avoids wrapping issues.
+*/
+@media (max-width: 520px){
+	.xp-line{
+		display: none;
+	}
+
+	.xp-where{
+		white-space: normal; /* allow wrapping on mobile */
+	}
 }
 
 /* =====================================================
