@@ -53,8 +53,7 @@ The emphasis is on structure and intentional simplicity.
 
 ## ✧ Live Version
 
-[View Portfolio]
-(https://mirinez.github.io/portfolio/) ☘️
+https://mirinez.github.io/portfolio/ (still in progress) ☘️
 
 ---
 
