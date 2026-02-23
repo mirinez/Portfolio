@@ -282,8 +282,7 @@ textarea:focus-visible{
    Skills / Tags (Education + Projects)
 ===================================================== */
 /*
-	Minimal typographic tags:
-	- No pill background, just italic text.
+	Minimal typographic tags
 */
 .skills{
 	list-style: none;
@@ -309,7 +308,7 @@ textarea:focus-visible{
 .skills li::before{
 	content: "·";
 	margin-right: 0.5rem;
-	color: #1A7F4B;
+	color: #59896C;
 }
 
 .skills li:first-child::before{
@@ -429,7 +428,7 @@ textarea:focus-visible{
 
 .project-tags{
 	margin-top: 2px;
-	color: #1A7F4B;
+	color: #59896C;
 }
 
 /* =====================================================
