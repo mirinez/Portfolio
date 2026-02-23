@@ -294,10 +294,10 @@ textarea:focus-visible{
 	background: var(--accent);
 }
 
-/* Slight emphasis for the current status */
+/* Same color and font as the dates */
 .xp-status--current{
-	color: rgba(11,15,20,0.85);
-	font-weight: 500;
+	color: rgba(11,15,20,0.65);
+	font-weight: 400;           
 }
 
 /* Location line under the top row */
