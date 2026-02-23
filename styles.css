@@ -5,7 +5,7 @@
 	- Split sections: label on the left, content on the right.
 	- Education titles + project titles use serif.
 	- Skills/tags are typographic.
-	- GitHub block is minimal: heatmap + CTA link.
+	- GitHub block is minimal: heatmap + GitHub link.
 	- Footer is clean white.
 */
 
@@ -48,7 +48,7 @@ body{
 
 a{ color: inherit; }
 
-/* Accessible focus styles (keyboard navigation) */
+/* Accessible focus styles */
 a:focus-visible,
 button:focus-visible,
 input:focus-visible,
@@ -58,7 +58,7 @@ textarea:focus-visible{
 	border-radius: 10px;
 }
 
-/* Utility: keep small ending bits together (prevents lonely emoji wraps) */
+/* Utility: keep small ending bits together */
 .nowrap{
 	white-space: nowrap;
 }
@@ -93,7 +93,6 @@ textarea:focus-visible{
 /*
 	Top header slot:
 	- Intentionally empty in your HTML right now.
-	- Kept as a placeholder if you add a small pill/menu later.
 */
 .top{
 	position: fixed;
@@ -137,11 +136,7 @@ textarea:focus-visible{
 
 .hero-subtitle em{ font-style: italic; }
 
-/*
-	Narrative body text:
-	- This is your main "about" typography voice.
-	- Project descriptions mirror this same style.
-*/
+/* Narrative body text */
 .hero-body{
 	max-width: 560px;
 	color: rgba(11,15,20,0.78);
@@ -152,9 +147,7 @@ textarea:focus-visible{
 	margin: 0 0 14px;
 }
 
-/*
-	Closing line in serif voice (matches section titles).
-*/
+/* Closing line in serif voice */
 .hero-closing{
 	font-family: var(--serif);
 	font-size: 16px;
@@ -173,11 +166,8 @@ textarea:focus-visible{
 /* =====================================================
    Hero Decorative GIF
 ===================================================== */
-/*
-	Decorative image that floats in the hero whitespace.
-	- pointer-events:none ensures it never blocks clicks/taps.
-	- opacity keeps it subtle.
-*/
+
+/* Decorative GIF that floats in the hero whitespace. */
 .hero-decoration{
 	position: absolute;
 	right: -10px;
@@ -250,7 +240,7 @@ textarea:focus-visible{
 	align-items: baseline;
 }
 
-/* Education titles: serif voice (matches hero subtitle) */
+/* Education, GitHub and Projects titles: serif voice */
 .xp-where{
 	grid-area: title;
 	font-family: var(--serif);
@@ -278,7 +268,7 @@ textarea:focus-visible{
 	max-width: 650px;
 }
 
-/* Date pill used in Education */
+/* Date */
 .timeline{
 	border: 1px solid rgba(15, 20, 30, 0.12);
 	background: rgba(255,255,255,0.75);
@@ -294,7 +284,6 @@ textarea:focus-visible{
 /*
 	Minimal typographic tags:
 	- No pill background, just italic text.
-	- Dot separator created via ::before.
 */
 .skills{
 	list-style: none;
@@ -362,7 +351,7 @@ textarea:focus-visible{
 	background: rgba(26,127,75, var(--a));
 }
 
-/* CTA row under the heatmap */
+/* Link GitHub row under the heatmap */
 .gh-bottom{
 	margin-top: 12px;
 }
@@ -403,7 +392,7 @@ textarea:focus-visible{
 	gap: 10px;
 }
 
-/* Project titles: serif voice to match Education titles */
+/* Project titles */
 .project-title{
 	font-family: var(--serif);
 	font-size: 16px;
@@ -428,7 +417,7 @@ textarea:focus-visible{
 
 /*
 	Project description typography:
-	- Matches hero-body (narrative voice).
+	- Matches hero-body.
 */
 .project-desc{
 	margin: 8px 0 10px;
@@ -443,13 +432,12 @@ textarea:focus-visible{
 }
 
 /* =====================================================
-   Footer Section (Clean White)
+   Footer Section
 ===================================================== */
 /*
   Footer wrapper:
   - Clean white background.
-  - No fog/gradient layers.
-  - position: relative keeps the critter positioned correctly.
+  - Position: relative keeps the critter positioned correctly.
 */
 .footer{
 	position: relative;
@@ -570,7 +558,6 @@ textarea:focus-visible{
 ========================= */
 /*
   Decorative button.
-  Keep it floating at the right side (as before).
 */
 .critter{
 	position: absolute;
@@ -666,8 +653,7 @@ textarea:focus-visible{
 }
 
 /*
-	Additional mobile wrapping safety:
-	- Helps avoid the “last 2 characters dangling” effect on some devices.
+	Additional mobile wrapping safety
 */
 @media (max-width: 520px){
 	.hero-subtitle,
