@@ -17,7 +17,8 @@ It follows a split-section layout pattern:
 The goal was to create something calm, intentional, and readable — not overloaded.
 
 The main design inspiration was taken from:
-https://balajmarius.com/?ref=onepagelove
+
+[![Reference](https://img.shields.io/badge/Reference-ffffff?style=flat&labelColor=ffffff&color=ffffff)](https://balajmarius.com/?ref=onepagelove)
 
 ---
 
@@ -56,7 +57,9 @@ The emphasis is on structure and intentional simplicity.
 
 ### ✧ Live Version
 
-https://mirinez.github.io/portfolio/ (still in progress) ☘️
+[![Portfolio](https://img.shields.io/badge/Portfolio-ffffff?style=flat&labelColor=ffffff&color=ffffff)](https://mirinez.github.io/portfolio) 
+
+(still in progress) ☘️
 
 ---
 
