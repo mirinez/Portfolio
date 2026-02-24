@@ -18,7 +18,7 @@ The goal was to create something calm, intentional, and readable — not overloa
 
 The main design inspiration was taken from:
 
-[![Balaj Marius](https://img.shields.io/badge/Reference-ffffff?style=flat&labelColor=ffffff&color=ffffff)](https://balajmarius.com/?ref=onepagelove)
+[![Reference](https://img.shields.io/badge/Reference-ffffff?style=flat&labelColor=ffffff&color=ffffff)](https://balajmarius.com/?ref=onepagelove)
 
 ---
 
