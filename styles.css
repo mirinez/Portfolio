@@ -703,10 +703,11 @@ textarea:focus-visible{
    Education – Mobile micro-adjustment
    ========================= */
 @media (max-width: 520px){
-
+	.xp-title{
+    min-width: 0;
+		
   /* Separate only the date from the title */
   .xp-meta{
     margin-left: 0.6rem;   /* adjust between 0.4–0.8rem */
   }
-
 }
