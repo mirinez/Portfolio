@@ -700,22 +700,30 @@ textarea:focus-visible{
 }
 
 /* =========================
-   Education – Mobile title wrapping fix
+   Education – Mobile: date separation + consistent divider line
    ========================= */
 @media (max-width: 520px){
 
-  /* Allow grid items to actually shrink on small screens */
-  .xp-head{
-    min-width: 0;
-  }
+	/*
+		Make the date area a tiny row:
+		[ line ] [ date / Now ]
+		This guarantees the divider appears for EVERY item.
+	*/
+	.xp-meta{
+		justify-self: end;     /* keep it on the right */
+		align-self: start;      /* aligns near the title first line */
+		display: inline-flex;
+		align-items: center;
+		gap: 12px;
+		white-space: nowrap;   /* prevents "2017 —" breaking */
+	}
 
-  /* Force the title to wrap instead of clipping */
-  .xp-title{
-    min-width: 0;
-    max-width: 100%;
-    white-space: normal;         /* cancel any nowrap */
-    overflow: visible;           /* cancel any hidden clipping */
-    overflow-wrap: anywhere;     /* wrap even if a long chunk appears */
-    word-break: normal;
-  }
+	/* The small horizontal divider line before the date */
+	.xp-meta::before{
+		content: "";
+		display: block;
+		width: 36px;                 /* tweak: 24px–48px */
+		height: 1px;
+		background: rgba(15, 20, 30, 0.18); /* matches your subtle line vibe */
+	}
 }
