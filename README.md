@@ -1,4 +1,4 @@
-# ✦ Minimal Portfolio 🍃
+## ✦ Minimal Portfolio 🍃
 
 A minimalist one-page portfolio built with semantic HTML, modern CSS, and a touch of JavaScript.
 
@@ -6,7 +6,7 @@ A minimalist one-page portfolio built with semantic HTML, modern CSS, and a touc
 
 ---
 
-## ✧ About the Project 
+### ✧ About the Project 
 
 This portfolio was designed as a clean 🍀, editorial-style layout focused on typography, whitespace, and structural clarity.
 
@@ -21,7 +21,7 @@ https://balajmarius.com/?ref=onepagelove
 
 ---
 
-## ✧ Tech Stack 
+### ✧ Tech Stack 
 
 - HTML5 (semantic structure)
 - CSS3 (grid, flexbox, custom properties)
@@ -32,7 +32,7 @@ https://balajmarius.com/?ref=onepagelove
 
 ---
 
-## ✧ Features
+### ✧ Features
 
 - Responsive layout (mobile-first adjustments)
 - GitHub-style (only decorative, doesn't work) heatmap (deterministic JS generator)
@@ -43,7 +43,7 @@ https://balajmarius.com/?ref=onepagelove
 
 ---
 
-## ✧ Design Decisions
+### ✧ Design Decisions
 
 - Serif font for titles.
 - Sans-serif for body text.
@@ -54,13 +54,13 @@ The emphasis is on structure and intentional simplicity.
 
 ---
 
-## ✧ Live Version
+### ✧ Live Version
 
 https://mirinez.github.io/portfolio/ (still in progress) ☘️
 
 ---
 
-## ✧ Author
+### ✧ Author
 
 Míriam Domínguez Martínez 🪲
 Full Stack Web Developer (in progress)
