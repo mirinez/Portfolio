@@ -715,3 +715,28 @@ textarea:focus-visible{
 		hyphens: auto;
 	}
 }
+/* =========================
+   Education – Mobile refinement
+   ========================= */
+@media (max-width: 520px){
+  /* Stack header elements instead of the 2-col grid */
+  .xp-head{
+    grid-template-columns: 1fr;
+    grid-template-areas:
+      "title"
+      "date"
+      "school";
+    row-gap: 0.35rem;
+  }
+
+  /* Date / "Now" line becomes a small row under the title */
+  .xp-meta{
+    justify-self: start;
+    align-self: start;
+  }
+	/* Ttitle */
+	@media (max-width: 520px){
+  .xp-where{
+    max-width: 22ch;
+  }
+}
