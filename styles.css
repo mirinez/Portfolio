@@ -254,7 +254,7 @@ textarea:focus-visible{
 }
 
 /* Title (serif voice, matches your hero vibe) */
-.xp-where{
+.xp-title{
 	font-family: var(--serif);
 	font-size: 16px;
 	font-weight: 500;
@@ -325,7 +325,7 @@ textarea:focus-visible{
 		display: none;
 	}
 
-	.xp-where{
+	.xp-title{
 		white-space: normal; /* allow wrapping on mobile */
 	}
 }
@@ -736,7 +736,7 @@ textarea:focus-visible{
   }
 	/* Ttitle */
 	@media (max-width: 520px){
-  .xp-where{
+  .xp-title{
     max-width: 22ch;
   }
 }
