@@ -15,12 +15,13 @@ It follows a split-section layout pattern:
 - Right column for structured content.
 
 The goal was to create something calm, intentional, and readable — not overloaded.
+
 The main design inspiration was taken from:
 https://balajmarius.com/?ref=onepagelove
 
 ---
 
-## ✧ Tech Stack 🌿
+## ✧ Tech Stack 
 
 - HTML5 (semantic structure)
 - CSS3 (grid, flexbox, custom properties)
@@ -31,12 +32,13 @@ https://balajmarius.com/?ref=onepagelove
 
 ---
 
-## ✧ Features
+## ✧ Features 🐌
 
 - Responsive layout (mobile-first adjustments)
 - GitHub-style (only decorative, doesn't work) heatmap (deterministic JS generator)
 - Editorial typography system (serif + sans pairing)
 - Minimalist contact section (the email feature doesn’t work because there is no backend implemented as the heatmap)
+- Easter egg and mini terminal
 - Color codes: #FFF #C0E992 #5FD372 #59896C #59AF7D
 
 ---
