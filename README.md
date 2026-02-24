@@ -32,13 +32,13 @@ https://balajmarius.com/?ref=onepagelove
 
 ---
 
-## ✧ Features 🐌
+## ✧ Features
 
 - Responsive layout (mobile-first adjustments)
 - GitHub-style (only decorative, doesn't work) heatmap (deterministic JS generator)
 - Editorial typography system (serif + sans pairing)
 - Minimalist contact section (the email feature doesn’t work because there is no backend implemented as the heatmap)
-- Easter egg and mini terminal
+- Easter egg and mini terminal 🐌
 - Color codes: #FFF #C0E992 #5FD372 #59896C #59AF7D
 
 ---
