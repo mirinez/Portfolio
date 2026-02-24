@@ -698,43 +698,15 @@ textarea:focus-visible{
 		hyphens: auto;
 	}
 }
+
 /* =========================
-   Education – Mobile refinement
-   Goal:
-   - Keep the desktop layout untouched.
-   - Keep the title wrapping naturally (no forced max-width).
-   - Add more breathing room between title and date.
+   Education – Mobile spacing only
    ========================= */
 @media (max-width: 520px){
-  .xp-title{ font-size: 15px; }
-  /*
-    Key fix:
-    - minmax(0, 1fr) allows the title column to shrink.
-    - Without the 0, long text can overflow and push the date off-screen.
-  */
+
+  /* Increase space between title column and date column */
   .xp-head{
-    grid-template-columns: minmax(0, 1fr) auto;
-    column-gap: 1.1rem;   /* spacing between title and date */
-    row-gap: 0.25rem;
+    column-gap: 1.6rem;  /* adjust between 1.4–1.8rem if needed */
   }
 
-   /* Keep the date on a single line */
-  .xp-meta{
-    white-space: nowrap;
-  }
-
-  /*
-    Make sure the title is allowed to wrap INSIDE its grid cell,
-    instead of overflowing into the date column.
-  */
-  .xp-title{
-    min-width: 0;
-    overflow-wrap: anywhere; /* only kicks in when needed */
-  }
-
-  /* Slightly compact date pill to give the title more room */
-  .timeline{
-    padding: 6px 9px;
-    font-size: 12.5px;
-  }
 }
