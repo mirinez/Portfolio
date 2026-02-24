@@ -699,18 +699,35 @@ textarea:focus-visible{
 	}
 }
 /* =========================
-   Education – Mobile spacing tweak
+   Education – Mobile refinement
+   Goal:
+   - Keep the desktop layout untouched.
+   - Keep the title wrapping naturally (no forced max-width).
+   - Add more breathing room between title and date.
    ========================= */
 @media (max-width: 520px){
 
-  /* Add more horizontal breathing room */
+  /* Give more horizontal space between title and date */
   .xp-head{
-    column-gap: 1.5rem;  /* antes era ~1rem aprox */
+    column-gap: 1.4rem;     /* separates the date from the title */
+    row-gap: 0.25rem;       /* keeps vertical rhythm tidy */
   }
 
-  /* Give the date a little extra distance */
+  /* Ensure the date pill stays on one line */
   .xp-meta{
-    margin-left: 0.5rem;
+    white-space: nowrap;
   }
 
+  /* Remove any forced line limits */
+  .xp-title,
+  .xp-where{
+    max-width: none;
+  }
+
+  /* Make the date pill slightly more compact on mobile
+     so the title has more room */
+  .timeline{
+    padding: 6px 9px;
+    font-size: 12.5px;
+  }
 }
