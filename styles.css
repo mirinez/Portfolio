@@ -700,30 +700,40 @@ textarea:focus-visible{
 }
 
 /* =========================
-   Education – Mobile: date separation + consistent divider line
+   Education – Mobile refinement
    ========================= */
 @media (max-width: 520px){
 
 	/*
-		Make the date area a tiny row:
-		[ line ] [ date / Now ]
-		This guarantees the divider appears for EVERY item.
+		Let long titles wrap naturally on small screens.
+		(Desktop stays unchanged.)
 	*/
-	.xp-meta{
-		justify-self: end;     /* keep it on the right */
-		align-self: start;      /* aligns near the title first line */
-		display: inline-flex;
-		align-items: center;
-		gap: 12px;
-		white-space: nowrap;   /* prevents "2017 —" breaking */
+	.xp-title{
+		white-space: normal;     /* was nowrap */
+		max-width: 22ch;         /* tweak 20–26ch */
 	}
 
-	/* The small horizontal divider line before the date */
-	.xp-meta::before{
-		content: "";
-		display: block;
-		width: 36px;                 /* tweak: 24px–48px */
-		height: 1px;
-		background: rgba(15, 20, 30, 0.18); /* matches your subtle line vibe */
+	/*
+		Push the status a bit further from the title area
+		without creating huge gaps.
+	*/
+	.xp-top{
+		gap: 12px;               /* keep it tidy */
+	}
+
+	/*
+		Keep the divider line visible but not too aggressive on mobile.
+	*/
+	.xp-line{
+		min-width: 18px;         /* prevents collapsing */
+		opacity: 0.55;           /* softer on mobile */
+	}
+
+	/*
+		Extra separation ONLY for the date/Now,
+		so it doesn't feel glued to the title.
+	*/
+	.xp-status{
+		margin-left: 6px;        /* subtle spacing */
 	}
 }
