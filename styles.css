@@ -700,13 +700,13 @@ textarea:focus-visible{
 }
 
 /* =========================
-   Education – Mobile spacing only
+   Education – Mobile micro-adjustment
    ========================= */
 @media (max-width: 520px){
 
-  /* Increase space between title column and date column */
-  .xp-head{
-    column-gap: 1.6rem;  /* adjust between 1.4–1.8rem if needed */
+  /* Separate only the date from the title */
+  .xp-meta{
+    margin-left: 0.6rem;   /* adjust between 0.4–0.8rem */
   }
 
 }
