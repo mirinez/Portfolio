@@ -314,23 +314,6 @@ textarea:focus-visible{
 }
 
 /* =====================================================
-   Responsive: simplify the row on small screens
-===================================================== */
-/*
-	On very small screens the divider line can feel cramped.
-	Hiding it keeps the layout clean and avoids wrapping issues.
-*/
-@media (max-width: 520px){
-	.xp-line{
-		display: none;
-	}
-
-	.xp-title{
-		white-space: normal; /* allow wrapping on mobile */
-	}
-}
-
-/* =====================================================
    Skills / Tags (Education + Projects)
 ===================================================== */
 /*
@@ -716,27 +699,18 @@ textarea:focus-visible{
 	}
 }
 /* =========================
-   Education – Mobile refinement
+   Education – Mobile spacing tweak
    ========================= */
 @media (max-width: 520px){
-  /* Stack header elements instead of the 2-col grid */
+
+  /* Add more horizontal breathing room */
   .xp-head{
-    grid-template-columns: 1fr;
-    grid-template-areas:
-      "title"
-      "date"
-      "school";
-    row-gap: 0.35rem;
+    column-gap: 1.5rem;  /* antes era ~1rem aprox */
   }
 
-  /* Date / "Now" line becomes a small row under the title */
+  /* Give the date a little extra distance */
   .xp-meta{
-    justify-self: start;
-    align-self: start;
+    margin-left: 0.5rem;
   }
-	/* Ttitle */
-	@media (max-width: 520px){
-  .xp-title{
-    max-width: 22ch;
-  }
+
 }
