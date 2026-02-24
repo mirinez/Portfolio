@@ -706,26 +706,32 @@ textarea:focus-visible{
    - Add more breathing room between title and date.
    ========================= */
 @media (max-width: 520px){
-
-  /* Give more horizontal space between title and date */
+  /*
+    Key fix:
+    - minmax(0, 1fr) allows the title column to shrink.
+    - Without the 0, long text can overflow and push the date off-screen.
+  */
   .xp-head{
-    column-gap: 1.4rem;     /* separates the date from the title */
-    row-gap: 0.25rem;       /* keeps vertical rhythm tidy */
+    grid-template-columns: minmax(0, 1fr) auto;
+    column-gap: 1.1rem;   /* spacing between title and date */
+    row-gap: 0.25rem;
   }
 
-  /* Ensure the date pill stays on one line */
+   /* Keep the date on a single line */
   .xp-meta{
     white-space: nowrap;
   }
 
-  /* Remove any forced line limits */
-  .xp-title,
-  .xp-where{
-    max-width: none;
+  /*
+    Make sure the title is allowed to wrap INSIDE its grid cell,
+    instead of overflowing into the date column.
+  */
+  .xp-title{
+    min-width: 0;
+    overflow-wrap: anywhere; /* only kicks in when needed */
   }
 
-  /* Make the date pill slightly more compact on mobile
-     so the title has more room */
+  /* Slightly compact date pill to give the title more room */
   .timeline{
     padding: 6px 9px;
     font-size: 12.5px;
