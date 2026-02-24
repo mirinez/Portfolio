@@ -706,6 +706,8 @@ textarea:focus-visible{
    - Add more breathing room between title and date.
    ========================= */
 @media (max-width: 520px){
+  .xp-title{ font-size: 15px; }
+}
   /*
     Key fix:
     - minmax(0, 1fr) allows the title column to shrink.
