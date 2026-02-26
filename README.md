@@ -14,7 +14,7 @@ It follows a split-section layout pattern:
 - Left column for section labels.
 - Right column for structured content.
 
-The goal was to create something calm, intentional, and readable — not overloaded.
+The goal was to create something calm, intentional, and readable, not overloaded.
 
 The main design inspiration was taken from:
 
@@ -35,10 +35,10 @@ The main design inspiration was taken from:
 
 ### ✧ Features
 
-- Responsive layout (mobile-first adjustments)
-- GitHub-style (only decorative, doesn't work) heatmap (deterministic JS generator)
-- Editorial typography system (serif + sans pairing)
-- Minimalist contact section (the email feature doesn’t work because there is no backend implemented as the heatmap)
+- Responsive layout (mobile-first adjustments).
+- GitHub-style (only decorative, doesn't work) heatmap (deterministic JS generator).
+- Editorial typography system (serif + sans pairing).
+- Minimalist contact section (the email feature doesn’t work because there is no backend implemented as the heatmap).
 - Easter egg and mini terminal 🐌
 - Color codes: #FFF #C0E992 #5FD372 #59896C #59AF7D
 
@@ -65,7 +65,7 @@ The emphasis is on structure and intentional simplicity.
 
 ### ✧ Author
 
-Míriam Domínguez Martínez 🪲
+Míriam Domínguez Martínez
 Full Stack Web Developer (in progress)
 
 ---
