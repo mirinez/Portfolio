@@ -24,12 +24,12 @@ The main design inspiration was taken from:
 
 ### ✧ Tech Stack 
 
-- HTML5 (semantic structure)
-- CSS3 (grid, flexbox, custom properties)
-- Vanilla JavaScript (heatmap generation)
-- No frameworks
-- No external libraries
-- No external fonts
+- HTML5 (semantic structure).
+- CSS3 (grid, flexbox, custom properties).
+- Vanilla JavaScript (heatmap generation).
+- No frameworks.
+- No external libraries.
+- No external fonts.
 
 ---
 
