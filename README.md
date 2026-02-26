@@ -2,7 +2,7 @@
 
 A minimalist one-page portfolio built with semantic HTML, modern CSS, and a touch of JavaScript.
 
-_"> Learning the craft of code as a form of modern magic."_
+> Learning the craft of code as a form of modern magic.
 
 ---
 
