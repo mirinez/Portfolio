@@ -59,7 +59,7 @@ The emphasis is on structure and intentional simplicity.
 
 [![Portfolio](https://img.shields.io/badge/Portfolio-ffffff?style=flat&labelColor=ffffff&color=ffffff)](https://mirinez.github.io/portfolio) 
 
-_"(still in progress) ☘️"_
+_"(still in progress)"_ ☘️
 
 ---
 
