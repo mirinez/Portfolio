@@ -2,7 +2,7 @@
 
 A minimalist one-page portfolio built with semantic HTML, modern CSS, and a touch of JavaScript.
 
-> Learning the craft of code as a form of modern magic.
+_"> Learning the craft of code as a form of modern magic."_
 
 ---
 
@@ -59,7 +59,7 @@ The emphasis is on structure and intentional simplicity.
 
 [![Portfolio](https://img.shields.io/badge/Portfolio-ffffff?style=flat&labelColor=ffffff&color=ffffff)](https://mirinez.github.io/portfolio) 
 
-(still in progress) ☘️
+_"(still in progress) ☘️"_
 
 ---
 
@@ -67,8 +67,8 @@ The emphasis is on structure and intentional simplicity.
 
 Míriam Domínguez Martínez
 
-Full Stack Web Developer (in progress)
+Full Stack Web Developer _"(in progress)"_
 
 ---
 
-All technology is a spell, if you know how to read it.
+_"All technology is a spell, if you know how to read it."_
