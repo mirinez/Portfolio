@@ -71,4 +71,4 @@ Full Stack Web Developer _"(in progress)"_
 
 ---
 
-_"All technology is a spell, if you know how to read it."_
+_"All technology is a spell, if you know how to read it"_
