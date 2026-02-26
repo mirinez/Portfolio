@@ -66,6 +66,7 @@ The emphasis is on structure and intentional simplicity.
 ### ✧ Author
 
 Míriam Domínguez Martínez
+
 Full Stack Web Developer (in progress)
 
 ---
