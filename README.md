@@ -1,6 +1,4 @@
-## Portfolio – Míriam Domínguez Martínez  
-
-#### ![Plant-gif](./gif/plant.gif)  
+## Portfolio – Míriam Domínguez Martínez  <img src="./gif/plant.gif" alt="GIF" width="300" />  
 
 
 **Author:** Míriam Domínguez Martínez  
