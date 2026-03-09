@@ -1,6 +1,7 @@
 ## Portfolio – Míriam Domínguez Martínez
 
-**Author:** Míriam Domínguez Martínez  
+**Author:** Míriam Domínguez Martínez
+**Status:** In progress
 **Live:** [miriam-dominguezm.com](https://miriam-dominguezm.com)
 
 ---
