@@ -1,6 +1,6 @@
 ## Portfolio – Míriam Domínguez Martínez  
 
-![Plant-gif](./gif/plant2.gif)
+![Plant-gif](./gif/plant.gif)
 
 **Author:** Míriam Domínguez Martínez  
 **Status:** In progress  ☘️  
