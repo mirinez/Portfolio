@@ -1,7 +1,7 @@
 ## Portfolio – Míriam Domínguez Martínez 
 
 **Author:** Míriam Domínguez Martínez  
-**Status:** In progress  ☘️
+**Status:** In progress  ☘️  
 **Live:** [![Portfolio](https://img.shields.io/badge/miriamdominguezm.com-ffffff?style=flat&labelColor=ffffff&color=ffffff)](https://miriam-dominguezm.com)
 
 ---
