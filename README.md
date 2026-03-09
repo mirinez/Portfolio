@@ -9,7 +9,8 @@
 ### About
 
 Personal portfolio website built with HTML and CSS. Designed to be minimal, clean, and developer-flavoured — featuring a recreated VSCode panel as the hero visual.  
-![code](./code.png)
+
+![code](./img/code.png)
 
 ---
 
@@ -34,7 +35,7 @@ Personal portfolio website built with HTML and CSS. Designed to be minimal, clea
 
 ### Colour Palette
 
-![colors](./colors.png)
+![colors](./img/colors.png)
 
 ---
 
