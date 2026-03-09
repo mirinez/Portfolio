@@ -34,7 +34,7 @@ Personal portfolio website built with HTML and CSS. Designed to be minimal, clea
 
 ### Colour Palette
 
-
+![colors](./img/colors.png)
 
 ---
 
