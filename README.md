@@ -2,7 +2,7 @@
 
 
 **Author:** Míriam Domínguez Martínez  
-**Status:** In progress  ☘️  
+**Status:** In progress    
 **Live:** [![Portfolio](https://img.shields.io/badge/miriamdominguezm.com-ffffff?style=flat&labelColor=ffffff&color=ffffff)](https://miriam-dominguezm.com)
 
 ---
@@ -24,7 +24,7 @@ Personal portfolio website built with HTML and CSS. Designed to be minimal, clea
 
 ---
 
-### Tech Stack
+### Tech Stack ☘️
 
 - HTML5
 - CSS3 (custom properties, grid, flexbox)
