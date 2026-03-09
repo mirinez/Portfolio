@@ -13,22 +13,21 @@ Personal portfolio website built with HTML and CSS. Designed to be minimal, clea
 
 ---
 
-### File Structure
+### File Structure ☘️
 
 ```
 /
 ├── index.html
 ├── styles.css
-└── README.md
+├── README.md
+├── CNAME
+├── gif/
+│   └── plant.gif
+└── img/
+    ├── code.png
+    ├── colors.png
+    └── template.png
 ```
-
----
-
-### Tech Stack ☘️
-
-- HTML5
-- CSS3 (custom properties, grid, flexbox)
-- Font: JetBrains Mono + Syne (Google Fonts)
 
 ---
 
