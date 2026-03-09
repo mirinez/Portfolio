@@ -2,7 +2,7 @@
 
 **Author:** Míriam Domínguez Martínez  
 **Status:** In progress  
-**Live:** [![Portfolio](https://img.shields.io/badge/miriam_dominguezm.com-ffffff?style=flat&labelColor=ffffff&color=ffffff)](https://miriam-dominguezm.com)
+**Live:** [![Portfolio](https://img.shields.io/badge/miriamdominguezm.com-ffffff?style=flat&labelColor=ffffff&color=ffffff)](https://miriam-dominguezm.com)
 
 ---
 
