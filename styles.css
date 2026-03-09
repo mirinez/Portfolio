@@ -1,0 +1,377 @@
+/* ============================================================
+   PORTFOLIO — styles.css
+   ============================================================ */
+
+
+/* ── DESIGN TOKENS ───────────────────────────────────────── */
+
+:root {
+  --white:       #FFF;
+  --light-green: #C0E992;
+  --primary:     #4b9c76;
+  --dark-green:  #59896C;
+  --accent:      #59AF7D;
+  --text:        #1a1a1a;
+  --text-muted:  #6b7280;
+  --border:      #e5e7eb;
+  --surface:     #f9fafb;
+}
+
+
+/* ── RESET & BASE ────────────────────────────────────────── */
+
+*, *::before, *::after {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  font-family: 'Syne', sans-serif;
+  background: var(--white);
+  color: var(--text);
+  min-height: 100vh;
+  overflow-x: hidden;
+}
+
+
+/* ── NAVIGATION ──────────────────────────────────────────── */
+
+nav {
+  position: fixed;
+  top: 0; left: 0; right: 0;
+  z-index: 100;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 1.25rem 3rem;
+  background: rgba(255, 255, 255, 0.92);
+  backdrop-filter: blur(12px);
+  border-bottom: 1px solid var(--border);
+}
+
+/* Logo */
+.logo {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 1.1rem;
+  font-weight: 700;
+  color: var(--primary);
+  letter-spacing: -0.02em;
+}
+
+.logo span {
+  color: var(--text);
+}
+
+/* Nav links list */
+.nav-links {
+  display: flex;
+  gap: 2rem;
+  list-style: none;
+}
+
+.nav-links a {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 0.78rem;
+  color: var(--text-muted);
+  text-decoration: none;
+  letter-spacing: 0.04em;
+  transition: color 0.2s;
+}
+
+.nav-links a:hover {
+  color: var(--primary);
+}
+
+.nav-links a.active {
+  color: var(--primary);
+  border-bottom: 1.5px solid var(--accent);
+  padding-bottom: 2px;
+}
+
+/* Numbered prefix on each nav item */
+.nav-links span.num {
+  color: var(--accent);
+  margin-right: 0.3em;
+  font-size: 0.7rem;
+}
+
+
+/* ── HERO LAYOUT ─────────────────────────────────────────── */
+
+.hero {
+  min-height: 100vh;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  align-items: center;
+  padding: 6rem 3rem 3rem;
+  gap: 4rem;
+  max-width: 1400px;
+  margin: 0 auto;
+}
+
+.hero-left {
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+}
+
+
+/* ── HERO – COMMENT DECORATION ───────────────────────────── */
+
+.comment {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 0.85rem;
+  color: var(--dark-green);
+  background: var(--surface);
+  border: 1px solid var(--border);
+  padding: 0.5rem 1rem;
+  border-radius: 8px;
+  width: fit-content;
+  margin-bottom: 0.5rem;
+}
+
+
+/* ── HERO – TITLE ────────────────────────────────────────── */
+
+.hero-title {
+  font-size: clamp(2.8rem, 5vw, 4.5rem);
+  font-weight: 800;
+  line-height: 1.05;
+  letter-spacing: -0.03em;
+}
+
+/* Highlighted word with green underline */
+.hero-title .highlight {
+  color: var(--primary);
+  position: relative;
+}
+
+.hero-title .highlight::after {
+  content: '';
+  position: absolute;
+  bottom: 2px; left: 0; right: 0;
+  height: 3px;
+  background: var(--light-green);
+  border-radius: 2px;
+}
+
+/* Blinking cursor after the title */
+.cursor {
+  display: inline-block;
+  width: 3px;
+  height: 1em;
+  background: var(--accent);
+  margin-left: 4px;
+  vertical-align: middle;
+  animation: blink 1s step-end infinite;
+}
+
+@keyframes blink {
+  0%, 100% { opacity: 1; }
+  50%       { opacity: 0; }
+}
+
+
+/* ── HERO – DESCRIPTION ──────────────────────────────────── */
+
+.hero-desc {
+  font-size: 1rem;
+  color: var(--text-muted);
+  line-height: 1.7;
+  max-width: 480px;
+}
+
+.hero-desc .em {
+  color: var(--accent);
+  font-weight: 600;
+}
+
+
+/* ── HERO – STACK PILLS ──────────────────────────────────── */
+
+.stack-pills {
+  display: flex;
+  gap: 0.5rem;
+  flex-wrap: wrap;
+}
+
+.pill {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 0.72rem;
+  padding: 0.3rem 0.8rem;
+  border-radius: 100px;
+  border: 1.5px solid var(--border);
+  color: var(--text-muted);
+  background: var(--surface);
+  transition: border-color 0.2s, color 0.2s;
+}
+
+.pill:hover {
+  border-color: var(--accent);
+  color: var(--primary);
+}
+
+
+/* ── HERO – CTA BUTTONS ──────────────────────────────────── */
+
+.hero-ctas {
+  display: flex;
+  gap: 1rem;
+  flex-wrap: wrap;
+}
+
+/* Filled button */
+.btn-primary {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 0.82rem;
+  padding: 0.75rem 1.6rem;
+  background: var(--primary);
+  color: var(--white);
+  border: none;
+  border-radius: 6px;
+  cursor: pointer;
+  text-decoration: none;
+  transition: background 0.2s, transform 0.15s;
+  display: inline-block;
+}
+
+.btn-primary:hover {
+  background: var(--dark-green);
+  transform: translateY(-1px);
+}
+
+/* Outlined button */
+.btn-outline {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 0.82rem;
+  padding: 0.75rem 1.6rem;
+  background: transparent;
+  color: var(--primary);
+  border: 1.5px solid var(--primary);
+  border-radius: 6px;
+  cursor: pointer;
+  text-decoration: none;
+  transition: background 0.2s, color 0.2s, transform 0.15s;
+  display: inline-block;
+}
+
+.btn-outline:hover {
+  background: var(--primary);
+  color: var(--white);
+  transform: translateY(-1px);
+}
+
+
+/* ── CODE PANEL – VSCODE RECREATION ─────────────────────── */
+
+.hero-right {
+  position: relative;
+}
+
+.vscode-panel {
+  background: #0f1316;
+  border-radius: 12px;
+  padding: 1.4rem 1.6rem 1.4rem 0;
+  box-shadow:
+    0 0 0 1px rgba(0, 0, 0, 0.12),
+    0 24px 60px rgba(0, 0, 0, 0.18),
+    0 8px 20px rgba(0, 0, 0, 0.10);
+  overflow: hidden;
+  animation: floatUp 0.8s cubic-bezier(0.16, 1, 0.3, 1) both;
+}
+
+@keyframes floatUp {
+  from { opacity: 0; transform: translateY(24px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+
+/* Each line row */
+.vscode-line {
+  display: flex;
+  align-items: baseline;
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 0.82rem;
+  line-height: 1.75;
+  white-space: pre;
+}
+
+/* Line numbers */
+.vsc-ln {
+  min-width: 2.8rem;
+  text-align: right;
+  padding-right: 1.2rem;
+  color: #4c5158;
+  user-select: none;
+  font-size: 0.75rem;
+}
+
+/* Indentation helpers */
+.vsc-indent1 { display: inline-block; width: 1.6rem; }
+.vsc-indent2 { display: inline-block; width: 3.2rem; }
+.vsc-indent3 { display: inline-block; width: 4.8rem; }
+
+/* Syntax token colours */
+.vsc-tag  { color: #4d9db5; }                             /* <tags>        – blue teal  */
+.vsc-attr { color: #47907d; }                             /* attributes    – teal green */
+.vsc-val  { color: #5da08f; }                             /* "values"      – soft green */
+.vsc-cnt  { color: #e2ecea; }                             /* inner text    – light grey */
+.vsc-com  { color: #6b717f; font-style: italic; }         /* comments      – grey blue  */
+
+
+/* ── CODE PANEL – STATUS BADGE ───────────────────────────── */
+
+/* Badge anchored just below the panel */
+.vscode-badge {
+  position: absolute;
+  bottom: -14px; right: 24px;
+  background: var(--white);
+  border: 1.5px solid var(--border);
+  border-radius: 8px;
+  padding: 0.5rem 1rem;
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 0.68rem;
+  color: var(--text-muted);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.06);
+  display: flex;
+  align-items: center;
+  gap: 0.4rem;
+}
+
+/* Pulsing green dot inside the badge */
+.vscode-badge .dot-status {
+  width: 7px; height: 7px;
+  border-radius: 50%;
+  background: var(--accent);
+  animation: pulse 2s infinite;
+}
+
+@keyframes pulse {
+  0%, 100% { opacity: 1; transform: scale(1); }
+  50%       { opacity: 0.6; transform: scale(0.85); }
+}
+
+
+/* ── RESPONSIVE – MOBILE ─────────────────────────────────── */
+
+@media (max-width: 900px) {
+  nav {
+    padding: 1rem 1.5rem;
+  }
+
+  /* Hide nav links on small screens */
+  .nav-links {
+    display: none;
+  }
+
+  /* Stack hero columns vertically */
+  .hero {
+    grid-template-columns: 1fr;
+    padding: 5rem 1.5rem 3rem;
+    gap: 3rem;
+  }
+}
