@@ -1,9 +1,11 @@
-/* ============================================================
+/*
    PORTFOLIO — styles.css
-   ============================================================ */
+*/
 
 
-/* ── DESIGN TOKENS ───────────────────────────────────────── */
+/* ============================================================
+   1. DESIGN SYSTEM & VARIABLES
+*/
 
 :root {
   --white:       #FFF;
@@ -18,7 +20,9 @@
 }
 
 
-/* ── RESET & BASE ────────────────────────────────────────── */
+/* ============================================================
+   2. GLOBAL STYLES & LAYOUT
+*/
 
 *, *::before, *::after {
   box-sizing: border-box;
@@ -39,7 +43,9 @@ body {
 }
 
 
-/* ── NAVIGATION ──────────────────────────────────────────── */
+/* ============================================================
+    3. NAVIGATION BAR
+*/
 
 nav {
   position: fixed;
@@ -101,7 +107,9 @@ nav {
 }
 
 
-/* ── HERO LAYOUT ─────────────────────────────────────────── */
+/* ============================================================
+    4. HERO SECTION
+*/
 
 .hero {
   min-height: 100vh;
@@ -121,7 +129,9 @@ nav {
 }
 
 
-/* ── HERO – COMMENT DECORATION ───────────────────────────── */
+/* ============================================================
+    5. COMPONENTS & ELEMENTS
+*/
 
 .comment {
   font-family: 'JetBrains Mono', monospace;
@@ -136,7 +146,9 @@ nav {
 }
 
 
-/* ── HERO – TITLE ────────────────────────────────────────── */
+/* ============================================================
+    6. HERO – TITLE & HIGHLIGHTS
+*/
 
 .hero-title {
   font-size: clamp(2.8rem, 5vw, 4.5rem);
@@ -177,10 +189,13 @@ nav {
 }
 
 
-/* ── HERO – DESCRIPTION ──────────────────────────────────── */
+/* ============================================================
+    7. HERO – DESCRIPTION & EMPHASIS
+*/
 
 .hero-desc {
   font-size: 1rem;
+  font-family: 'JetBrains Mono', monospace;
   color: var(--text-muted);
   line-height: 1.7;
   max-width: 480px;
@@ -192,7 +207,9 @@ nav {
 }
 
 
-/* ── HERO – STACK PILLS ──────────────────────────────────── */
+/* ============================================================
+    8. HERO – TECHNOLOGY PILLS
+*/
 
 .stack-pills {
   display: flex;
@@ -217,7 +234,9 @@ nav {
 }
 
 
-/* ── HERO – CTA BUTTONS ──────────────────────────────────── */
+/* ============================================================
+    9. HERO – CALL TO ACTION BUTTONS
+*/
 
 .hero-ctas {
   display: flex;
@@ -266,8 +285,9 @@ nav {
   transform: translateY(-1px);
 }
 
-
-/* ── CODE PANEL – VSCODE RECREATION ─────────────────────── */
+/* ============================================================
+    10. HERO – CODE PANEL
+*/
 
 .hero-right {
   position: relative;
@@ -323,7 +343,9 @@ nav {
 .vsc-com  { color: #6b717f; font-style: italic; }         /* comments      – grey blue  */
 
 
-/* ── CODE PANEL – STATUS BADGE ───────────────────────────── */
+/* ============================================================
+    11. HERO – BADGE & STATUS
+*/
 
 /* Badge anchored just below the panel */
 .vscode-badge {
@@ -355,8 +377,21 @@ nav {
   50%       { opacity: 0.6; transform: scale(0.85); }
 }
 
+/* ============================================================
+    12. FOOTER
+*/
 
-/* ── RESPONSIVE – MOBILE ─────────────────────────────────── */
+footer {
+  text-align: center;
+  padding: 2rem 1.5rem;
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 0.78rem;
+  color: var(--text-muted);
+}
+
+/* ============================================================
+    13. RESPONSIVE DESIGN
+*/
 
 @media (max-width: 900px) {
   nav {
