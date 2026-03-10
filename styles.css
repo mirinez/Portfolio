@@ -438,12 +438,17 @@ footer {
 
 @media (max-width: 900px) {
   nav {
-    padding: 16px 24px;
+    padding: 14px 20px;
   }
 
-  /* Hide nav links on small screens */
+  /* Keep nav links visible, just compact the gap */
   .nav-links {
-    display: none;
+    display: flex;
+    gap: 12px;
+  }
+
+  .nav-links a {
+    font-size: 10px;
   }
 
   /* Stack hero columns vertically */
@@ -457,22 +462,29 @@ footer {
     overflow: hidden;
   }
 
+  /* Shrink panel content to fit the container */
   .vscode-panel {
-    padding: 16px 16px 16px 0;
+    padding: 12px 12px 12px 0;
     border-radius: 8px;
-    overflow-x: auto;
+    overflow: hidden;
   }
 
   .vscode-line {
-    font-size: 11px;
+    font-size: 9px;
     line-height: 1.6;
+    white-space: normal;
+    flex-wrap: wrap;
   }
 
   .vsc-ln {
-    min-width: 32px;
-    padding-right: 13px;
-    font-size: 10px;
+    min-width: 24px;
+    padding-right: 10px;
+    font-size: 9px;
   }
+
+  .vsc-indent1 { width: 12px; }
+  .vsc-indent2 { width: 24px; }
+  .vsc-indent3 { width: 36px; }
 
   .vscode-badge {
     position: static;
@@ -483,16 +495,34 @@ footer {
 
 /* Small screens */
 @media (max-width: 480px) {
+  nav {
+    padding: 12px 16px;
+  }
+
+  /* Stack logo and nav vertically on very small screens */
+  nav {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 8px;
+  }
+
+  .nav-links {
+    gap: 10px;
+  }
+
+  .nav-links a {
+    font-size: 9px;
+  }
+
   .hero-title {
     font-size: clamp(35px, 10vw, 48px);
   }
 
   .vscode-line {
-    font-size: 10px;
+    font-size: 8px;
   }
 
-  .vsc-indent1 { width: 16px; }
-  .vsc-indent2 { width: 32px; }
-  .vsc-indent3 { width: 48px; }
+  .vsc-indent1 { width: 10px; }
+  .vsc-indent2 { width: 20px; }
+  .vsc-indent3 { width: 30px; }
 }
-
