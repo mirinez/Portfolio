@@ -1,5 +1,5 @@
 /* 
-  styles.css | PORTFOLIO 
+  style.css | PORTFOLIO 
   Míriam Domínguez Martínez
 */
 
@@ -493,7 +493,7 @@ footer {
 
   .vscode-badge {
     position: absolute;
-    bottom: -14px;
+    bottom: 14px;  /* antes: -14px */
     right: 24px;
     width: fit-content;
   }
