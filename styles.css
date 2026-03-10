@@ -202,27 +202,19 @@ nav {
 
 /* Highlighted word with green underline */
 .hero-title .highlight {
-  color: var(--primary);
+  color: var(--dark-green);
   position: relative;
-}
-
-.hero-title .highlight::after {
-  content: '';
-  position: absolute;
-  bottom: 2px; left: 0; right: 0;
-  height: 3px;
-  background: var(--light-green);
-  border-radius: 2px;
 }
 
 /* Blinking cursor after the title */
 .cursor {
   display: inline-block;
-  width: 3px;
-  height: 1em;
+  width: 2.8px;
+  height: 1cap;                  /* Matches the height of the text line */
   background: var(--accent);
   margin-left: 4px;
-  vertical-align: middle;
+  margin-bottom:  0.28cap;       /* Adjusts vertical position to align with text baseline */
+  vertical-align: middle;        /* Aligns the cursor with the text baseline */
   animation: blink 1s step-end infinite;
 }
 
@@ -441,6 +433,11 @@ footer {
     padding: 14px 20px;
   }
 
+  .cursor {
+    height: 1cap;
+    margin-bottom: 0.26cap;
+  }
+
   /* Keep nav links visible, just compact the gap */
   .nav-links {
     display: flex;
@@ -497,6 +494,11 @@ footer {
 @media (max-width: 480px) {
   nav {
     padding: 12px 16px;
+  }
+
+  .cursor {
+    height: 1cap;
+    margin-bottom: 0.28cap;
   }
 
   /* Stack logo and nav vertically on very small screens */
