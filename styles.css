@@ -457,10 +457,6 @@ footer {
     overflow: visible;
   }
 
-  .hero-right {
-    overflow: hidden;
-  }
-
   /* Shrink panel content to fit the container */
   .vscode-panel {
     padding: 12px 12px 12px 0;
