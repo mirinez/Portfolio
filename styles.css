@@ -487,11 +487,16 @@ footer {
   .vsc-indent2 { width: 24px; }
   .vsc-indent3 { width: 36px; }
 
-  /* Stick the badge closer to the panel */
+  .hero-right {
+    position: relative;
+    padding-bottom: 28px; /* Add bottom padding to create space for the badge */
+  }
+
   .vscode-badge {
-    position: static;
-    margin-top: 6px;
-    width: fit-content;
+    position: absolute; /* Keep the badge anchored to the bottom right of the panel */
+    bottom: -14px;      /* Keep the badge just below the panel */
+    right: 0;
+    width: fit-content; /* Allow the badge to shrink to fit its content */
   }
 }
 
