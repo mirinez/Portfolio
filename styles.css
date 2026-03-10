@@ -464,6 +464,10 @@ footer {
     padding: 12px 12px 12px 0;
     border-radius: 8px;
     overflow: hidden;
+    box-shadow:
+      0 0 0 1px rgba(0, 0, 0, 0.12),
+      0 6px 16px rgba(0, 0, 0, 0.18),
+      0 2px 6px rgba(0, 0, 0, 0.10);
   }
 
   .vscode-line {
@@ -483,9 +487,10 @@ footer {
   .vsc-indent2 { width: 24px; }
   .vsc-indent3 { width: 36px; }
 
+  /* Stick the badge closer to the panel */
   .vscode-badge {
     position: static;
-    margin-top: 16px;
+    margin-top: 6px;
     width: fit-content;
   }
 }
