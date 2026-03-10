@@ -1,5 +1,6 @@
-/*
-   PORTFOLIO — styles.css
+/* 
+  style.css | PORTFOLIO 
+  Míriam Domínguez Martínez
 */
 
 /* ============================================================
@@ -453,6 +454,7 @@ footer {
     grid-template-columns: 1fr;
     padding: 80px 24px 48px;
     gap: 48px;
+    overflow: visible;
   }
 
   .hero-right {
@@ -489,15 +491,17 @@ footer {
 
   .hero-right {
     position: relative;
-    padding-bottom: 28px; /* Add bottom padding to create space for the badge */
+    padding-bottom: 40px;
+    overflow: visible;
   }
 
   .vscode-badge {
-    position: absolute; /* Keep the badge anchored to the bottom right of the panel */
-    bottom: -14px;      /* Keep the badge just below the panel */
-    right: 0;
-    width: fit-content; /* Allow the badge to shrink to fit its content */
+    position: absolute;
+    bottom: -14px;
+    right: 24px;
+    width: fit-content;
   }
+
 }
 
 /* Small screens */
