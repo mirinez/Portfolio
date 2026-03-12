@@ -64,7 +64,7 @@
 }
 
 /* ============================================================
-   1b. DARK MODE VARIABLES
+   1.1. DARK MODE VARIABLES
 */
 
 [data-theme="dark"] {
@@ -277,7 +277,7 @@ nav {
 }
 
 /* ============================================================
-    6. HERO – TITLE & HIGHLIGHTS
+    6. HERO TITLE & HIGHLIGHTS
 */
 
 .hero-title {
@@ -313,7 +313,7 @@ nav {
 
 
 /* ============================================================
-    7. HERO – DESCRIPTION & EMPHASIS
+    7. HERO DESCRIPTION & EMPHASIS
 */
 
 .hero-desc {
@@ -331,7 +331,7 @@ nav {
 
 
 /* ============================================================
-    8. HERO – TECHNOLOGY PILLS
+    8. HERO TECHNOLOGY PILLS
 */
 
 .stack-pills {
@@ -358,7 +358,7 @@ nav {
 
 
 /* ============================================================
-    9. HERO – CALL TO ACTION BUTTONS
+    9. HERO CALL TO ACTION BUTTONS
 */
 
 .hero-ctas {
@@ -409,7 +409,7 @@ nav {
 }
 
 /* ============================================================
-    10. HERO – CODE PANEL
+    10. HERO CODE PANEL
 */
 
 .hero-right {
@@ -467,7 +467,7 @@ nav {
 
 
 /* ============================================================
-    11. HERO – BADGE & STATUS
+    11. HERO BADGE & STATUS
 */
 
 /* Badge anchored just below the panel */
@@ -513,134 +513,7 @@ footer {
 }
 
 /* ============================================================
-    13. RESPONSIVE DESIGN
-*/
-
-@media (max-width: 900px) {
-  nav {
-    padding: 14px 20px;
-  }
-
-  .cursor {
-    height: 1cap;
-    margin-bottom: 0.26cap;
-  }
-
-  /* Keep nav links visible, just compact the gap */
-  .nav-links {
-    display: flex;
-    gap: 12px;
-  }
-
-  .nav-links a {
-    font-size: 10px;
-  }
-
-  /* Stack hero columns vertically */
-  .hero {
-    grid-template-columns: 1fr;
-    padding: 80px 24px 48px;
-    gap: 48px;
-    overflow: visible;
-  }
-
-  /* Shrink panel content to fit the container */
-  .vscode-panel {
-    padding: 12px 12px 12px 0;
-    border-radius: 8px;
-    overflow: hidden;
-    box-shadow:
-      0 0 0 1px rgba(0, 0, 0, 0.12),
-      0 6px 16px rgba(0, 0, 0, 0.18),
-      0 2px 6px rgba(0, 0, 0, 0.10);
-  }
-
-  .vscode-line {
-    font-size: 9px;
-    line-height: 1.6;
-    white-space: normal;
-    flex-wrap: wrap;
-  }
-
-  .vsc-ln {
-    min-width: 24px;
-    padding-right: 10px;
-    font-size: 9px;
-  }
-
-  .vsc-indent1 { width: 12px; }
-  .vsc-indent2 { width: 24px; }
-  .vsc-indent3 { width: 36px; }
-
-  .hero-right {
-    position: relative;
-    padding-bottom: 40px;
-    overflow: visible;
-  }
-
-  .vscode-badge {
-    position: absolute;
-    bottom: 14px;  /* antes: -14px */
-    right: 24px;
-    width: fit-content;
-  }
-
-  .section-about {
-    padding: 80px 24px 60px;
-  }
-
-  .about-grid {
-    grid-template-columns: 1fr;
-    gap: 40px;
-  }
-
-  .about-principles {
-    position: static;
-  }
-
-}
-
-/* Small screens */
-@media (max-width: 480px) {
-  nav {
-    padding: 12px 16px;
-  }
-
-  .cursor {
-    height: 1cap;
-    margin-bottom: 0.28cap;
-  }
-
-  /* Stack logo and nav vertically on very small screens */
-  nav {
-    flex-direction: column;
-    align-items: flex-start;
-    gap: 8px;
-  }
-
-  .nav-links {
-    gap: 10px;
-  }
-
-  .nav-links a {
-    font-size: 9px;
-  }
-
-  .hero-title {
-    font-size: clamp(35px, 10vw, 48px);
-  }
-
-  .vscode-line {
-    font-size: 8px;
-  }
-
-  .vsc-indent1 { width: 10px; }
-  .vsc-indent2 { width: 20px; }
-  .vsc-indent3 { width: 30px; }
-}
-
-/* ============================================================
-   14. SECTION – SHARED LAYOUT
+   13. SECTION – SHARED LAYOUT
 */
 
 .section-about,
@@ -690,7 +563,7 @@ footer {
 
 
 /* ============================================================
-   15. SECTION – ABOUT ME
+   14. SECTION – ABOUT ME
 */
 
 .about-grid {
@@ -768,4 +641,146 @@ footer {
   color: var(--accent);
   font-size: 10px;
   top: 2px;
+}
+
+/* ============================================================
+    15. RESPONSIVE DESIGN
+*/
+
+@media (max-width: 900px) {
+
+  /* Nav wraps into two rows: logo+toggle on top / links below */
+  nav {
+    padding: 14px 20px;
+    flex-wrap: wrap;
+    gap: 8px;
+  }
+
+  .cursor {
+    height: 1cap;
+    margin-bottom: 0.26cap;
+  }
+
+  /* Toggle sits to the right of the logo on the first row */
+  .theme-toggle {
+    margin-left: auto;
+  }
+
+  /* Nav links drop to a second row and wrap if needed */
+  .nav-links {
+    order: 2;
+    width: 100%;
+    display: flex;
+    gap: 12px;
+    flex-wrap: wrap;
+  }
+
+  .nav-links a {
+    font-size: 10px;
+  }
+
+  /* Stack hero columns vertically */
+  .hero {
+    grid-template-columns: 1fr;
+    padding: 100px 24px 48px;   /* Extra top padding to clear the taller two-row nav */
+    gap: 48px;
+    overflow: visible;
+  }
+
+  /* Shrink panel content to fit the container */
+  .vscode-panel {
+    padding: 12px 12px 12px 0;
+    border-radius: 8px;
+    overflow: hidden;
+    box-shadow:
+      0 0 0 1px rgba(0, 0, 0, 0.12),
+      0 6px 16px rgba(0, 0, 0, 0.18),
+      0 2px 6px rgba(0, 0, 0, 0.10);
+  }
+
+  .vscode-line {
+    font-size: 9px;
+    line-height: 1.6;
+    white-space: normal;
+    flex-wrap: wrap;
+  }
+
+  .vsc-ln {
+    min-width: 24px;
+    padding-right: 10px;
+    font-size: 9px;
+  }
+
+  .vsc-indent1 { width: 12px; }
+  .vsc-indent2 { width: 24px; }
+  .vsc-indent3 { width: 36px; }
+
+  .hero-right {
+    position: relative;
+    padding-bottom: 40px;
+    overflow: visible;
+  }
+
+  .vscode-badge {
+    position: absolute;
+    bottom: 14px;  /* antes: -14px */
+    right: 24px;
+    width: fit-content;
+  }
+
+  /* About section – single column on tablet */
+  .section-about {
+    padding: 80px 24px 60px;
+  }
+
+  .about-grid {
+    grid-template-columns: 1fr;  /* Stack left and right columns */
+    gap: 40px;
+  }
+
+  .about-principles {
+    position: static;            /* Remove sticky on mobile */
+    width: 100%;
+  }
+
+}
+
+/* Small screens */
+@media (max-width: 480px) {
+
+  /* Nav stays as two rows but tighter */
+  nav {
+    padding: 12px 16px;
+    flex-wrap: wrap;
+    gap: 8px;
+  }
+
+  .cursor {
+    height: 1cap;
+    margin-bottom: 0.28cap;
+  }
+
+  .nav-links {
+    order: 2;
+    width: 100%;
+    gap: 10px;
+    flex-wrap: wrap;
+  }
+
+  .nav-links a {
+    font-size: 9px;
+  }
+
+  .hero-title {
+    font-size: clamp(35px, 10vw, 48px);
+  }
+
+  .vscode-line {
+    font-size: 8px;
+  }
+
+  .vsc-indent1 { width: 10px; }
+  .vsc-indent2 { width: 20px; }
+  .vsc-indent3 { width: 30px; }
+
 }
