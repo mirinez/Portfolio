@@ -25,7 +25,7 @@
 
 @font-face {
   font-family: 'Source Code Pro';                             /* Code panel font – editor-style */
-  src: url('./font/SourceCodePro-Regular_ttf.woff2') format('woff2');
+  src: url('./font/SourceCodePro-Regular.ttf.woff2') format('woff2');
   font-weight: 400;
   font-style: normal;
   font-display: swap;
@@ -33,7 +33,7 @@
 
 @font-face {
   font-family: 'Source Code Pro';
-  src: url('./font/SourceCodePro-Bold_ttf.woff2') format('woff2');
+  src: url('./font/SourceCodePro-Bold.ttf.woff2') format('woff2');
   font-weight: 700;
   font-style: normal;
   font-display: swap;
