@@ -243,6 +243,7 @@ nav {
   padding: 8px 16px;
   border-radius: 8px;
   width: fit-content;
+  max-width: 480px;               /* Match hero-desc max-width for visual alignment */
   margin-bottom: 8px;
 }
 
