@@ -808,3 +808,50 @@ footer {
   .vsc-indent2 { width: 20px; }
   .vsc-indent3 { width: 30px; }
 }
+
+/* Extra small screens – 360px and below */
+@media (max-width: 360px) {
+  nav {
+    padding: 10px 12px;
+  }
+
+  /* Shrink nav links to fit single row with logo + toggle */
+  .nav-links a {
+    font-size: 7px;
+  }
+
+  .nav-links span.num {
+    font-size: 7px;
+  }
+
+  .hero {
+    padding: 72px 12px 40px;      /* Tighter side padding on very small screens */
+  }
+
+  .hero-title {
+    font-size: clamp(28px, 9vw, 38px);
+  }
+
+  .hero-desc {
+    font-size: 13px;
+  }
+
+  .comment {
+    font-size: 12px;
+    padding: 6px 12px;
+  }
+
+  .btn-primary,
+  .btn-outline {
+    font-size: 11px;
+    padding: 10px 18px;
+  }
+
+  .vscode-mini {
+    font-size: 10px;
+  }
+
+  .section-about {
+    padding: 60px 12px 40px;
+  }
+}
