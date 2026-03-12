@@ -22,13 +22,18 @@
     <div class="logo">{<span>M</span>}</div>
 
     <ul class="nav-links">
-      <li><a href="#"><span class="num">01.</span>about_me</a></li>
-      <li><a href="#"><span class="num">02.</span>projects</a></li>
-      <li><a href="#"><span class="num">03.</span>philosophy</a></li>
-      <li><a href="#"><span class="num">04.</span>contact_me</a></li>
+      <li><a href="#about"><span class="num">01.</span>about_me</a></li>
+      <li><a href="#education"><span class="num">02.</span>education</a></li>
+      <li><a href="#projects"><span class="num">03.</span>projects</a></li>
+      <li><a href="#philosophy"><span class="num">04.</span>philosophy</a></li>
+      <li><a href="#contact"><span class="num">05.</span>contact_me</a></li>
     </ul>
-  </nav>
 
+    <!-- Dark mode toggle -->
+    <button class="theme-toggle" id="themeToggle" aria-label="Toggle dark mode">
+      <span class="theme-icon">◐</span>
+    </button>
+  </nav>
 
   <!-- ══════════════════════════════════════════════════════
        HERO SECTION
@@ -40,19 +45,23 @@
 
       <!-- Terminal decoration -->
       <div>
-        <div class="comment">// Learning the craft of code as a form of modern magic</div>
+        <div class="comment">
+          // Every project is part of the spell, 
+          every <span class="glitching-text">bug</span> is part of the <span class="glitching-text">ritual</span>
+        </div>
       </div>
 
       <!-- Main title -->
       <h1 class="hero-title">
-      Full<br>
-        Stack<br>
-        WEB DEV<span class="cursor"></span>
+        Full<br>
+        <span class="highlight">Stack</span><br>
+        WEB DEV <span class="cursor"></span>
       </h1>
 
       <!-- Short description -->
       <p class="hero-desc">
-        Aspiring Full Stack Web Developer, currently studying and building every day.
+        Full Stack Web Developer in progress with background in IT Systems & Networks. 
+        I build things that work beyond the code.
       </p>
 
       <!-- Tech stack pills -->
@@ -65,8 +74,8 @@
 
       <!-- Action buttons -->
       <div class="hero-ctas">
-        <a href="#" class="btn-primary">view projects →</a>
-        <a href="#" class="btn-outline">let's conect!</a>
+        <a href="#projects" class="btn-primary">view projects →</a>
+        <a href="#contact" class="btn-outline">let's connect!</a>
       </div>
 
     </div>
@@ -118,11 +127,93 @@
   </section>
 
   <!-- ══════════════════════════════════════════════════════
+       PAGE NAV SECTIONS
+  -->
+
+  <!-- ABOUT -->
+  <section id="about" class="section-about">
+
+  <!-- Section header -->
+    <div class="section-header">
+      <span class="section-num">01</span>
+      <h2 class="section-title">about_me<span class="section-dot">.</span></h2>
+      <div class="section-line"></div>
+    </div>
+
+  <!-- Content grid -->
+    <div class="about-grid">
+
+      <!-- Left: prose -->
+      <div class="about-left">
+        <p class="about-lead">
+          I'm not just learning to write code. I come from a background in
+          <strong>IT Systems and Network Administration</strong>, which means I understand
+          how things work before they ever reach the browser.
+        </p>
+
+        <p class="about-body">
+          Currently based in Germany and focused on Full Stack Web Development —
+          working daily with HTML, CSS, JavaScript, and backend fundamentals.
+          My infrastructure roots give me a different lens: I think in
+          <strong>systems, not just components</strong>.
+        </p>
+
+        <p class="about-body">
+          <strong><em>"Learning the craft of code as a form of modern magic."</em></strong>
+        </p>
+      </div>
+
+      <!-- Right: principles list -->
+      <div class="about-right">
+        <div class="about-principles">
+          <span class="principles-label">// Principles</span>
+          <ul class="principles-list">
+            <li>Curiosity over comfort</li>
+            <li>Clean code is a form of respect</li>
+            <li>Comments are love letters to future you</li>
+            <li>Build it - break it - learn it</li>
+          </ul>
+        </div>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- EDUCATION -->
+  <section id="education" class="section-education">
+
+
+  </section>
+
+  <!-- PROJECTS -->
+  <section id="projects" class="section-projects">
+
+
+  </section>
+
+  <!-- PHILOSOPHY -->
+  <section id="philosophy" class="section-philosophy">
+
+
+  </section>
+
+  <!-- CONTACT -->
+  <section id="contact" class="section-contact">
+
+
+  </section>
+
+  <!-- ══════════════════════════════════════════════════════
        FOOTER SECTION
   -->
   <footer>
     <p>&copy; 2026 Designed & coded by Míriam Domínguez Martínez</p>
   </footer>
+
+  <!-- ══════════════════════════════════════════════════════
+       SCRIPTS
+  -->
+  <script src="script.js"></script>
 
 </body>
 </html>
