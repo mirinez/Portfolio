@@ -9,7 +9,7 @@
 
 ### About
 
-Personal portfolio website built with HTML and CSS. Designed to be minimal, clean, and developer-flavoured — featuring a recreated VSCode panel as the hero visual.    
+Personal portfolio website built with HTML - CSS - JavaScript. Designed to be minimal, with "dark mode", clean, and developer-flavoured, featuring a recreated VSCode panel as the hero visual.    
 
 ---
 
