@@ -72,7 +72,7 @@
 }
 
 /* ============================================================
-   1b. DARK MODE VARIABLES
+   1.1. DARK MODE VARIABLES
 */
 
 [data-theme="dark"] {
@@ -772,7 +772,7 @@ footer {
   }
 
   .vscode-line {
-    font-size: 8px;
+    font-size: 4px;
   }
 
   .vsc-indent1 { width: 10px; }
