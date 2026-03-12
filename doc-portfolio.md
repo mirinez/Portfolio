@@ -70,7 +70,7 @@ The HTML file as the skeleton of the style. It is organized into well-defined se
 
 **Left column:** 
 
-![](code.png)
+![](/doc-port-img/code.png)
 
 *Here I put a short description, my title, and anchor a couple of glitch animations to two words that I then anchor in the CSS.*
 
@@ -84,13 +84,13 @@ The HTML file as the skeleton of the style. It is organized into well-defined se
 
 Here there are two code panels, the one shown on computers and the one shown on other devices, which is a mini code panel. Later, using CSS, I will hide each one respectively, so that on mobile phones and other screens only a mini code panel is visible, and on computers the original complete panel with more text is visible.
 
-![](image%202.png)
+![](/doc-port-img/image%202.png)
 
-![](image%203.png)
+![](/doc-port-img/image%203.png)
 
 **Mini code panel:** 
 
-![](image%204.png)
+![](/doc-port-img/image%204.png)
 
 *The syntax classes of the VSCode panel follow the color palette of a typical dark theme in both panels:*
 
@@ -107,19 +107,19 @@ Here there are two code panels, the one shown on computers and the one shown on 
 
 **Code panel:**
 
-![](image%205.png)
+![](/doc-port-img/image%205.png)
 
 *Also, superimposed below the code panel, both the mini and the main one, I have a speech bubble with **HTML - No errors** and a flashing green dot.*
 
-![](image%206.png)
+![](/doc-port-img/image%206.png)
 
 - **About Me section**
 
 The section header always follows the same pattern: large decorative number + title in **JetBrains Mono** + flexible horizontal line that occupies the remaining space. The final dot has the class .section-dot to color it green independently.
 
-![](image%207.png)
+![](/doc-port-img/image%207.png)
 
-![](image%208.png)
+![](/doc-port-img/image%208.png)
 
 *The list of **Principles** disappears on mobile devices thanks to CSS**,** due to a design decision.*
 
@@ -150,7 +150,7 @@ The styles file is organized into 15 numbered sections. It uses CSS variables (c
 
 *font-display: swap prevents "flash of invisible text" (FOIT) and improves the perception of speed.*
 
-![](image%209.png)
+![](/doc-port-img/image%209.png)
 
 - **Variable system**
 
@@ -158,29 +158,29 @@ All color decisions are centralized in :root variables. This allows you to chang
 
 **Light or original mode variables:**
 
-![](image%2010.png)
+![](/doc-port-img/image%2010.png)
 
 **Dark mode variables:**
 
-![](image%2011.png)
+![](/doc-port-img/image%2011.png)
 
 *Dark mode is activated by adding data-theme="dark" to the <body> element using JavaScript. By overriding the same variables, **all elements on the site change automatically** without the need to duplicate CSS rules.*
 
 - **Global reset and base styles**
 
-![](image%2012.png)
+![](/doc-port-img/image%2012.png)
 
 - **Navigation**
 
 ***backdrop-filter: blur(12px)** creates the "glassmorphism" effect—content behind the navigation bar appears blurred. The background must be **semi-transparent (rgba with alpha < 1)** for this to work.*
 
-![](image%2013.png)
+![](/doc-port-img/image%2013.png)
 
-![](image%2014.png)
+![](/doc-port-img/image%2014.png)
 
 - **Hero, two-column layout**
 
-![](image%2015.png)
+![](/doc-port-img/image%2015.png)
 
 - **CSS animations**
 
@@ -188,19 +188,19 @@ The terms **"bug"** and **"ritual"** in the hero comment on the home page have a
 
 *The glitch only occurs between 90% and 100% of the cycle; 90% of the time the text is still, which makes the effect more striking and less visually tiring.*
 
-![](image%2016.png)
+![](/doc-port-img/image%2016.png)
 
-![](image%2017.png)
+![](/doc-port-img/image%2017.png)
 
 **.comment in** a box
 
 Cursor flashing at the end of the Full Stack Web Dev title.
 
-![](image%2018.png)
+![](/doc-port-img/image%2018.png)
 
 ***step-end** instead of **ease** makes the blinking instantaneous (on/off), like a real terminal cursor.*
 
-![](image%2019.png)
+![](/doc-port-img/image%2019.png)
 
 And then we have the pulsing dot in the **HTML - No errors** box we talked about earlier, which also maintains an infinite 2-second pulse.
 
@@ -208,27 +208,26 @@ And then we have the pulsing dot in the **HTML - No errors** box we talked about
 
 ***clamp()** is a modern CSS function that allows you to define a fluid size between a minimum and a maximum. The font size grows with the viewport but never exceeds the defined limits, without the need for media queries for typography.*
 
-![](image%2020.png)
+![](/doc-port-img/image%2020.png)
 
 - **Technology pills and buttons**
 
-![](image%2021.png)
+![](/doc-port-img/image%2021.png)
 
-![](image%2022.png)
+![](/doc-port-img/image%2022.png)
 
 - **VSCode panel**
 
-![](image%2023.png)
+![](/doc-port-img/image%2023.png)
 
-![](image%2024.png)
+![](/doc-port-img/image%2024.png)
 
 - **About Me section**
 
 ***position: sticky** on the principles card means that when you scroll down in the "about" section, the card remains visible within its parent container. It's an elegant technique for keeping contextual information visible.*
 
-![](image%2025.png)
-
-![](image%2026.png)
+![](/doc-port-img/image%2025.png)
+![](/doc-port-img/image%2026.png)
 
 - **Responsive design**
 
@@ -244,11 +243,11 @@ I have three main breakpoints, from largest to smallest:
 
 The important thing is the **hide function**, which I have applied to both the main panel and **the code panel** so that they are hidden and the small **minicode panel**, designed specifically for mobile devices, is displayed. I have also hidden the **Principles** list, as I mentioned earlier.
 
-![](image%2027.png)
+![](/doc-port-img/image%2027.png)
 
  *I've had a lot of problems with the **minicode panel**, such as it not hiding in the computer version and being visible under the original code panel, or not being directly visible on mobile devices, the lines of code being cut off, etc. I've had to try both **padding** and **space**, as well as learning how **overflows** work  in order to adjust it to my needs. Then I had to create **extra padding for the code line numbers** within the minicode panel (which I didn't do in the main code panel) to add some margin, as they were cut off on the left.*
 
-![](image%2028.png)
+![](/doc-port-img/image%2028.png)
 
 ---
 
@@ -256,7 +255,7 @@ The important thing is the **hide function**, which I have applied to both the m
 
 The JavaScript file is deliberately minimal and vanilla because I'm still studying this section. At this point in the project, its only responsibility is to manage the switch between light mode and dark mode, with persistence via localStorage, which I learned about through searches on Reddit.
 
-![](image%2029.png)
+![](/doc-port-img/image%2029.png)
 
 Basically, what it does is first check if there is a preference saved in localStorage. Then it automatically applies or does not apply the **dark theme** as soon as the user enters the page.
 
