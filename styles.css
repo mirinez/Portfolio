@@ -509,6 +509,11 @@ nav {
   50%       { opacity: 0.6; transform: scale(0.85); }
 }
 
+/* Mobile mini panel – hidden on desktop, activated in media query below */
+.vscode-mini {
+  display: none;
+}
+
 /* ============================================================
     12. FOOTER
 */
@@ -660,6 +665,25 @@ footer {
 @media (max-width: 900px) {
   nav {
     padding: 14px 20px;
+    flex-wrap: wrap;
+    gap: 8px;
+  }
+
+  /* Toggle sits next to logo – links wrap to second row */
+  .theme-toggle {
+    margin-left: auto;
+  }
+
+  .nav-links {
+    order: 2;                     /* Links pushed below logo + toggle row */
+    width: 100%;
+    display: flex;
+    gap: 12px;
+    flex-wrap: wrap;
+  }
+
+  .nav-links a {
+    font-size: 10px;
   }
 
   .cursor {
@@ -667,63 +691,51 @@ footer {
     margin-bottom: 0.26cap;
   }
 
-  /* Keep nav links visible, just compact the gap */
-  .nav-links {
-    display: flex;
-    gap: 12px;
-  }
-
-  .nav-links a {
-    font-size: 10px;
-  }
-
   /* Stack hero columns vertically */
   .hero {
     grid-template-columns: 1fr;
     padding: 80px 24px 48px;
     gap: 48px;
-    overflow: visible;
+    overflow: hidden;
+    width: 100%;                  /* Fill full viewport width on mobile */
+    max-width: 100%;              /* Override 1400px desktop max-width */
+    margin: 0;                    /* Remove auto centering that misaligns on mobile */
   }
 
-  /* Shrink panel content to fit the container */
-  .vscode-panel {
-    padding: 12px 12px 12px 0;
+  /* Hide full panel and right column entirely on mobile */
+  .hero-right {
+    display: none;
+  }
+
+  /* Show mini panel inside hero-left instead */
+  .vscode-mini {
+    display: flex;
+    flex-direction: column;
+    background: #0f1316;
     border-radius: 8px;
-    overflow: hidden;
+    padding: 16px 16px 16px 0;
+    font-family: 'Source Code Pro', 'JetBrains Mono', monospace;
+    font-size: 12px;
+    overflow: hidden;             /* Clip lines that exceed container width */
     box-shadow:
       0 0 0 1px rgba(0, 0, 0, 0.12),
-      0 6px 16px rgba(0, 0, 0, 0.18),
-      0 2px 6px rgba(0, 0, 0, 0.10);
+      0 6px 16px rgba(0, 0, 0, 0.18);
   }
 
-  .vscode-line {
-    font-size: 9px;
-    line-height: 1.6;
-    white-space: normal;
-    flex-wrap: wrap;
+  /* Clip long lines inside the mini panel */
+  .vscode-mini .vscode-line {
+    overflow: hidden;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+    max-width: 100%;
+    display: block;               /* Override flex to allow text-overflow */
   }
 
-  .vsc-ln {
-    min-width: 24px;
-    padding-right: 10px;
-    font-size: 9px;
-  }
-
-  .vsc-indent1 { width: 12px; }
-  .vsc-indent2 { width: 24px; }
-  .vsc-indent3 { width: 36px; }
-
-  .hero-right {
-    position: relative;
-    padding-bottom: 40px;
-    overflow: visible;
-  }
-
-  .vscode-badge {
-    position: absolute;
-    bottom: 14px;  /* antes: -14px */
-    right: 24px;
-    width: fit-content;
+  /* Extra left padding on line numbers inside mini panel */
+  .vscode-mini .vsc-ln {
+    min-width: 36px;
+    padding-left: 12px;
+    padding-right: 12px;
   }
 
   .section-about {
@@ -743,8 +755,39 @@ footer {
 
 /* Small screens */
 @media (max-width: 480px) {
+  .hero {
+    width: 100%;
+    max-width: 100%;
+    margin: 0;
+    padding: 80px 16px 48px;     /* Reduce side padding on very small screens */
+  }
+  
   nav {
     padding: 12px 16px;
+    flex-wrap: wrap;
+    gap: 8px;
+  }
+
+  /* Toggle stays right of logo, links wrap to second row */
+  .theme-toggle {
+    margin-left: auto;
+  }
+
+  .nav-links {
+    order: 2;
+    width: 100%;
+    display: flex;
+    gap: 8px;
+    flex-wrap: wrap;
+  }
+
+  .nav-links a {
+    font-size: 8px;
+    letter-spacing: 0;
+  }
+
+  .nav-links span.num {
+    font-size: 8px;
   }
 
   .cursor {
@@ -752,27 +795,12 @@ footer {
     margin-bottom: 0.28cap;
   }
 
-  /* Stack logo and nav vertically on very small screens */
-  nav {
-    flex-direction: column;
-    align-items: flex-start;
-    gap: 8px;
-  }
-
-  .nav-links {
-    gap: 10px;
-  }
-
-  .nav-links a {
-    font-size: 9px;
-  }
-
   .hero-title {
     font-size: clamp(35px, 10vw, 48px);
   }
 
   .vscode-line {
-    font-size: 4px;
+    font-size: 10px;
   }
 
   .vsc-indent1 { width: 10px; }
