@@ -19,6 +19,7 @@ Personal portfolio website built with HTML and CSS. Designed to be minimal, clea
 /
 ├── index.html
 ├── styles.css
+├── script.js
 ├── README.md
 ├── CNAME
 ├── gif/
