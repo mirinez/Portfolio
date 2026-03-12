@@ -1,30 +1,36 @@
-# Portfolio
+## {M} Portfolio - Technical Documentation
 
-**{M} Technical Documentation of the Portfolio**
+**Míriam Domínguez Martínez** · Full Stack Web Developer · 2026
 
-Míriam Domínguez Martínez - *Full Stack Web Developer · 2026*
+> Portfolio online: [miriam-dominguezm.com](https://miriam-dominguezm.com/)
 
 ---
 
-1. **Introduction**
+### Table of Contents
 
-This document contains the technical documentation for my personal portfolio. The project has been developed using pure web technologies, **HTML, CSS, and vanilla JavaScript**, without any additional frameworks at this time, with a focus on learning, good documentation of my code, responsive design, and clean aesthetics.
+1. [Introduction](#1-introduction)
+2. [index.html - Structure](#2-indexhtml--structure)
+3. [styles.css - Styles](#3-stylescss--styles)
+4. [script.js - Interactivity](#4-scriptjs--interactivity)
 
-The portfolio is available online at: [miriam-dominguezm.com](https://miriam-dominguezm.com/)
+---
 
-**Project objective:** to create an online presence that reflects my technical and creative personality, as well as being clean and organized, with nods to the development ecosystem (VSCode, monospace, dark mode) and that works perfectly on any device.
+## 1. Introduction
 
-**The file structure is as follows:**
+This document contains the technical documentation for my personal portfolio. The project has been developed using pure web technologies **HTML, CSS, and vanilla JavaScript** without any additional frameworks, with a focus on learning, thorough code documentation, responsive design, and clean aesthetics.
+
+**Project objective:** to create an online presence that reflects my technical and creative personality, clean, organized, with nods to the development ecosystem (VSCode aesthetics, monospace fonts, dark mode) and that works perfectly on any device.
+
+### File Structure
 
 ```
 /
-
-├── index.html       
-├── styles.css      
-├── script.js         → Interactivity (light/dark theme)
-├── [README.md](http://readme.md/)    
-├── CNAME             → Custom domain for GitHub Pages
-├── font/             
+├── index.html                        → Main structure
+├── styles.css                        → Styles and design system
+├── script.js                         → Interactivity (light/dark theme)
+├── README.md
+├── CNAME                             → Custom domain for GitHub Pages
+├── font/
 │   ├── JetBrainsMono-Regular.woff2
 │   ├── JetBrainsMono-Bold.woff2
 │   ├── SourceCodePro-Regular.ttf.woff2
@@ -32,256 +38,209 @@ The portfolio is available online at: [miriam-dominguezm.com](https://miriam-dom
 │   ├── SpaceMono-Regular.ttf
 │   └── SpaceMono-Bold.ttf
 └── img/
-├── code.png
-├── colors.png
-├── colors-dark.png
-└── template.png
+    ├── code.png
+    ├── colors.png
+    ├── colors-dark.png
+    └── template.png
+```
+
+---
+
+## 2. index.html - Structure
+
+The HTML file is the skeleton of the project. It is organized into well-defined semantic sections with comments that facilitate navigation through the code.
+
+### `<head>`
+
+Configures charset, viewport for responsiveness, page title, and external resources (favicon, CSS).
+
+- `charset="UTF-8"` - ensures special characters like the **í** in the name render correctly
+- `viewport` meta tag - essential for responsive design to work on mobile devices
+- Local font and favicon links - no external dependencies
+
+### `<nav>` - Navigation
+
+Fixed navigation bar (`position: fixed`) containing the logo, section links, and theme toggle.
+
+| Element | Description |
+|---|---|
+| `.logo` | Displays `{M}` - the letter M in dark text, brackets in green, symbolizing a function/object |
+| `.nav-links` | List of 5 links anchoring to sections (`href="#id"`), each with a `span.num` in green |
+| `#themeToggle` | Button that activates dark mode. `aria-label` improves accessibility for screen readers |
+| `.theme-icon` | Symbol `◐` (light mode) that changes to `○` in dark mode - logic handled in `script.js` |
+
+### `<section class="hero">` - Hero Section
+
+Occupies 100% of the viewport (`min-height: 100vh`) and is divided into two columns.
+
+#### Left column - Main content
+
+| Element | Description |
+|---|---|
+| `.comment` | Text box simulating a code comment. `span.glitching-text` applies the glitch animation to "bug" and "ritual" |
+| `.hero-title` | `<h1>` in Space Mono. `.highlight` colors the word "Stack". `span.cursor` generates the blinking cursor with CSS |
+| `.stack-pills` | Flex container with tech pills (HTML, CSS, JavaScript, React) |
+| `.hero-ctas` | Two CTAs: `btn-primary` (green fill) and `btn-outline` (green border) |
+| `.vscode-mini` | Simplified code panel — **only visible on mobile**, hidden on desktop via CSS |
+
+#### Right column - VSCode panel
+
+Full panel simulating a code editor, visible only on desktop screens (hidden on mobile via CSS, replaced by `.vscode-mini`).
+
+**Syntax color classes** (inspired by a dark VSCode theme):
+
+| Class | Element | Color |
+|---|---|---|
+| `.vsc-ln` | Line numbers | Gray `#636D83` |
+| `.vsc-tag` | HTML tags | Red/pink `#e06c75` |
+| `.vsc-attr` | Attributes | Orange `#d19a66` |
+| `.vsc-val` | Attribute values | Light green `#5da08f` |
+| `.vsc-cnt` | Text content | Light gray `#e2ecea` |
+| `.vsc-com` | HTML comments | Blue-gray italic `#6b717f` |
+
+`.vscode-badge` floating badge below the panel showing "HTML · No errors" with a pulsing green dot.
+
+### `#about` - About Me Section
+
+Section header follows a consistent pattern used across all sections:
+- Large decorative number (`span.section-num`)
+- Title in JetBrains Mono (`h2.section-title`)
+- Flexible horizontal line filling remaining space (`div.section-line`)
+- The final dot uses `.section-dot` to apply the green accent color independently
+
+**Content grid:**
+
+| `.about-left` | Prose paragraphs: background, current location, development focus |
+| `.about-right` | Principles card with `// Principles` label and bulleted list **hidden on mobile** (design decision) |
+
+### Pending Sections
+
+| Section | ID | Planned content |
+|---|---|---|
+| Education | `#education` | CFGS, courses, certifications |
+| Projects | `#projects` | Gallery or grid of completed projects |
+| Philosophy | `#philosophy` | Development philosophy and values |
+| Contact | `#contact` | Form or contact details (email, GitHub, LinkedIn) |
+
+All pending sections share the same layout classes (`.section-header`, `.section-num`, etc.) to maintain visual consistency throughout the site.
+
+---
+
+## 3. styles.css - Styles
+
+The styles file is organized into **15 numbered sections**. It uses CSS custom properties (variables) to maintain consistency and enable dark mode cleanly, and loads local fonts to avoid external dependencies.
+
+### Local Fonts (`@font-face`)
+
+Three typeface families declared locally, no Google Fonts, for better privacy and loading speed. `font-display: swap` prevents FOIT (flash of invisible text) and improves perceived performance.
+
+| Font | Role |
+|---|---|
+| **JetBrains Mono** | Main body font — maximum readability, code editor aesthetics |
+| **Source Code Pro** | VSCode panel font — replicates the look and feel of a real editor |
+| **Space Mono** | Hero title font — distinctive character at large sizes |
+
+### Variable System (`:root`)
+
+All color decisions are centralized in `:root` CSS variables. This allows the entire site palette to be changed by editing only this section, and enables clean dark mode without duplicating CSS rules.
+
+**Light mode (default)** base variables defined on `:root`.
+
+**Dark mode** activated by adding `data-theme="dark"` to `<body>` via JavaScript. The same variable names are overridden under `[data-theme="dark"]`, so all elements update automatically without any extra rules.
+
+### Global Reset and Base Styles
+
+Universal box-sizing reset and baseline font/color declarations applied to all elements.
+
+### Navigation
+
+Key technique: `backdrop-filter: blur(12px)` creates the **glassmorphism effect**, content behind the nav bar appears blurred. Requires a semi-transparent background (`rgba` with `alpha < 1`) to be visible.
+
+### Hero Layout
+
+Two-column grid (`display: grid`). Left column holds the main content, right column holds the VSCode panel simulation.
+
+### CSS Animations
+
+| Animation | Element | Behavior |
+|---|---|---|
+| **Glitch** | `span.glitching-text` ("bug", "ritual") | Simulates signal interference. Runs for only 10% of a 2s loop (90–100%), making it striking without being visually tiring |
+| **Cursor blink** | `span.cursor` | Uses `step-end` instead of `ease` for instantaneous on/off blinking — like a real terminal cursor |
+| **Pulsing dot** | `.dot-status` (badge) | Infinite 2s pulse on the "HTML · No errors" badge |
+
+### Hero Typography
+
+`clamp()` is used for fluid font sizing. Sizes grow with the viewport between a defined minimum and maximum, eliminating the need for typography-specific media queries.
+
+```css
+/* Example pattern */
+font-size: clamp(min, preferred, max);
+```
+
+### Technology Pills and Buttons
+
+`.stack-pills` uses flexbox with `gap` and `flex-wrap`. Pills use the green accent color with a subtle border. Buttons (`.btn-primary`, `.btn-outline`) follow the same color system, primary has a solid green fill, outline has a transparent background with a green border.
+
+### VSCode Panel
+
+Styled to replicate a dark editor theme. Uses `Source Code Pro` for authentic feel. Indentation is handled with `.vsc-indent1`, `.vsc-indent2`, `.vsc-indent3` classes for visual depth.
+
+### About Me Section
+
+`position: sticky` on the principles card, as the user scrolls through the about section, the card stays visible within its parent container. An elegant technique for keeping contextual information in view without JavaScript.
+
+### Responsive Design
+
+Three main breakpoints, from largest to smallest:
+
+| Breakpoint | Layout |
+|---|---|
+| `> 900px` | Full desktop - hero in 2 columns, horizontal nav, full VSCode panel visible |
+| `≤ 900px` | Tablet / large mobile - hero in 1 column, full VSCode panel hidden, mini-panel visible, nav in 2 rows |
+| `≤ 480px` | Mobile - reduced margins, smaller title, compact nav font |
+| `≤ 360px` | Small mobile - fine adjustments for Galaxy S or older iPhone SE screens |
+
+**Key responsive rules:**
+- `.vscode-panel` (desktop) → `display: none` at `≤ 900px`
+- `.vscode-mini` (mobile) → `display: none` at `> 900px`
+- `.about-right` (principles) → hidden on mobile (design decision)
+
+> **Note:** The mini code panel required significant work, problems included it appearing under the desktop panel, lines being cut off, and overflow issues. Resolution involved careful use of `padding`, `overflow`, and adding extra left padding for line numbers inside the mini panel (not needed in the main panel).
+
+---
+
+## 4. script.js - Interactivity
+
+The JavaScript file is deliberately minimal and vanilla, its only responsibility is managing the light/dark mode toggle, with persistence via `localStorage`.
+
+### Logic Overview
 
 ```
----
-
-1. **index.html** 
-
-The HTML file as the skeleton of the style. It is organized into well-defined semantic sections, with comments that facilitate navigation through the code.
-
-- **<head>**
-
-![](/doc-port-img/image.png)
-
-*The header configures the charset, the viewport for responsiveness, the title, and external resources (favicon, CSS). The **charset="UTF-8"** ensures that special characters such as the **í** in the name are displayed correctly. The viewport meta tag is essential for the responsive design to work on mobile devices.*
-
-- **<nav>**
-
-![](/doc-port-img/image%201.png)
-
-| **.logo** | Displays {M} with the letter M in dark text color and the brackets in green, symbolizing function/object |
-| --- | --- |
-| **.nav-links** | List of 5 links with anchors to sections (href="#id"). Each one has a span.num with the number in green |
-| **#themeToggle** | Button that activates dark mode. The aria-label improves accessibility for screen readers |
-| **.theme-icon** | Symbol ◐ (crescent moon) that changes to ○ in dark mode — logic in script.js |
-
-*The navigation bar is fixed (position: fixed) and contains the logo, section links, and theme switch button.* 
-
-- **Hero section**
-
-*The hero section occupies 100% of the window (min-height: 100vh) and is divided into two columns: the left column with the main content and the right column with the panel simulating VSCode.*
-
-**Left column:** 
-
-![](code.png)
-
-*Here I put a short description, my title, and anchor a couple of glitch animations to two words that I then anchor in the CSS.*
-
-| **.comment** | Text box simulating a code comment. The span.glitching-text has glitch animation. |
-| --- | --- |
-| **.hero-title** | H1 in Space Mono. The word Stack has the .highlight class. The span.cursor generates the flashing with CSS |
-| **.stack-pills** | Flex container with pills for each technology in the current stack |
-| **.hero-ctas** | Two CTAs: btn-primary (green fill) and btn-outline (green border) |
-
-**Right column:**
-
-Here there are two code panels, the one shown on computers and the one shown on other devices, which is a mini code panel. Later, using CSS, I will hide each one respectively, so that on mobile phones and other screens only a mini code panel is visible, and on computers the original complete panel with more text is visible.
-
-![](image%202.png)
-
-![](image%203.png)
-
-**Mini code panel:** 
-
-![](image%204.png)
-
-*The syntax classes of the VSCode panel follow the color palette of a typical dark theme in both panels:*
-
-| **.vsc-ln** | Line number — gray (#636D83) |
-| --- | --- |
-| **.vsc-tag** | HTML tags — red/pink (#e06c75) |
-| **.vsc-attr** | Attributes — orange (#d19a66) |
-| **.vsc-val** | Attribute values — light green (#5da08f) |
-| **.vsc-cnt** | Text content — light gray (#e2ecea) |
-| **.vsc-com** | HTML comments — blue-gray italic (#6b717f) |
-| **.vscode-badge** | Floating badge below the panel with pulsing green dot |
-
-*It's inspired by my VSCode theme.*
-
-**Code panel:**
-
-![](image%205.png)
-
-*Also, superimposed below the code panel, both the mini and the main one, I have a speech bubble with **HTML - No errors** and a flashing green dot.*
-
-![](image%206.png)
-
-- **About Me section**
-
-The section header always follows the same pattern: large decorative number + title in **JetBrains Mono** + flexible horizontal line that occupies the remaining space. The final dot has the class .section-dot to color it green independently.
-
-![](image%207.png)
-
-![](image%208.png)
-
-*The list of **Principles** disappears on mobile devices thanks to CSS**,** due to a design decision.*
-
-- **Pending sections**
-
-| **#education  .section-education** | Education — CFGS, courses, certifications |
-| --- | --- |
-| **#projects   .section-projects** | Gallery or grid of completed projects |
-| **#philosophy .section-philosophy** | Development philosophy and values as a programmer |
-| **#contact    .section-contact** | Form or contact details (email, GitHub, LinkedIn) |
-
-*Each section shares the same layout classes (.section-header, .section-num, etc.) to maintain visual consistency throughout the site.*
-
----
-
-1. **styles.css**
-
-The styles file is organized into 15 numbered sections. It uses CSS variables (custom properties) to maintain consistency and facilitate dark mode, and local fonts to avoid external dependencies.
-
-- **Local fonts**
-
-*Three typeface families are declared with **@font-face,** serving the files locally (without Google Fonts) for greater privacy and loading speed*.
-
-| **JetBrains Mono** | Main body font — maximum readability, code editor aesthetics |
-| --- | --- |
-| **Source Code Pro** | VSCode panel font — replicates the look and feel of a real editor |
-| **Space Mono** | Hero title font — distinctive character and larger size |
-
-*font-display: swap prevents "flash of invisible text" (FOIT) and improves the perception of speed.*
-
-![](image%209.png)
-
-- **Variable system**
-
-All color decisions are centralized in :root variables. This allows you to change the entire site palette by editing only this section, and enables dark mode cleanly.
-
-**Light or original mode variables:**
-
-![](image%2010.png)
-
-**Dark mode variables:**
-
-![](image%2011.png)
-
-*Dark mode is activated by adding data-theme="dark" to the <body> element using JavaScript. By overriding the same variables, **all elements on the site change automatically** without the need to duplicate CSS rules.*
-
-- **Global reset and base styles**
-
-![](image%2012.png)
-
-- **Navigation**
-
-***backdrop-filter: blur(12px)** creates the "glassmorphism" effect—content behind the navigation bar appears blurred. The background must be **semi-transparent (rgba with alpha < 1)** for this to work.*
-
-![](image%2013.png)
-
-![](image%2014.png)
-
-- **Hero, two-column layout**
-
-![](image%2015.png)
-
-- **CSS animations**
-
-The terms **"bug"** and **"ritual"** in the hero comment on the home page have a glitch animation, as mentioned above, which simulates signal interference with a 2-second infinite loop.
-
-*The glitch only occurs between 90% and 100% of the cycle; 90% of the time the text is still, which makes the effect more striking and less visually tiring.*
-
-![](image%2016.png)
-
-![](image%2017.png)
-
-**.comment in** a box
-
-Cursor flashing at the end of the Full Stack Web Dev title.
-
-![](image%2018.png)
-
-***step-end** instead of **ease** makes the blinking instantaneous (on/off), like a real terminal cursor.*
-
-![](image%2019.png)
-
-And then we have the pulsing dot in the **HTML - No errors** box we talked about earlier, which also maintains an infinite 2-second pulse.
-
-- **Hero typography**
-
-***clamp()** is a modern CSS function that allows you to define a fluid size between a minimum and a maximum. The font size grows with the viewport but never exceeds the defined limits, without the need for media queries for typography.*
-
-![](image%2020.png)
-
-- **Technology pills and buttons**
-
-![](image%2021.png)
-
-![](image%2022.png)
-
-- **VSCode panel**
-
-![](image%2023.png)
-
-![](image%2024.png)
-
-- **About Me section**
-
-***position: sticky** on the principles card means that when you scroll down in the "about" section, the card remains visible within its parent container. It's an elegant technique for keeping contextual information visible.*
-
-![](image%2025.png)
-
-![](image%2026.png)
-
-- **Responsive design**
-
-I have three main breakpoints, from largest to smallest:
-
-| **> 900px** | Full desktop layout — hero in 2 columns, horizontal nav, VSCode panel visible |
-| --- | --- |
-| **≤ 900px** | Tablet/large mobile — hero in 1 column, VSCode panel hidden, mini-panel visible, nav in 2 rows |
-| **≤ 480px** | Mobile — reduced margins, smaller title, very compact nav font |
-| **≤ 360px** | Small mobile — fine adjustments for Galaxy S or older iPhone SE screens |
-
-*I've been testing absolutely all the sizes that Chrome lets you test, for example, I still have problems with 360 that I don't know how to adjust, but it's a very rare device, so I'll leave it as a question for later.*
-
-The important thing is the **hide function**, which I have applied to both the main panel and **the code panel** so that they are hidden and the small **minicode panel**, designed specifically for mobile devices, is displayed. I have also hidden the **Principles** list, as I mentioned earlier.
-
-![](image%2027.png)
-
- *I've had a lot of problems with the **minicode panel**, such as it not hiding in the computer version and being visible under the original code panel, or not being directly visible on mobile devices, the lines of code being cut off, etc. I've had to try both **padding** and **space**, as well as learning how **overflows** work  in order to adjust it to my needs. Then I had to create **extra padding for the code line numbers** within the minicode panel (which I didn't do in the main code panel) to add some margin, as they were cut off on the left.*
-
-![](image%2028.png)
-
----
-
-1. **script.js**
-
-The JavaScript file is deliberately minimal and vanilla because I'm still studying this section. At this point in the project, its only responsibility is to manage the switch between light mode and dark mode, with persistence via localStorage, which I learned about through searches on Reddit.
-
-![](image%2029.png)
-
-Basically, what it does is first check if there is a preference saved in localStorage. Then it automatically applies or does not apply the **dark theme** as soon as the user enters the page.
-
-*The logic is written in a functional way and without external state—each click determines the current state directly by reading the DOM, which eliminates possible inconsistencies.*
-
-| **getElementById("themeToggle")** | Selects the button by its id — faster than querySelector |
-| --- | --- |
-| **querySelector(".theme-icon")** | Selects the icon span inside the button |
-| **localStorage.getItem("theme")** | Reads the preference saved in the browser (persists between sessions) |
-| **setAttribute("data-theme", "dark")** | Adds the attribute to the body — CSS detects it and applies the dark mode variables |
-| **icon.textContent** | Changes the icon character: ◐ = light mode, ○ = dark mode |
-| **localStorage.setItem(...)** | Saves the new preference for the next visit |
-
 User visits the page
-
 └── Is there a preference saved in localStorage?
+    ├── Yes ("dark") → body.setAttribute("data-theme", "dark") + icon ○
+    └── No           → default light mode + icon ◐
 
-├── Yes ("dark") → body.setAttribute("data-theme", "dark") + icon ○
-
-└── No → default light mode + icon ◐
-
-User clicks on the theme button
-
-├── Read current status: does body have data-theme="dark"?
-
-├── Toggle: dark→light or light→dark
-
-├── Visually update icon
-
+User clicks the theme button
+├── Read current state: does body have data-theme="dark"?
+├── Toggle: dark → light  or  light → dark
+├── Update icon visually
 └── Save new preference in localStorage
+```
+
+### Key Methods
+
+| Method | Role |
+|---|---|
+| `getElementById("themeToggle")` | Selects the button by ID — faster than `querySelector` |
+| `querySelector(".theme-icon")` | Selects the icon span inside the button |
+| `localStorage.getItem("theme")` | Reads saved preference from the browser (persists between sessions) |
+| `setAttribute("data-theme", "dark")` | Adds the attribute to `<body>` — CSS detects it and applies dark mode variables |
+| `icon.textContent` | Switches the icon character: `◐` = light mode, `○` = dark mode |
+| `localStorage.setItem(...)` | Saves the new preference for the next visit |
+
+The logic is written functionally without external state, each click determines the current state directly by reading the DOM, eliminating possible inconsistencies.
+
+---
+
+*by Míriam Domínguez Martínez · 2026*
