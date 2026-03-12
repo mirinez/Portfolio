@@ -32,8 +32,10 @@ Personal portfolio website built with HTML - CSS - JavaScript. Designed to be mi
 └── font/
     ├── JetBrainsMono-Regular.woff2
     ├── JetBrainsMono-Bold.woff2
-    ├── CascadiaCode-Bold.woff2
-    └── CascadiaCodeNF-Regular.woff2
+    ├── SourceCodePro-Regular_ttf.woff2
+    ├── SourceCodePro-Bold_ttf.woff2
+    ├── SpaceMono-Regular.ttf
+    └── SpaceMono-Bold.ttf
 ```
 
 ---
