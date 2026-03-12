@@ -27,6 +27,7 @@ Personal portfolio website built with HTML - CSS - JavaScript. Designed to be mi
 ├── img/
 │   ├── code.png
 │   ├── colors.png
+│   ├── colors-dark.png
 │   └── template.png
 └── font/
     ├── JetBrainsMono-Regular.woff2
