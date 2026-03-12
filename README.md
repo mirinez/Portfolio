@@ -24,16 +24,15 @@ Personal portfolio website built with HTML - CSS - JavaScript. Designed to be mi
 ├── CNAME
 ├── gif/
 │   └── plant.gif
-└── img/
+├── img/
 │   ├── code.png
 │   ├── colors.png
 │   └── template.png
 └── font/
-    ├── Syne-Regular.woff2
-    ├── Syne-Bold.woff2
-    ├── Syne-ExtraBold.woff2
     ├── JetBrainsMono-Regular.woff2
-    └── JetBrainsMono-Bold.woff2
+    ├── JetBrainsMono-Bold.woff2
+    ├── CascadiaCode-Bold.woff2
+    └── CascadiaCodeNF-Regular.woff2
 ```
 
 ---
