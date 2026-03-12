@@ -28,7 +28,7 @@ Personal portfolio website built with HTML and CSS. Designed to be minimal, clea
 │   ├── code.png
 │   ├── colors.png
 │   └── template.png
-└── fonts/
+└── font/
     ├── Syne-Regular.woff2
     ├── Syne-Bold.woff2
     ├── Syne-ExtraBold.woff2
