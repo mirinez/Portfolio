@@ -47,6 +47,22 @@
   font-display: swap;
 }
 
+@font-face {
+  font-family: 'Cascadia Code';
+  src: url('./font/CascadiaCode-Regular.woff2') format('woff2');
+  font-weight: 400;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'Cascadia Code';
+  src: url('./font/CascadiaCode-Bold.woff2') format('woff2');
+  font-weight: 700;
+  font-style: normal;
+  font-display: swap;
+}
+
 /* ============================================================
    1. DESIGN SYSTEM & VARIABLES
 */
@@ -64,7 +80,7 @@
 }
 
 /* ============================================================
-   1.1. DARK MODE VARIABLES
+   1b. DARK MODE VARIABLES
 */
 
 [data-theme="dark"] {
@@ -277,7 +293,7 @@ nav {
 }
 
 /* ============================================================
-    6. HERO TITLE & HIGHLIGHTS
+    6. HERO – TITLE & HIGHLIGHTS
 */
 
 .hero-title {
@@ -313,7 +329,7 @@ nav {
 
 
 /* ============================================================
-    7. HERO DESCRIPTION & EMPHASIS
+    7. HERO – DESCRIPTION & EMPHASIS
 */
 
 .hero-desc {
@@ -331,7 +347,7 @@ nav {
 
 
 /* ============================================================
-    8. HERO TECHNOLOGY PILLS
+    8. HERO – TECHNOLOGY PILLS
 */
 
 .stack-pills {
@@ -358,7 +374,7 @@ nav {
 
 
 /* ============================================================
-    9. HERO CALL TO ACTION BUTTONS
+    9. HERO – CALL TO ACTION BUTTONS
 */
 
 .hero-ctas {
@@ -409,7 +425,7 @@ nav {
 }
 
 /* ============================================================
-    10. HERO CODE PANEL
+    10. HERO – CODE PANEL
 */
 
 .hero-right {
@@ -437,7 +453,7 @@ nav {
 .vscode-line {
   display: flex;
   align-items: baseline;
-  font-family: 'JetBrains Mono', monospace;
+  font-family: 'Cascadia Code', 'JetBrains Mono', monospace; /* Cascadia Code – VSCode default font */
   font-size: 13px;
   line-height: 1.75;
   white-space: pre;
@@ -467,7 +483,7 @@ nav {
 
 
 /* ============================================================
-    11. HERO BADGE & STATUS
+    11. HERO – BADGE & STATUS
 */
 
 /* Badge anchored just below the panel */
@@ -511,6 +527,7 @@ footer {
   font-size: 12px;
   color: var(--text-muted);
 }
+
 
 /* ============================================================
    13. SECTION – SHARED LAYOUT
@@ -648,12 +665,8 @@ footer {
 */
 
 @media (max-width: 900px) {
-
-  /* Nav wraps into two rows: logo+toggle on top / links below */
   nav {
     padding: 14px 20px;
-    flex-wrap: wrap;
-    gap: 8px;
   }
 
   .cursor {
@@ -661,18 +674,10 @@ footer {
     margin-bottom: 0.26cap;
   }
 
-  /* Toggle sits to the right of the logo on the first row */
-  .theme-toggle {
-    margin-left: auto;
-  }
-
-  /* Nav links drop to a second row and wrap if needed */
+  /* Keep nav links visible, just compact the gap */
   .nav-links {
-    order: 2;
-    width: 100%;
     display: flex;
     gap: 12px;
-    flex-wrap: wrap;
   }
 
   .nav-links a {
@@ -682,7 +687,7 @@ footer {
   /* Stack hero columns vertically */
   .hero {
     grid-template-columns: 1fr;
-    padding: 100px 24px 48px;   /* Extra top padding to clear the taller two-row nav */
+    padding: 80px 24px 48px;
     gap: 48px;
     overflow: visible;
   }
@@ -728,31 +733,25 @@ footer {
     width: fit-content;
   }
 
-  /* About section – single column on tablet */
   .section-about {
     padding: 80px 24px 60px;
   }
 
   .about-grid {
-    grid-template-columns: 1fr;  /* Stack left and right columns */
+    grid-template-columns: 1fr;
     gap: 40px;
   }
 
   .about-principles {
-    position: static;            /* Remove sticky on mobile */
-    width: 100%;
+    position: static;
   }
 
 }
 
 /* Small screens */
 @media (max-width: 480px) {
-
-  /* Nav stays as two rows but tighter */
   nav {
     padding: 12px 16px;
-    flex-wrap: wrap;
-    gap: 8px;
   }
 
   .cursor {
@@ -760,11 +759,15 @@ footer {
     margin-bottom: 0.28cap;
   }
 
+  /* Stack logo and nav vertically on very small screens */
+  nav {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 8px;
+  }
+
   .nav-links {
-    order: 2;
-    width: 100%;
     gap: 10px;
-    flex-wrap: wrap;
   }
 
   .nav-links a {
@@ -782,5 +785,4 @@ footer {
   .vsc-indent1 { width: 10px; }
   .vsc-indent2 { width: 20px; }
   .vsc-indent3 { width: 30px; }
-
 }
