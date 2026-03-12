@@ -834,11 +834,16 @@ footer {
 
   .hero-desc {
     font-size: 13px;
+    max-width: 100% !important;   /* Force override 480px max-width on small screens */
+    width: 100%;
   }
 
   .comment {
     font-size: 12px;
     padding: 6px 12px;
+    max-width: 100% !important;   /* Force override 480px max-width on small screens */
+    width: 100%;
+    box-sizing: border-box;
   }
 
   .btn-primary,
