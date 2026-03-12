@@ -1,7 +1,5 @@
 # Portfolio
 
-Notebook: Portfolio (https://www.notion.so/Portfolio-321365943b2e8089b6caea24e97cea65?pvs=21)
-
 **{M} Technical Documentation of the Portfolio**
 
 Míriam Domínguez Martínez - *Full Stack Web Developer · 2026*
