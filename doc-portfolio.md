@@ -17,7 +17,7 @@
 
 ## 1. Introduction
 
-This document contains the technical documentation for my personal portfolio. The project has been developed using pure web technologies — **HTML, CSS, and vanilla JavaScript** — without any additional frameworks, with a focus on learning, thorough code documentation, responsive design, and clean aesthetics.
+This document contains the technical documentation for my personal portfolio. The project has been developed using pure web technologies **HTML, CSS, and vanilla JavaScript** without any additional frameworks, with a focus on learning, thorough code documentation, responsive design, and clean aesthetics.
 
 **Project objective:** to create an online presence that reflects my technical and creative personality — clean, organized, with nods to the development ecosystem (VSCode aesthetics, monospace fonts, dark mode) and that works perfectly on any device.
 
