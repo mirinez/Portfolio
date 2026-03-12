@@ -63,6 +63,37 @@
   --surface:     #f9fafb;
 }
 
+/* ============================================================
+   1b. DARK MODE VARIABLES
+*/
+
+[data-theme="dark"] {
+  --white:       #0d1117;
+  --surface:     #161b22;
+  --border:      #21262d;
+  --text:        #e6edf3;
+  --text-muted:  #8b949e;
+  --primary:     #59AF7D;
+  --accent:      #6fd99a;
+  --dark-green:  #4b9c76;
+  --light-green: #2ea043;
+}
+
+/* Dark mode – nav background override (uses rgba so needs its own rule) */
+[data-theme="dark"] nav {
+  background: rgba(13, 17, 23, 0.92);
+}
+
+/* Dark mode – vscode badge background */
+[data-theme="dark"] .vscode-badge {
+  background: var(--surface);
+}
+
+[data-theme="dark"] .vscode-panel {
+  box-shadow:
+    0 0 16px rgba(0, 0, 0, 0.3),
+    0 0 4px rgba(0, 0, 0, 0.2);
+}
 
 /* ============================================================
    2. GLOBAL STYLES & LAYOUT
@@ -150,6 +181,24 @@ nav {
   font-size: 11px;
 }
 
+/* Theme toggle button */
+.theme-toggle {
+  background: var(--surface);
+  border: 1.5px solid var(--border);
+  border-radius: 8px;
+  padding: 6px 12px;
+  cursor: pointer;
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 14px;
+  color: var(--text-muted);
+  transition: border-color 0.2s, color 0.2s;
+}
+
+.theme-toggle:hover {
+  border-color: var(--accent);
+  color: var(--primary);
+}
+
 
 /* ============================================================
     4. HERO SECTION
@@ -180,7 +229,7 @@ nav {
 .comment {
   font-family: 'JetBrains Mono', monospace;
   font-size: 14px;
-  color: var(--dark-green);
+  color: var(--text-muted);
   background: var(--surface);
   border: 1px solid var(--border);
   padding: 8px 16px;
@@ -189,6 +238,43 @@ nav {
   margin-bottom: 8px;
 }
 
+.glitching-text {
+  color: var(--accent);
+  position: relative;
+  display: inline-block;
+  animation: glitch 2s infinite;   /* Glitch animation applied to both words with different delays */
+}
+
+.glitching-text:nth-child(2) {    /* Delay the second word's animation to create a staggered effect */
+  animation-delay: 1.5s;          /* Adjust this value to control the timing between the two glitching words */
+}
+
+/* Glitch animation keyframes */
+@keyframes glitch {
+  0%, 90%, 100% {
+    text-shadow: none;
+    transform: translate(0);
+    opacity: 1;
+  }
+  92% {
+    transform: translate(-2px, 1px);
+    text-shadow: 2px 0 var(--primary);
+    opacity: 0.8;
+  }
+  94% {
+    transform: translate(2px, -1px);
+    text-shadow: -2px 0 var(--dark-green);
+    opacity: 0.9;
+  }
+  96% {
+    transform: translate(-1px, 0);
+    text-shadow: 1px 0 var(--accent);
+  }
+  98% {
+    transform: translate(0);
+    text-shadow: none;
+  }
+}
 
 /* ============================================================
     6. HERO – TITLE & HIGHLIGHTS
@@ -219,6 +305,7 @@ nav {
   animation: blink 1s step-end infinite;
 }
 
+/* Blinking animation for the cursor */
 @keyframes blink {
   0%, 100% { opacity: 1; }
   50%       { opacity: 0; }
@@ -261,7 +348,7 @@ nav {
   border: 1.5px solid var(--border);
   color: var(--text-muted);
   background: var(--surface);
-  transition: border-color 0.2s, color 0.2s;
+  transition: border-color 0.2s, color 0.2s; /* Added color transition for hover effect */
 }
 
 .pill:hover {
@@ -291,7 +378,7 @@ nav {
   border-radius: 6px;
   cursor: pointer;
   text-decoration: none;
-  transition: background 0.2s, transform 0.15s; /* Added transform transition */
+  transition: background 0.2s, transform 0.15s;            /* Added transform transition */
   display: inline-block;
 }
 
@@ -318,7 +405,7 @@ nav {
 .btn-outline:hover {
   background: var(--primary);
   color: var(--white);
-  transform: translateY(-1px);
+  transform: translateY(-1px);                              /* Added hover transform for consistency with the filled button */
 }
 
 /* ============================================================
@@ -338,12 +425,12 @@ nav {
     0 24px 60px rgba(0, 0, 0, 0.18),
     0 8px 20px rgba(0, 0, 0, 0.10);
   overflow: hidden;
-  animation: floatUp 0.8s cubic-bezier(0.16, 1, 0.3, 1) both;
+  animation: floatUp 0.8s cubic-bezier(0.16, 1, 0.3, 1) both;  /* Subtle float-up entrance animation */
 }
 
 @keyframes floatUp {
-  from { opacity: 0; transform: translateY(24px); }
-  to   { opacity: 1; transform: translateY(0); }
+  from { opacity: 0; transform: translateY(24px); }            /* Start slightly below and transparent */
+  to   { opacity: 1; transform: translateY(0); }               /* End at natural position and fully opaque */
 }
 
 /* Each line row */
@@ -436,7 +523,7 @@ footer {
 
   .cursor {
     height: 1cap;
-    margin-bottom: 0.25cap;
+    margin-bottom: 0.26cap;
   }
 
   /* Keep nav links visible, just compact the gap */
@@ -498,6 +585,19 @@ footer {
     width: fit-content;
   }
 
+  .section-about {
+    padding: 80px 24px 60px;
+  }
+
+  .about-grid {
+    grid-template-columns: 1fr;
+    gap: 40px;
+  }
+
+  .about-principles {
+    position: static;
+  }
+
 }
 
 /* Small screens */
@@ -537,4 +637,135 @@ footer {
   .vsc-indent1 { width: 10px; }
   .vsc-indent2 { width: 20px; }
   .vsc-indent3 { width: 30px; }
+}
+
+/* ============================================================
+   14. SECTION – SHARED LAYOUT
+*/
+
+.section-about,
+.section-education,
+.section-projects,
+.section-philosophy,
+.section-contact {
+  max-width: 1400px;
+  margin: 0 auto;
+  padding: 120px 48px 80px;
+}
+
+.section-header {
+  display: flex;
+  align-items: center;
+  gap: 24px;
+  margin-bottom: 72px;
+}
+
+.section-num {
+  font-family: 'Syne', sans-serif;
+  font-size: clamp(48px, 6vw, 80px);
+  font-weight: 800;
+  color: var(--border);          /* Very faint – decorative */
+  line-height: 1;
+  letter-spacing: -0.04em;
+}
+
+.section-title {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: clamp(20px, 2.5vw, 28px);
+  font-weight: 700;
+  color: var(--text);
+  letter-spacing: -0.02em;
+  white-space: nowrap;
+}
+
+.section-dot {
+  color: var(--accent);
+}
+
+.section-line {
+  flex: 1;
+  height: 1px;
+  background: var(--border);
+}
+
+
+/* ============================================================
+   15. SECTION – ABOUT ME
+*/
+
+.about-grid {
+  display: grid;
+  grid-template-columns: 1fr 0.65fr;
+  gap: 80px;
+  align-items: start;
+}
+
+.about-lead {
+  font-family: 'Syne', sans-serif;
+  font-size: clamp(18px, 2vw, 22px);
+  font-weight: 600;
+  line-height: 1.5;
+  color: var(--text);
+  margin-bottom: 28px;
+}
+
+.about-lead strong {
+  color: var(--primary);
+}
+
+.about-body {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 14px;
+  line-height: 1.8;
+  color: var(--text-muted);
+  margin-bottom: 20px;
+}
+
+.about-body strong {
+  color: var(--text);
+  font-weight: 700;
+}
+
+/* Principles card */
+.about-principles {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: 12px;
+  padding: 32px;
+  position: sticky;
+  top: 96px;                      /* Sticks below the fixed nav */
+}
+
+.principles-label {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 12px;
+  color: var(--accent);
+  display: block;
+  margin-bottom: 20px;
+  letter-spacing: 0.04em;
+}
+
+.principles-list {
+  list-style: none;
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+}
+
+.principles-list li {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 13px;
+  color: var(--text-muted);
+  padding-left: 18px;
+  position: relative;
+  line-height: 1.5;
+}
+
+.principles-list li::before {
+  content: '▸';
+  position: absolute;
+  left: 0;
+  color: var(--accent);
+  font-size: 10px;
+  top: 2px;
 }
