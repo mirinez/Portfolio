@@ -1,4 +1,4 @@
-# {M} Portfolio — Technical Documentation
+## {M} Portfolio — Technical Documentation
 
 **Míriam Domínguez Martínez** · Full Stack Web Developer · 2026
 
@@ -6,7 +6,7 @@
 
 ---
 
-## Table of Contents
+### Table of Contents
 
 1. [Introduction](#1-introduction)
 2. [index.html — Structure](#2-indexhtml--structure)
