@@ -54,9 +54,9 @@ The HTML file is the skeleton of the project. It is organized into well-defined 
 
 Configures charset, viewport for responsiveness, page title, and external resources (favicon, CSS).
 
-- `charset="UTF-8"` — ensures special characters like the **í** in the name render correctly
-- `viewport` meta tag — essential for responsive design to work on mobile devices
-- Local font and favicon links — no external dependencies
+- `charset="UTF-8"` - ensures special characters like the **í** in the name render correctly
+- `viewport` meta tag - essential for responsive design to work on mobile devices
+- Local font and favicon links - no external dependencies
 
 ### `<nav>` - Navigation
 
@@ -64,10 +64,10 @@ Fixed navigation bar (`position: fixed`) containing the logo, section links, and
 
 | Element | Description |
 |---|---|
-| `.logo` | Displays `{M}` — the letter M in dark text, brackets in green, symbolizing a function/object |
+| `.logo` | Displays `{M}` - the letter M in dark text, brackets in green, symbolizing a function/object |
 | `.nav-links` | List of 5 links anchoring to sections (`href="#id"`), each with a `span.num` in green |
 | `#themeToggle` | Button that activates dark mode. `aria-label` improves accessibility for screen readers |
-| `.theme-icon` | Symbol `◐` (light mode) that changes to `○` in dark mode — logic handled in `script.js` |
+| `.theme-icon` | Symbol `◐` (light mode) that changes to `○` in dark mode - logic handled in `script.js` |
 
 ### `<section class="hero">` - Hero Section
 
