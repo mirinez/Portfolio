@@ -8,30 +8,6 @@
 */
 
 @font-face {
-  font-family: 'Syne';
-  src: url('./font/Syne-Regular.woff2') format('woff2');
-  font-weight: 400;
-  font-style: normal;
-  font-display: swap;
-}
-
-@font-face {
-  font-family: 'Syne';
-  src: url('./font/Syne-Bold.woff2') format('woff2');
-  font-weight: 700;
-  font-style: normal;
-  font-display: swap;
-}
-
-@font-face {
-  font-family: 'Syne';
-  src: url('./font/Syne-ExtraBold.woff2') format('woff2');
-  font-weight: 800;
-  font-style: normal;
-  font-display: swap;
-}
-
-@font-face {
   font-family: 'JetBrains Mono';
   src: url('./font/JetBrainsMono-Regular.woff2') format('woff2');
   font-weight: 400;
@@ -48,16 +24,32 @@
 }
 
 @font-face {
-  font-family: 'Cascadia Code';
-  src: url('./font/CascadiaCode-Regular.woff2') format('woff2');
+  font-family: 'Source Code Pro';                             /* Code panel font – editor-style */
+  src: url('./font/SourceCodePro-Regular_ttf.woff2') format('woff2');
   font-weight: 400;
   font-style: normal;
   font-display: swap;
 }
 
 @font-face {
-  font-family: 'Cascadia Code';
-  src: url('./font/CascadiaCode-Bold.woff2') format('woff2');
+  font-family: 'Source Code Pro';
+  src: url('./font/SourceCodePro-Bold_ttf.woff2') format('woff2');
+  font-weight: 700;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'Space Mono';                                  /* Hero title font – distinct monospace */
+  src: url('./font/SpaceMono-Regular.ttf') format('truetype');
+  font-weight: 400;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'Space Mono';
+  src: url('./font/SpaceMono-Bold.ttf') format('truetype');
   font-weight: 700;
   font-style: normal;
   font-display: swap;
@@ -126,7 +118,7 @@ html {
 }
 
 body {
-  font-family: 'Syne', sans-serif;
+  font-family: 'JetBrains Mono', monospace;
   background: var(--white);
   color: var(--text);
   min-height: 100vh;
@@ -297,10 +289,11 @@ nav {
 */
 
 .hero-title {
+  font-family: 'Space Mono', monospace;                      /* Space Mono – distinct from body font */
   font-size: clamp(45px, 5vw, 72px);
-  font-weight: 800;
-  line-height: 1.05;
-  letter-spacing: -0.03em;
+  font-weight: 700;
+  line-height: 1.1;
+  letter-spacing: -0.02em;
 }
 
 /* Highlighted word with green underline */
@@ -453,7 +446,7 @@ nav {
 .vscode-line {
   display: flex;
   align-items: baseline;
-  font-family: 'Cascadia Code', 'JetBrains Mono', monospace; /* Cascadia Code – VSCode default font */
+  font-family: 'Source Code Pro', 'JetBrains Mono', monospace; /* Source Code Pro – editor-style font */
   font-size: 13px;
   line-height: 1.75;
   white-space: pre;
@@ -551,7 +544,7 @@ footer {
 }
 
 .section-num {
-  font-family: 'Syne', sans-serif;
+  font-family: 'JetBrains Mono', monospace;
   font-size: clamp(48px, 6vw, 80px);
   font-weight: 800;
   color: var(--border);          /* Very faint – decorative */
@@ -591,7 +584,7 @@ footer {
 }
 
 .about-lead {
-  font-family: 'Syne', sans-serif;
+  font-family: 'JetBrains Mono', monospace;
   font-size: clamp(18px, 2vw, 22px);
   font-weight: 600;
   line-height: 1.5;
