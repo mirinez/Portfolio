@@ -39,10 +39,10 @@ Personal portfolio website built with HTML - CSS - JavaScript. Designed to be mi
 
 ### Colour Palette
 
-Ligth mode:
+Ligth mode:  
 ![colors](./img/colors.png)  
 
-Dark mode:
+Dark mode:  
 ![colors](./img/colors-dark.png)  
 
 ---
