@@ -1,0 +1,1032 @@
+/* styles.css | Portfolio
+   Míriam Domínguez Martínez
+*/
+
+/*
+   RESET
+*/
+*, *::before, *::after {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+/* END RESET */
+
+/* =================
+   0. FONTS
+   =================
+*/
+
+/* Inter */
+@font-face {
+  font-family: 'Inter';
+  font-style: normal;
+  font-weight: 300;
+  font-display: swap;
+  src: url('font/Inter-Light.woff2') format('woff2');
+}
+@font-face {
+  font-family: 'Inter';
+  font-style: normal;
+  font-weight: 400;
+  font-display: swap;
+  src: url('font/Inter-Regular.woff2') format('woff2');
+}
+
+@font-face {
+  font-family: 'Inter';
+  font-style: normal;
+  font-weight: 500;
+  font-display: swap;
+  src: url('font/Inter-Medium.woff2') format('woff2');
+}
+@font-face {
+  font-family: 'Inter';
+  font-style: normal;
+  font-weight: 600;
+  font-display: swap;
+  src: url('font/Inter-SemiBold.woff2') format('woff2');
+}
+@font-face {
+  font-family: 'Inter';
+  font-style: normal;
+  font-weight: 700;
+  font-display: swap;
+  src: url('font/Inter-Bold.woff2') format('woff2');
+}
+
+/* Dancing Script */
+@font-face {
+  font-family: 'Dancing Script';
+  font-style: normal;
+  font-weight: 700;
+  font-display: swap;
+  src: url('font/DancingScript-Bold.woff2') format('woff2');
+}
+
+/* =================
+   1. CSS VARIABLES
+   =================
+*/
+
+:root {
+  --bg-outer:       #eef0f3;
+  --bg-card:        #ffffff;
+  --bg-card-inner:  #f5f6f8;
+  --bg-nav:         #1e2330;
+  --text-primary:   #1a1f2e;
+  --text-secondary: #6b7280;
+  --text-muted:     #9ca3af;
+  --border:         #e5e7eb;
+  --btn-bg:         #1a1f2e;
+  --btn-text:       #ffffff;
+  --transition:     0.3s ease;
+
+  /* Photo strip bleed */
+  --photo-h:  140px;
+  --bleed:    80px;
+}
+
+body.dark {
+  --bg-outer:       #0d1117;
+  --bg-card:        #161b27;
+  --bg-card-inner:  #1e2535;
+  --bg-nav:         #0f1218;
+  --text-primary:   #e8eaf0;
+  --text-secondary: #8b95a8;
+  --text-muted:     #5c6880;
+  --border:         #2a3347;
+  --btn-bg:         #e8eaf0;
+  --btn-text:       #161b27;
+}
+/* END CSS VARIABLES */
+
+
+/* =================
+   2. BASE
+   =================
+*/
+
+html {
+  font-family: 'Inter', sans-serif;
+  scroll-behavior: smooth;
+}
+
+body {
+  background-color: var(--bg-outer);
+  min-height: 100vh;
+  transition: background-color var(--transition);
+}
+
+.project-img,
+.avatar {
+  color: transparent; /* hide alt text while image is loading or broken */
+}
+/* END BASE */
+
+
+/* =================
+   3. NAVBAR
+   =================
+*/
+
+.site-nav {
+  position: sticky;
+  top: 0;
+  z-index: 100;
+  background: var(--bg-nav);
+  border-bottom: 1px solid rgba(255, 255, 255, 0.06);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  transition: background var(--transition), border-color var(--transition);
+}
+
+body.dark .site-nav {
+  border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+}
+
+.nav-inner {
+  max-width: 740px;
+  margin: 0 auto;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 4px;
+  padding: 0 40px;
+  height: 48px;
+}
+
+.nav-link {
+  color: rgba(200, 206, 220, 0.7);
+  text-decoration: none;
+  font-size: 13px;
+  font-weight: 500;
+  padding: 6px 14px;
+  border-radius: 999px;
+  white-space: nowrap;
+  letter-spacing: 0.01em;
+  transition: color 0.2s ease, background 0.2s ease;
+}
+
+.nav-link:hover {
+  color: #ffffff;
+  background: rgba(255, 255, 255, 0.08);
+}
+/* END NAVBAR */
+
+
+/* =================
+   4. PAGE LAYOUT
+   =================
+*/
+
+.page-wrapper {
+  display: flex;
+  justify-content: center;
+  min-height: 100vh;
+}
+
+.side {
+  flex: 1;
+  background: var(--bg-outer);
+  transition: background-color var(--transition);
+  min-width: 0;
+}
+
+.center-col {
+  width: 100%;
+  max-width: 740px;
+  flex-shrink: 0;
+  background: var(--bg-card);
+  position: relative;
+  transition: background-color var(--transition);
+  box-shadow: 0 0 60px rgba(0, 0, 0, 0.07);
+  /* NO overflow: hidden — strip must bleed outside */
+}
+/* END PAGE LAYOUT */
+
+
+/* =================
+   5. THEME TOGGLE
+   =================
+*/
+
+.theme-toggle {
+  position: absolute;
+  top: 20px;
+  right: 20px;
+  background: none;
+  border: none;
+  cursor: pointer;
+  color: var(--text-muted);
+  font-size: 17px;
+  z-index: 10;
+  padding: 4px 6px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: color var(--transition);
+}
+
+.theme-toggle:hover {
+  color: var(--text-primary);
+}
+
+.icon-sun {
+  display: block;
+}
+
+.icon-moon {
+  display: none;
+}
+
+body.dark .icon-sun {
+  display: none;
+}
+
+body.dark .icon-moon {
+  display: block;
+}
+/* END THEME TOGGLE */
+
+
+/* =================
+   6. HERO
+   =================
+*/
+
+.hero {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 48px 40px 36px;
+  text-align: center;
+}
+
+.avatar {
+  width: 72px;
+  height: 72px;
+  border-radius: 50%;
+  object-fit: cover;
+  margin-bottom: 16px;
+  background: var(--bg-nav); /* fallback shown when img/avatar.jpg is missing */
+}
+
+h1.name {
+  font-size: 22px;
+  font-weight: 700;
+  color: var(--text-primary);
+  letter-spacing: -0.3px;
+  margin-bottom: 6px;
+  transition: color var(--transition);
+}
+
+.tagline {
+  font-size: 14px;
+  font-weight: 400;
+  color: var(--text-secondary);
+  margin-bottom: 20px;
+  transition: color var(--transition);
+}
+
+.btn-work {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  background: var(--btn-bg);
+  color: var(--btn-text);
+  border: none;
+  padding: 10px 22px;
+  border-radius: 999px;
+  font-size: 14px;
+  font-weight: 500;
+  cursor: pointer;
+  font-family: 'Inter', sans-serif;
+  transition: background var(--transition), color var(--transition), transform 0.15s;
+}
+
+.btn-work:hover {
+  transform: translateY(-1px);
+}
+
+.btn-work .dot {
+  width: 7px;
+  height: 7px;
+  background: #4ade80;
+  border-radius: 50%;
+  animation: pulse 2s infinite;
+}
+
+@keyframes pulse {
+  0%, 100% {
+    opacity: 1;
+  }
+  50% {
+    opacity: 0.4;
+  }
+}
+/* END HERO */
+
+
+/* =================
+   7. MAIN CONTENT WRAPPER
+   =================
+*/
+
+.main-content {
+  padding: 40px 60px 0;
+}
+/* END MAIN CONTENT WRAPPER */
+
+
+/* =================
+   8. SHARED SECTION TITLE
+   =================
+*/
+
+.section-title {
+  font-size: 17px;
+  font-weight: 600;
+  color: var(--text-primary);
+  margin-bottom: 20px;
+  transition: color var(--transition);
+}
+/* END SHARED SECTION TITLE */
+
+
+/* =================
+   9. PROJECTS SECTION
+   =================
+*/
+
+.projects-section {
+  margin-bottom: 44px;
+}
+
+.projects-intro {
+  font-size: 14px;
+  color: var(--text-secondary);
+  line-height: 1.75;
+  margin-bottom: 24px;
+  background: var(--bg-card-inner);
+  border-radius: 14px;
+  padding: 24px 26px;
+  transition: color var(--transition), background var(--transition);
+}
+/* END PROJECTS SECTION */
+
+
+/* =================
+   10. PHOTOS STRIP — NEGATIVE MARGIN BLEED TECHNIQUE
+   =================
+*/
+
+.photos-strip {
+  /* Negative margin bleed — escapes the card on both sides */
+  width: calc(100% + var(--bleed) * 2);
+  margin-left: calc(var(--bleed) * -1);
+
+  display: flex;
+  gap: 14px;
+  padding: 10px 0;
+  overflow: visible; /* prevent clipping of tilted cards */
+  margin-bottom: 32px;
+}
+
+/* On strip hover: all three cards straighten and lift together */
+.photos-strip:hover .photo-item {
+  transform: rotate(0deg) translateY(0) scale(1.02);
+  box-shadow: 0 14px 40px rgba(0, 0, 0, 0.18);
+}
+/* END PHOTOS STRIP */
+
+
+/* =================
+   11. PHOTO ITEM
+   =================
+*/
+
+.photo-item {
+  flex: 1;
+  min-width: 0;
+  height: var(--photo-h);
+  border-radius: 14px;
+  overflow: hidden;
+  position: relative;
+  cursor: pointer;
+  background: var(--bg-nav); /* fallback shown when project image is missing */
+  box-shadow: 0 4px 18px rgba(0, 0, 0, 0.12);
+  transition:
+    transform  0.4s cubic-bezier(0.34, 1.4, 0.64, 1),
+    box-shadow 0.4s ease;
+}
+
+/* Slight tilt and lift as individual cards */
+.photo-item:nth-child(1) { transform: rotate(-2deg) translateY(4px); }
+.photo-item:nth-child(2) { transform: rotate(0deg) translateY(0px); }
+.photo-item:nth-child(3) { transform: rotate(2deg) translateY(4px); }
+
+.project-img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+}
+
+.project-overlay {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(135deg, rgba(0, 0, 0, 0.6) 0%, rgba(0, 0, 0, 0.3) 100%);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 4px;
+  opacity: 0;
+  transition: opacity 0.25s ease;
+}
+
+.photos-strip:hover .project-overlay {
+  opacity: 1;
+}
+
+.project-title {
+  font-size: 14px;
+  font-weight: 600;
+  color: #ffffff;
+  text-align: center;
+  opacity: 0;
+  transform: translateY(-4px);
+  transition: opacity 0.2s ease 0.05s, transform 0.2s ease 0.05s;
+  pointer-events: none;
+}
+
+.photos-strip:hover .project-title {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+.project-view-hint {
+  font-size: 11px;
+  color: rgba(255, 255, 255, 0.75);
+  opacity: 0;
+  transform: translateY(4px);
+  transition: opacity 0.2s ease 0.1s, transform 0.2s ease 0.1s;
+}
+
+.photos-strip:hover .project-view-hint {
+  opacity: 1;
+  transform: translateY(0);
+}
+/* END PHOTO ITEM */
+
+
+/* =================
+   12. ABOUT ME
+   =================
+*/
+
+.about-section {
+  margin-bottom: 44px;
+}
+
+.about-card {
+  background: var(--bg-card-inner);
+  border-radius: 14px;
+  padding: 24px 26px;
+  transition: background var(--transition);
+}
+
+.about-text {
+  font-size: 14px;
+  color: var(--text-secondary);
+  line-height: 1.75;
+  transition: color var(--transition);
+}
+
+.about-text + .about-text {
+  margin-top: 14px;
+}
+
+.about-tags {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin-top: 20px;
+}
+
+.about-tag {
+  font-size: 12px;
+  font-weight: 500;
+  color: var(--text-secondary);
+  background: var(--bg-card);
+  border: 1px solid var(--border);
+  border-radius: 999px;
+  padding: 4px 12px;
+  transition: background var(--transition), color var(--transition), border-color var(--transition);
+}
+/* END ABOUT ME */
+
+
+/* =================
+   13. EDUCATION
+   =================
+*/
+
+.education-section {
+  margin-bottom: 44px;
+}
+
+.edu-card {
+  background: var(--bg-card-inner);
+  border-radius: 14px;
+  padding: 20px 22px;
+  margin-bottom: 12px;
+  transition: background var(--transition);
+}
+
+.edu-date {
+  font-size: 12px;
+  color: var(--text-muted);
+  margin-bottom: 4px;
+  transition: color var(--transition);
+}
+
+.edu-title {
+  font-size: 15px;
+  font-weight: 600;
+  color: var(--text-primary);
+  margin-bottom: 2px;
+  transition: color var(--transition);
+}
+
+.edu-location {
+  font-size: 13px;
+  color: var(--text-secondary);
+  margin-bottom: 10px;
+  transition: color var(--transition);
+}
+
+.edu-desc {
+  font-size: 13.5px;
+  color: var(--text-secondary);
+  line-height: 1.65;
+  transition: color var(--transition);
+}
+/* END EDUCATION */
+
+
+/* =================
+   14. BEYOND THE CODE
+   =================
+*/
+
+.beyond-section {
+  margin-bottom: 44px;
+}
+
+.beyond-card {
+  background: var(--bg-card-inner);
+  border-radius: 14px;
+  padding: 24px 26px;
+  transition: background var(--transition);
+}
+
+.beyond-text {
+  font-size: 14px;
+  color: var(--text-secondary);
+  line-height: 1.75;
+  transition: color var(--transition);
+}
+
+.beyond-text + .beyond-text {
+  margin-top: 14px;
+}
+/* END BEYOND THE CODE */
+
+
+/* =================
+   15. CONTACT / NEWSLETTER
+   =================
+*/
+
+.connect-section {
+  margin-bottom: 0;
+}
+
+.connect-title {
+  font-size: 17px;
+  font-weight: 600;
+  color: var(--text-primary);
+  margin-bottom: 16px;
+  transition: color var(--transition);
+}
+
+.newsletter-box {
+  background: var(--bg-card-inner);
+  border-radius: 14px;
+  padding: 14px 16px;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  margin-bottom: 48px;
+  transition: background var(--transition);
+}
+
+.newsletter-input {
+  flex: 1;
+  border: none;
+  background: transparent;
+  font-size: 14px;
+  color: var(--text-primary);
+  font-family: 'Inter', sans-serif;
+  outline: none;
+  transition: color var(--transition);
+}
+
+.newsletter-input::placeholder {
+  color: var(--text-muted);
+}
+
+.newsletter-btn {
+  background: var(--btn-bg);
+  color: var(--btn-text);
+  border: none;
+  padding: 10px 20px;
+  border-radius: 999px;
+  font-size: 13.5px;
+  font-weight: 500;
+  cursor: pointer;
+  font-family: 'Inter', sans-serif;
+  white-space: nowrap;
+  transition: background var(--transition), color var(--transition), transform 0.15s;
+}
+
+.newsletter-btn:hover {
+  transform: translateY(-1px);
+}
+/* END CONTACT / NEWSLETTER */
+
+
+/* =================
+   16. FOOTER
+   =================
+*/
+
+.footer {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding-bottom: 52px;
+  gap: 20px;
+}
+
+.signature {
+  font-family: 'Dancing Script', cursive;
+  font-size: 52px;
+  color: var(--text-primary);
+  line-height: 1;
+  letter-spacing: -1px;
+  transition: color var(--transition);
+}
+
+.footer-icons {
+  display: flex;
+  gap: 22px;
+  align-items: center;
+}
+
+.footer-icon {
+  color: var(--text-secondary);
+  text-decoration: none;
+  font-size: 18px;
+  line-height: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 28px;
+  height: 28px;
+  transition: color var(--transition);
+}
+
+.footer-icon:hover {
+  color: var(--text-primary);
+}
+
+.footer-icon svg {
+  width: 20px;
+  height: 20px;
+}
+
+/* SVG loaded via <img> — size + hover opacity since filter can't use CSS color vars */
+.footer-icon-img {
+  width: 20px;
+  height: 20px;
+  display: block;
+  opacity: 0.55;
+  transition: opacity var(--transition), filter var(--transition);
+}
+
+.footer-icon:hover .footer-icon-img {
+  opacity: 1;
+}
+
+/* Dark mode — invert the SVG from black to white */
+body.dark .footer-icon-img {
+  filter: invert(1);
+}
+
+.copyright {
+  font-size: 12.5px;
+  color: var(--text-muted);
+  transition: color var(--transition);
+}
+/* END FOOTER */
+
+
+/* =================
+   17. PROJECT MODAL
+   =================
+*/
+
+.modal-backdrop {
+  position: fixed;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.55);
+  backdrop-filter: blur(4px);
+  -webkit-backdrop-filter: blur(4px);
+  z-index: 200;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 24px;
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.25s ease;
+}
+
+.modal-backdrop.is-open {
+  opacity: 1;
+  pointer-events: all;
+}
+
+.modal-box {
+  background: var(--bg-card);
+  border-radius: 18px;
+  width: 100%;
+  max-width: 520px;
+  max-height: 90vh;
+  overflow-y: auto;
+  position: relative;
+  transform: translateY(12px);
+  transition: transform 0.25s ease, background var(--transition);
+  box-shadow: 0 24px 60px rgba(0, 0, 0, 0.25);
+}
+
+.modal-backdrop.is-open .modal-box {
+  transform: translateY(0);
+}
+
+.modal-close {
+  position: absolute;
+  top: 14px;
+  right: 16px;
+  background: var(--bg-card-inner);
+  border: none;
+  color: var(--text-muted);
+  font-size: 14px;
+  width: 30px;
+  height: 30px;
+  border-radius: 50%;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 1;
+  transition: background var(--transition), color var(--transition);
+}
+
+.modal-close:hover {
+  background: var(--border);
+  color: var(--text-primary);
+}
+
+.modal-img-wrap {
+  width: 100%;
+  height: 200px;
+  border-radius: 18px 18px 0 0;
+  overflow: hidden;
+  background: var(--bg-nav); /* fallback shown when project image is missing */
+}
+
+.modal-img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+}
+
+.modal-body {
+  padding: 24px 26px 28px;
+}
+
+.modal-title {
+  font-size: 18px;
+  font-weight: 700;
+  color: var(--text-primary);
+  margin-bottom: 12px;
+  transition: color var(--transition);
+}
+
+.modal-desc {
+  font-size: 14px;
+  color: var(--text-secondary);
+  line-height: 1.75;
+  margin-bottom: 18px;
+  transition: color var(--transition);
+}
+
+.modal-tags {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin-bottom: 22px;
+}
+
+.modal-tag {
+  font-size: 12px;
+  font-weight: 500;
+  color: var(--text-secondary);
+  background: var(--bg-card-inner);
+  border: 1px solid var(--border);
+  border-radius: 999px;
+  padding: 4px 12px;
+}
+
+.modal-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  background: var(--btn-bg);
+  color: var(--btn-text);
+  text-decoration: none;
+  padding: 10px 22px;
+  border-radius: 999px;
+  font-size: 14px;
+  font-weight: 500;
+  transition: background var(--transition), color var(--transition), transform 0.15s;
+}
+
+.modal-btn:hover {
+  transform: translateY(-1px);
+}
+/* END PROJECT MODAL */
+
+
+/* =================
+   18. RESPONSIVE
+   =================
+*/
+
+@media (max-width: 900px) {
+  :root {
+    --bleed: 60px;
+  }
+  .main-content {
+    padding: 40px 32px 0;
+  }
+  .nav-inner {
+    gap: 2px;
+    padding: 0 20px;
+  }
+  .nav-link {
+    font-size: 12px;
+    padding: 5px 10px;
+  }
+}
+
+@media (max-width: 768px) {
+  :root {
+    --bleed: 0px;
+    --photo-h: 120px;
+  }
+
+  /* Add padding to photos strip on tablet */
+  .photos-strip {
+    padding: 0 16px;
+    width: calc(100% - 32px);
+    margin-left: 0;
+  }
+
+  /* 3 in a row, no tilt, titles visible on hover (Opción 4) */
+  .photo-item:nth-child(1),
+  .photo-item:nth-child(2),
+  .photo-item:nth-child(3) {
+    transform: none;
+  }
+
+  /* Overlay and titles always visible */
+  .project-overlay {
+    opacity: 1;
+  }
+
+  .photo-item:hover .project-overlay {
+    opacity: 1;
+  }
+
+  .project-title {
+    opacity: 1;
+    transform: translateY(0);
+  }
+
+  .photo-item:hover .project-title {
+    opacity: 1;
+    transform: translateY(0);
+  }
+
+  /* Make "click to learn more" visible and in normal position */
+  .project-view-hint {
+    opacity: 1;
+    transform: translateY(0);
+  }
+
+  .photo-item:hover .project-view-hint {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@media (max-width: 600px) {
+  :root {
+    --photo-h: 180px;
+    --bleed: 0px;
+  }
+
+  .hero {
+    padding: 40px 24px 28px;
+  }
+  .main-content {
+    padding: 32px 20px 0;
+  }
+
+  /* Stack photos vertically on mobile */
+  .photos-strip {
+    width: 100%;
+    margin-left: 0;
+    flex-direction: column;
+    gap: 16px;
+    overflow: hidden;
+  }
+
+  .photo-item {
+    flex: 0 0 auto;
+  }
+
+  /* Remove tilt and always show overlay on small screens */
+  .photo-item:nth-child(1),
+  .photo-item:nth-child(2),
+  .photo-item:nth-child(3) {
+    transform: none;
+  }
+
+  /* Always show project title on mobile */
+  .project-overlay {
+    opacity: 1;
+  }
+
+  .project-title {
+    opacity: 1;
+    transform: translateY(0);
+  }
+
+  /* Make "click to learn more" visible and in normal position */
+  .project-view-hint {
+  opacity: 1;
+  transform: translateY(0);
+  }
+
+  /* Remove hover effect on mobile */
+  .photos-strip:hover .photo-item {
+    transform: none;
+    box-shadow: 0 4px 18px rgba(0, 0, 0, 0.12);
+  }
+
+  .nav-inner {
+    gap: 0;
+    padding: 0 8px;
+    height: 44px;
+  }
+  .nav-link {
+    font-size: 10px;
+    padding: 4px 6px;
+  }
+  .modal-backdrop {
+    padding: 16px;
+  }
+  .modal-img-wrap {
+    height: 160px;
+  }
+}
+/* END RESPONSIVE */
+

@@ -1,0 +1,302 @@
+<!-- index.html | Portfolio
+   Míriam Domínguez Martínez
+-->
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="description" content="Portfolio of Míriam Domínguez Martínez, Full Stack Web Developer. Showcasing projects, education, and experience." />
+  <title>Míriam Domínguez Martínez - Full Stack Web Developer</title>
+  <link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+
+  <!--
+      NAVBAR
+  -->
+  <nav class="site-nav" aria-label="Main navigation">
+    <div class="nav-inner">
+      <a href="#projects"   class="nav-link">Projects</a>
+      <a href="#about"      class="nav-link">About Me</a>
+      <a href="#education" class="nav-link">Education</a>
+      <a href="#beyond"     class="nav-link">Beyond the Code</a>
+      <a href="#contact"    class="nav-link">Contact Me</a>
+    </div>
+  </nav>
+  <!-- END NAVBAR -->
+
+
+  <!-- 
+      PAGE WRAPPER
+  -->
+  <div class="page-wrapper">
+    <div class="side side-left"></div>
+    <div class="center-col">
+
+      <!-- Theme toggle button — top-right corner of the card -->
+      <button class="theme-toggle" onclick="toggleTheme()" title="Toggle theme" aria-label="Toggle light/dark mode">
+        <span class="icon-sun" aria-hidden="true">&#9728;</span>
+        <span class="icon-moon" aria-hidden="true">&#9790;</span>
+      </button>
+
+
+      <!--
+          HERO
+      -->
+      <div class="hero">
+        <img class="avatar" src="img/avatar.jpg" alt="Míriam Domínguez Martínez - Profile picture" onerror="this.style.display='none'" />
+        <h1 class="name">Míriam Domínguez Martínez</h1>
+        <p class="tagline">Full Stack Web Developer</p>
+        <button class="btn-work" disabled title="Currently studying at bootcamp">
+          <span class="dot" aria-hidden="true"></span>
+          Studying
+        </button>
+      </div>
+      <!-- END HERO -->
+
+
+      <!-- All portfolio sections live inside .main-content -->
+      <div class="main-content">
+
+        <!--
+            PROJECTS
+        -->
+
+        <section class="projects-section" id="projects" aria-labelledby="projects-title">
+          <h2 class="section-title" id="projects-title">Projects</h2>
+          <p class="projects-intro">
+            Hi! I'm Míriam, a Full Stack Web Developer in progress with a background in IT Systems &amp; Networks.
+            Here are some of the things I've been building while learning the craft.
+          </p>
+
+          <!-- 
+              PHOTOS STRIP
+          -->
+          <div class="photos-strip" role="region" aria-label="Project portfolio">
+
+            <!-- Project photo 1 -->
+            <div class="photo-item"
+                 data-title="Portfolio"
+                 data-desc="Portfolio where I'm working and implementing while doing my Full Stack Web Dev bootcamp."
+                 data-tech="HTML, CSS, JavaScript"
+                 data-link="#"
+                 role="button"
+                 tabindex="0"
+                 aria-label="Portfolio project, click to learn more">
+              <img src="img/p-1.jpg" alt="Portfolio project preview" class="project-img" onerror="this.style.display='none'" />
+              <div class="project-overlay" aria-hidden="true">
+                <span class="project-title">Portfolio</span>
+                <span class="project-view-hint">Click to learn more →</span>
+              </div>
+            </div>
+            <!-- END Project photo 1 -->
+
+            <!-- Project photo 2 -->
+            <div class="photo-item"
+                 data-title="Student Platform"
+                 data-desc="Full stack project. Platform for students with calendars, classes, grades, student groups, news, exams, etc."
+                 data-tech="HTML, CSS, JavaScript"
+                 data-link="#"
+                 role="button"
+                 tabindex="0"
+                 aria-label="Student Platform project, click to learn more">
+              <img src="img/p-2.jpg" alt="Student Platform project preview" class="project-img" onerror="this.style.display='none'" />
+              <div class="project-overlay" aria-hidden="true">
+                <span class="project-title">Student Platform</span>
+                <span class="project-view-hint">Click to learn more →</span>
+              </div>
+            </div>
+            <!-- END Project photo 2 -->
+
+            <!-- Project photo 3 -->
+            <div class="photo-item"
+                 data-title="Postcard Simulator"
+                 data-desc="A personal project that simulates postcards. Create your own postcard with images from the web or your own. Edit it, add text, choose a logo, and send the link to the recipient so they can view it."
+                 data-tech="HTML, CSS, JavaScript"
+                 data-link="#"
+                 role="button"
+                 tabindex="0"
+                 aria-label="Postcard Simulator project, click to learn more">
+              <img src="img/p-3.jpg" alt="Postcard Simulator project preview" class="project-img" onerror="this.style.display='none'" />
+              <div class="project-overlay" aria-hidden="true">
+                <span class="project-title">Postcard Simulator</span>
+                <span class="project-view-hint">Click to learn more →</span>
+              </div>
+            </div>
+            <!-- END Project photo 3 -->
+
+          </div>
+          <!-- END PHOTOS STRIP -->
+
+        </section>
+        <!-- END PROJECTS -->
+
+
+        <!--
+            ABOUT ME
+        -->
+        <section class="about-section" id="about" aria-labelledby="about-title">
+          <h2 class="section-title" id="about-title">About Me</h2>
+          <div class="about-card">
+            <p class="about-text">
+              I'm not just learning to write code. I come from a background in IT Systems and Network Administration,
+              which means I understand how things work before they ever reach the browser.
+              My infrastructure roots give me a different lens: I think in systems, not just components.
+            </p>
+            <p class="about-text">
+              "Learning the craft of code as a form of modern magic."
+            </p>
+            <div class="about-tags">
+              <span class="about-tag">HTML</span>
+              <span class="about-tag">CSS</span>
+              <span class="about-tag">JavaScript</span>
+              <span class="about-tag">Responsive</span>
+            </div>
+          </div>
+        </section>
+        <!-- END ABOUT ME -->
+
+
+        <!--
+            EDUCATION
+        -->
+        <section class="education-section" id="education" aria-labelledby="education-title">
+          <h2 class="section-title" id="education-title">Education</h2>
+
+          <!-- Education entry -->
+          <div class="edu-card">
+            <div class="edu-date">2026 - Today</div>
+            <div class="edu-title">Full Stack Web Developer</div>
+            <div class="edu-location">Germany - Bootcamp</div>
+            <div class="edu-desc">
+              Currently enrolled in a professional Full Stack Web Development 
+              certification program covering the web application lifecycle, 
+              from frontend interfaces to backend architecture, deployment, and security.
+            </div>
+          </div>
+          <!-- END Education entry -->
+
+          <!-- Education entry -->
+          <div class="edu-card">
+            <div class="edu-date">2022 - 6 months</div>
+            <div class="edu-title">Google IT Support Professional Certificate</div>
+            <div class="edu-location">Germany - Coursera</div>
+            <div class="edu-desc">
+              A certificate by Google, to prepare for an entry-level position in IT support.
+              Basic aspects of IT Support. Operating Systems and You: Becoming a Power User.
+              Administration of systems and IT infrastructure services.
+              Computer Security: Defense Against Digital Dark Arts.
+            </div>
+          </div>
+          <!-- END Education entry -->
+
+          <!-- Education entry -->
+          <div class="edu-card">
+            <div class="edu-date">2017 - 2019</div>
+            <div class="edu-title">Intermediate degree of Microsystems and Networks</div>
+            <div class="edu-location">Spain, Alicante - I.E.S. Mare Nostrum</div>
+            <div class="edu-desc">
+              Management of operating systems such as Linux, Windows 7, 8, 10. 
+              Computer security and its most important bases. 
+              Assembly and disassembly of computers. 
+              Office package and management of office applications.
+              Creation of web pages with HTML and CSS. 
+              Create Scripts on Linux (Ubuntu). 
+              Management and creation of virtual machines and support them remotely.
+            </div>
+          </div>
+          <!-- END Education entry -->
+
+        </section>
+        <!-- END EDUCATION -->
+
+
+        <!--
+            BEYOND THE CODE
+        -->
+        <section class="beyond-section" id="beyond" aria-labelledby="beyond-title">
+          <h2 class="section-title" id="beyond-title">Beyond the Code</h2>
+          <div class="beyond-card">
+            <p class="beyond-text">
+              Writer and plant enthusiast.<br>
+              Published poet, currently working on a fantasy trilogy.
+            </p>
+            <div class="about-tags">
+              <span class="about-tag">Spanish</span>
+              <span class="about-tag">German</span>
+              <span class="about-tag">Italian</span>
+              <span class="about-tag">English</span>
+            </div>
+          </div>
+        </section>
+        <!-- END BEYOND THE CODE -->
+
+
+        <!--
+            CONTACT / NEWSLETTER
+        -->
+        <section class="connect-section" id="contact" aria-labelledby="contact-title">
+          <h2 class="connect-title" id="contact-title">Let's Connect</h2>
+
+          <form class="newsletter-box" aria-label="Newsletter subscription">
+            <input 
+              class="newsletter-input" 
+              type="email" 
+              placeholder="Enter your email..." 
+              required
+              aria-label="Email address for newsletter"
+            />
+            <button type="submit" class="newsletter-btn" disabled>Email me!</button>
+          </form>
+
+          <div class="footer">
+            <div class="signature" aria-hidden="true">&#8212;<em>mdm</em>&#8212;</div>
+            <div class="footer-icons">
+              <a href="https://github.com/mirinez" class="footer-icon" aria-label="GitHub profile">
+                <img src="img/svg/github.svg" alt="GitHub" class="footer-icon-img" />
+              </a>
+              <a href="https://linkedin.com/in/miriam-dominguezm" class="footer-icon" aria-label="LinkedIn profile">
+                <img src="img/svg/linkedin.svg" alt="LinkedIn" class="footer-icon-img" />
+              </a>
+            </div>
+            <p class="copyright">© Míriam Domínguez Martínez. All rights reserved.</p>
+          </div>
+        </section>
+        <!-- END CONTACT -->
+
+
+      </div><!-- /main-content -->
+    </div><!-- /center-col -->
+
+    <div class="side side-right"></div>
+  </div>
+  <!-- END PAGE WRAPPER -->
+
+
+  <!--
+      PROJECT MODAL
+  -->
+  <div class="modal-backdrop" id="projectModal" aria-hidden="true">
+    <div class="modal-box" role="dialog" aria-modal="true" aria-labelledby="modalTitle">
+      <button class="modal-close" id="modalClose" aria-label="Close modal">&#10005;</button>
+      <div class="modal-img-wrap">
+        <img class="modal-img" id="modalImg" src="" alt="" />
+      </div>
+      <div class="modal-body">
+        <h2 class="modal-title" id="modalTitle"></h2>
+        <p  class="modal-desc"  id="modalDesc"></p>
+        <div class="modal-tags" id="modalTags"></div>
+        <a class="modal-btn" id="modalLink" href="#" target="_blank" rel="noopener noreferrer">
+          View Project &#8599;
+        </a>
+      </div>
+    </div>
+  </div>
+  <!-- END PROJECT MODAL -->
+
+
+  <script src="main.js"></script>
+</body>
+</html>
