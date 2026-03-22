@@ -29,13 +29,13 @@
 
 
   <!-- 
-      PAGE WRAPPER
+      PAGE WRAPPER - MAIN PORTFOLIO VIEW
   -->
-  <div class="page-wrapper">
+  <div class="page-wrapper" id="mainView">
     <div class="side side-left"></div>
     <div class="center-col">
 
-      <!-- Theme toggle button — top-right corner of the card -->
+      <!-- Theme toggle button, top-right corner of the card -->
       <button class="theme-toggle" onclick="toggleTheme()" title="Toggle theme" aria-label="Toggle light/dark mode">
         <span class="icon-sun" aria-hidden="true">&#9728;</span>
         <span class="icon-moon" aria-hidden="true">&#9790;</span>
@@ -46,7 +46,7 @@
           HERO
       -->
       <div class="hero">
-        <img class="avatar" src="img/avatar.jpg" alt="Míriam Domínguez Martínez - Profile picture" onerror="this.style.display='none'" />
+        <img class="avatar" src="img/avatar.jpg" alt="Míriam Domínguez Martínez - Profile picture" />
         <h1 class="name">Míriam Domínguez Martínez</h1>
         <p class="tagline">Full Stack Web Developer</p>
         <button class="btn-work" disabled title="Currently studying at bootcamp">
@@ -76,56 +76,71 @@
           -->
           <div class="photos-strip" role="region" aria-label="Project portfolio">
 
-            <!-- Project photo 1 -->
+            <!-- Project 1 -->
             <div class="photo-item"
+                 data-id="portfolio"
                  data-title="Portfolio"
                  data-desc="Portfolio where I'm working and implementing while doing my Full Stack Web Dev bootcamp."
+                 data-long-desc="This is my personal portfolio, the very site you are on right now. Built from scratch during my bootcamp, it has been a living document of everything I learn. Each feature reflects a new concept mastered: CSS variables for theming, localStorage for persistence, accessible modals, SPA-style navigation, and a fully responsive layout."
+                 data-features="Light / dark theme with localStorage persistence|SPA project detail pages with hash-based routing|Accessible modal with focus trap and keyboard navigation|Fully responsive layout (desktop → tablet → mobile)|Photo strip with negative-margin bleed technique"
                  data-tech="HTML, CSS, JavaScript"
-                 data-link="#"
+                 data-github="https://github.com/mirinez/portfolio"
+                 data-demo="https://miriam-dominguezm.com/"
+                 data-images="img/vid/p-1.mp4"
                  role="button"
                  tabindex="0"
                  aria-label="Portfolio project, click to learn more">
-              <img src="img/p-1.jpg" alt="Portfolio project preview" class="project-img" onerror="this.style.display='none'" />
+              <img src="img/prj/p-1.jpg" alt="Portfolio project preview" class="project-img" onerror="this.style.display='none'" />
               <div class="project-overlay" aria-hidden="true">
                 <span class="project-title">Portfolio</span>
                 <span class="project-view-hint">Click to learn more →</span>
               </div>
             </div>
-            <!-- END Project photo 1 -->
+            <!-- END Project 1 -->
 
-            <!-- Project photo 2 -->
+            <!-- Project 2 -->
             <div class="photo-item"
+                 data-id="student-platform"
                  data-title="Student Platform"
-                 data-desc="Full stack project. Platform for students with calendars, classes, grades, student groups, news, exams, etc."
+                 data-desc="Full stack project (in progress). Platform for students with calendars, classes, grades, student groups, news, exams, etc."
+                 data-long-desc="A comprehensive full-stack platform (in progress) designed for students and educators. The system includes a personal calendar, class schedules, grade tracking, student group management, a news feed, and an exam planner. The goal was to replicate the core features of a real academic management system."
+                 data-features="Personal calendar with event creation|Class schedule management|Grade tracking and GPA calculator|Student group collaboration tools|News feed and announcements|Exam planner with reminders"
                  data-tech="HTML, CSS, JavaScript"
-                 data-link="#"
+                 data-github="#"
+                 data-demo="#"
+                 data-images="img/vid/p-2.mp4"
                  role="button"
                  tabindex="0"
                  aria-label="Student Platform project, click to learn more">
-              <img src="img/p-2.jpg" alt="Student Platform project preview" class="project-img" onerror="this.style.display='none'" />
+              <img src="img/prj/p-2.jpg" alt="Student Platform project preview" class="project-img" onerror="this.style.display='none'" /> <!-- Added purely for aesthetic purposes so that the broken image icon is not visible when the image fails to load -->
               <div class="project-overlay" aria-hidden="true">
                 <span class="project-title">Student Platform</span>
                 <span class="project-view-hint">Click to learn more →</span>
               </div>
             </div>
-            <!-- END Project photo 2 -->
+            <!-- END Project 2 -->
 
-            <!-- Project photo 3 -->
+            <!-- Project 3 -->
             <div class="photo-item"
+                 data-id="minecraft-gui"
                  data-title="Minecraft GUI"
                  data-desc="Interactive Minecraft-style inventory UI built with HTML - CSS - JavaScript. Faithful recreation of the in-game inventory panel featuring drag-and-drop items, pixel-perfect rendering, procedural sound effects via the Web Audio API, and persistent state through localStorage."
-                 data-tech="HTML, CSS, JavaScript"
-                 data-link="https://mirinez.github.io/mine-gui/"
+                 data-long-desc="A pixel-perfect recreation of the Minecraft in-game inventory screen, built entirely with vanilla HTML, CSS, and JavaScript, no canvas, no libraries. The interface supports full drag-and-drop item management between inventory slots, real-time tooltip rendering, and procedural click sounds synthesised on the fly using the Web Audio API. State is persisted across sessions via localStorage."
+                 data-features="Drag-and-drop inventory slot management|Pixel-perfect UI recreation|Procedural sound effects via Web Audio API|localStorage state persistence|Custom tooltip system|Keyboard accessibility"
+                 data-tech="HTML, CSS, JavaScript, Web Audio API"
+                 data-github="https://github.com/mirinez/mine-gui"
+                 data-demo="https://mirinez.github.io/mine-gui/"
+                 data-images="img/vid/p-3.mp4"
                  role="button"
                  tabindex="0"
                  aria-label="Minecraft GUI, click to learn more">
-              <img src="img/p-3.jpg" alt="Minecraft GUI project preview" class="project-img" onerror="this.style.display='none'" />
+              <img src="img/prj/p-3.jpg" alt="Minecraft GUI project preview" class="project-img" onerror="this.style.display='none'" />
               <div class="project-overlay" aria-hidden="true">
                 <span class="project-title">Minecraft GUI</span>
                 <span class="project-view-hint">Click to learn more →</span>
               </div>
             </div>
-            <!-- END Project photo 3 -->
+            <!-- END Project 3 -->
 
           </div>
           <!-- END PHOTOS STRIP -->
@@ -235,12 +250,12 @@
 
 
         <!--
-            CONTACT / NEWSLETTER
+            CONTACT
         -->
         <section class="connect-section" id="contact" aria-labelledby="contact-title">
           <h2 class="connect-title" id="contact-title">Let's Connect</h2>
 
-          <form class="newsletter-box" aria-label="Newsletter subscription">
+          <div class="newsletter-box" aria-label="Newsletter subscription" role="group">
             <input 
               class="newsletter-input" 
               type="email" 
@@ -248,11 +263,11 @@
               required
               aria-label="Email address for newsletter"
             />
-            <button type="submit" class="newsletter-btn" disabled>Email me!</button>
-          </form>
+            <button type="button" class="newsletter-btn" disabled>Email me!</button>
+          </div>
 
           <div class="footer">
-            <div class="signature" aria-hidden="true">&#8212;<em>mdm</em>&#8212;</div>
+            <div class="signature" aria-hidden="true">&#8212;<em> mdm </em>&#8212;</div>
             <div class="footer-icons">
               <a href="https://github.com/mirinez" class="footer-icon" aria-label="GitHub profile">
                 <img src="img/svg/github.svg" alt="GitHub" class="footer-icon-img" />
@@ -261,7 +276,7 @@
                 <img src="img/svg/linkedin.svg" alt="LinkedIn" class="footer-icon-img" />
               </a>
             </div>
-            <p class="copyright">© Míriam Domínguez Martínez. All rights reserved.</p>
+            <p class="copyright">© Míriam Domínguez Martínez</p>
           </div>
         </section>
         <!-- END CONTACT -->
@@ -272,7 +287,77 @@
 
     <div class="side side-right"></div>
   </div>
-  <!-- END PAGE WRAPPER -->
+  <!-- END PAGE WRAPPER / MAIN VIEW -->
+
+
+  <!--
+      PROJECT DETAIL VIEW - SPA second "page"
+      Hidden by default; shown by the router when hash = #project/:id
+  -->
+  <div class="page-wrapper detail-view" id="detailView" aria-hidden="true">
+    <div class="side side-left"></div>
+    <div class="center-col">
+
+      <!-- Theme toggle (mirrored in detail view) -->
+      <button class="theme-toggle" onclick="toggleTheme()" title="Toggle theme" aria-label="Toggle light/dark mode">
+        <span class="icon-sun" aria-hidden="true">&#9728;</span>
+        <span class="icon-moon" aria-hidden="true">&#9790;</span>
+      </button>
+
+      <div class="detail-content">
+
+        <!-- Back button -->
+        <button class="detail-back" id="detailBack" aria-label="Back to portfolio">
+          <span class="detail-back-arrow" aria-hidden="true">&#8592;</span>
+          Back
+        </button>
+
+        <!-- Hero image gallery -->
+        <div class="detail-gallery" id="detailGallery" aria-label="Project screenshots"></div>
+
+        <!-- Project header -->
+        <div class="detail-header">
+          <h1 class="detail-title" id="detailTitle"></h1>
+          <div class="detail-action-btns">
+            <a class="detail-btn detail-btn-primary" id="detailDemoBtn" href="#" target="_blank" rel="noopener noreferrer">
+              Live Demo &#8599;
+            </a>
+            <a class="detail-btn detail-btn-secondary" id="detailGithubBtn" href="#" target="_blank" rel="noopener noreferrer">
+              <img src="img/svg/github.svg" alt="" class="detail-btn-icon" aria-hidden="true" />
+              GitHub
+            </a>
+          </div>
+        </div>
+
+        <!-- Description -->
+        <section class="detail-section" aria-labelledby="detail-about-label">
+          <h2 class="detail-section-label" id="detail-about-label">About the project</h2>
+          <p class="detail-desc" id="detailDesc"></p>
+        </section>
+
+        <!-- Features list -->
+        <section class="detail-section" aria-labelledby="detail-features-label">
+          <h2 class="detail-section-label" id="detail-features-label">Features</h2>
+          <ul class="detail-features" id="detailFeatures" aria-label="Project features"></ul>
+        </section>
+
+        <!-- Tech stack -->
+        <section class="detail-section" aria-labelledby="detail-stack-label">
+          <h2 class="detail-section-label" id="detail-stack-label">Tech stack</h2>
+          <div class="detail-tags" id="detailTags"></div>
+        </section>
+
+      </div><!-- /detail-content -->
+
+      <!-- Footer (minimal) -->
+      <div class="detail-footer">
+        <p class="copyright">© Míriam Domínguez Martínez</p>
+      </div>
+
+    </div><!-- /center-col -->
+    <div class="side side-right"></div>
+  </div>
+  <!-- END PROJECT DETAIL VIEW -->
 
 
   <!--
@@ -281,16 +366,20 @@
   <div class="modal-backdrop" id="projectModal" aria-hidden="true">
     <div class="modal-box" role="dialog" aria-modal="true" aria-labelledby="modalTitle">
       <button class="modal-close" id="modalClose" aria-label="Close modal">&#10005;</button>
-      <div class="modal-img-wrap">
-        <img class="modal-img" id="modalImg" src="" alt="" />
-      </div>
+      <div class="modal-img-wrap" id="modalImgWrap"></div>
       <div class="modal-body">
         <h2 class="modal-title" id="modalTitle"></h2>
         <p  class="modal-desc"  id="modalDesc"></p>
         <div class="modal-tags" id="modalTags"></div>
-        <a class="modal-btn" id="modalLink" href="#" target="_blank" rel="noopener noreferrer">
-          View Project &#8599;
-        </a>
+        <!-- "Full page" link, navigates to the detail SPA view -->
+        <div class="modal-actions">
+          <a class="modal-btn" id="modalLink" href="#" target="_blank" rel="noopener noreferrer">
+            View Project &#8599;
+          </a>
+          <button class="modal-btn modal-btn-detail" id="modalDetailBtn">
+            Full Details &#8594;
+          </button>
+        </div>
       </div>
     </div>
   </div>
