@@ -338,7 +338,7 @@ function showView(view) {
     mainView.classList.remove('view-hidden');
     mainView.setAttribute('aria-hidden', 'false');
     document.body.classList.remove('detail-active');
-    window.scrollTo({ top: 0, behavior: 'instant' });
+    // Note: no scrollTo here — we let the browser handle native anchor scrolling
   }
 }
 
@@ -361,10 +361,16 @@ const router = {
     const { route, param } = router.parse();
 
     if (route === 'project' && param && projectsMap[param]) {
+      // SPA route → render detail view
       renderDetailView(projectsMap[param]);
       showView('detail');
     } else {
-      showView('main');
+      // Section anchor (#about, #projects, etc.) or empty hash →
+      // only switch back to main view if we were in the detail view,
+      // and let the browser handle the native anchor scroll naturally.
+      if (!detailView.classList.contains('view-hidden')) {
+        showView('main');
+      }
     }
   }
 };
