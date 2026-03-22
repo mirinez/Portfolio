@@ -9,7 +9,7 @@
 
 ### About
 
-This is my personal portfolio. Built from scratch during my bootcamp, it is a living document of everything I learn. Each feature reflects a new concept mastered: CSS variables for theming, localStorage for persistence, accessible modals, SPA-style navigation, and a fully responsive layout, built with HTML - CSS - JavaScript.
+This is my personal portfolio (in progress). Built from scratch during my bootcamp, it is a living document of everything I learn. Each feature reflects a new concept mastered: CSS variables for theming, localStorage for persistence, accessible modals, SPA-style navigation, and a fully responsive layout, built with HTML - CSS - JavaScript.
 
 ---
 
