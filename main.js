@@ -8,6 +8,7 @@
    Step 3 · Project Modal
    Step 4 · Email Validation
    Step 5 · SPA Router - Project Detail View
+   Step 6 · Click sound (This part of the code was an idea copied entirely from the internet)
 */
 
 
@@ -393,3 +394,98 @@ window.addEventListener('hashchange', function () {
 // 5.9 · Handle the initial hash on page load
 router.handle();
 
+
+/* =================
+   STEP 6 · SOUND ENGINE
+   Click sound reverse-engineered from a real mechanical mouse sample:
+     Press   - bandpass noise centred on ~830 Hz, decay ~5 ms
+     Release - bandpass noise centred on ~690 Hz, decay ~7 ms, at +78 ms
+   Uses the Web Audio API, no external files required.
+   Silenced automatically when prefers-reduced-motion is active.
+   =================
+*/
+
+// 6.1 · AudioContext, lazily created on the first user gesture to
+//       comply with browser autoplay policies (Chrome, Safari, Firefox).
+const sfx = (function () {
+  let ctx = null;
+
+  function getCtx() {
+    if (!ctx) ctx = new (window.AudioContext || window.webkitAudioContext)();
+    if (ctx.state === 'suspended') ctx.resume();
+    return ctx;
+  }
+
+  // Respect the OS-level "reduce motion" preference as a proxy for
+  // users who want a quieter, less stimulating experience.
+  const reducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+  // 6.2 · snap, short filtered-noise burst modelling a single switch hit.
+  //   at    : AudioContext timestamp (seconds)
+  //   freq  : bandpass centre frequency (Hz), sets the "pitch" of the click
+  //   q     : filter Q higher = narrower band = more tonal
+  //   vol   : peak gain
+  //   decay : time (s) to fade to silence
+  function snap(at, freq, q, vol, decay) {
+    const c = getCtx();
+
+    // White noise source
+    const bufSize = Math.ceil(c.sampleRate * (decay + 0.004));
+    const buf     = c.createBuffer(1, bufSize, c.sampleRate);
+    const d       = buf.getChannelData(0);
+    for (let i = 0; i < bufSize; i++) d[i] = Math.random() * 2 - 1;
+
+    const src    = c.createBufferSource();
+    src.buffer   = buf;
+
+    // Narrow bandpass, concentrates energy around the target frequency
+    const bp     = c.createBiquadFilter();
+    bp.type            = 'bandpass';
+    bp.frequency.value = freq;
+    bp.Q.value         = q;
+
+    // Soft roll-off above 5 kHz to remove harshness
+    const lp     = c.createBiquadFilter();
+    lp.type            = 'lowpass';
+    lp.frequency.value = 5000;
+
+    const gain   = c.createGain();
+    gain.gain.setValueAtTime(vol,   at);
+    gain.gain.exponentialRampToValueAtTime(0.0001, at + decay);
+
+    src.connect(bp);
+    bp.connect(lp);
+    lp.connect(gain);
+    gain.connect(c.destination);
+
+    src.start(at);
+    src.stop(at + decay + 0.005);
+  }
+
+  // 6.3 · Mechanical mouse click, two snaps derived from spectral analysis
+  //       of a real mouse sample:
+  //         Press   : ~830 Hz centre, very tight decay (5 ms)
+  //         Release : ~690 Hz centre (lower/darker), slightly longer (7 ms)
+  //                   arrives 78 ms after the press, measured from the sample.
+  return {
+    click: function () {
+      if (reducedMotion) return;
+      const c   = getCtx();
+      const now = c.currentTime;
+
+      snap(now,         830, 2.2, 0.55, 0.005);   // press
+      snap(now + 0.078, 690, 2.0, 0.38, 0.007);   // release
+    }
+  };
+})();
+
+// 6.4 · Universal click listener, one delegated handler on the document
+//       catches every click that originates from a button, link, or any
+//       element with a recognised interactive role / attribute, without
+//       touching the existing individual listeners.
+document.addEventListener('click', function (e) {
+  const target = e.target.closest(
+    'button, a, [role="button"], [tabindex], .photo-item, label'
+  );
+  if (target) sfx.click();
+}, { passive: true });
