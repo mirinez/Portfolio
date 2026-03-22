@@ -46,6 +46,4 @@ portfolio-project/
 
 ---
 
----
-
 *Currently studying and building every day.* 🌱
