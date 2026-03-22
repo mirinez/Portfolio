@@ -46,16 +46,6 @@ portfolio-project/
 
 ---
 
-### Colour Palette
-
-Ligth mode:  
-
-![colors](./img/colors.jpg)  
-
-Dark mode:  
-
-![colors](./img/colors-dark.jpg)  
-
 ---
 
 *Currently studying and building every day.* 🌱
