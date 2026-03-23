@@ -1157,6 +1157,8 @@ body.detail-active {
   overflow: hidden;
   background: var(--bg-card-inner); /* fallback when media is missing */
   scroll-snap-align: start;
+  border: 1px solid rgba(0, 0, 0, 0.10);
+  box-shadow: 0 2px 12px rgba(0, 0, 0, 0.10), 0 1px 3px rgba(0, 0, 0, 0.08);
 }
 
 /* If only one image/video, fill the full width */
@@ -1390,5 +1392,3 @@ body.dark .detail-btn-icon {
 }
 
 /* END RESPONSIVE - DETAIL VIEW */
-
-
