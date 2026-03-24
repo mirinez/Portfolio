@@ -1,4 +1,4 @@
-## Portfolio  <img src="./gif/plant.gif" alt="GIF" width="40" />  
+## Portfolio
 
 
 **Author:** Míriam Domínguez Martínez  
@@ -13,7 +13,7 @@ This is my personal portfolio (in progress). Built from scratch during my bootca
 
 ---
 
-### File Structure ☘️
+### File Structure
 
 ```
 portfolio-project/
