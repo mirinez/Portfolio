@@ -1,4 +1,5 @@
-/* main.js | Portfolio
+/* 
+   main.js | Portfolio
    Míriam Domínguez Martínez
 */
 
