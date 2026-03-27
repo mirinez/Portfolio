@@ -398,10 +398,28 @@ h1.name {
   margin-left: calc(var(--bleed) * -1);
 
   display: flex;
+  flex-direction: column; /* rows stack vertically */
   gap: 14px;
   padding: 10px 0;
   overflow: visible; /* prevent clipping of tilted cards */
   margin-bottom: 32px;
+}
+
+/* Each row is a horizontal flex line */
+.photos-row {
+  display: flex;
+  gap: 14px;
+  width: 100%;
+}
+
+/* Row 2: 2 cards centred under the 3 above (inverted pyramid) */
+.photos-row-bottom {
+  justify-content: center;
+}
+
+/* Row 2 cards match the width of a card in the 3-card row */
+.photos-row-bottom .photo-item {
+  flex: 0 0 calc((100% - 14px * 2) / 3);
 }
 
 /* On strip hover: all three cards straighten and lift together */
@@ -437,10 +455,14 @@ h1.name {
     box-shadow 0.4s ease;
 }
 
-/* Slight tilt and lift as individual cards */
+/* Row 1: 3 cards - slight tilt and lift */
 .photo-item:nth-child(1) { transform: rotate(-2deg) translateY(4px); }
 .photo-item:nth-child(2) { transform: rotate(0deg) translateY(0px); }
 .photo-item:nth-child(3) { transform: rotate(2deg) translateY(4px); }
+
+/* Row 2: 2 cards - gentle tilt */
+.photos-row-bottom .photo-item:nth-child(1) { transform: rotate(-1deg) translateY(4px); }
+.photos-row-bottom .photo-item:nth-child(2) { transform: rotate(1deg)  translateY(4px); }
 
 .project-img {
   width: 100%;
@@ -935,11 +957,18 @@ body.dark .footer-icon-img {
     margin-left: 0;
   }
 
-  /* 3 in a row, no tilt, titles visible on hover */
+  /* All cards: no tilt on tablet */
   .photo-item:nth-child(1),
   .photo-item:nth-child(2),
-  .photo-item:nth-child(3) {
+  .photo-item:nth-child(3),
+  .photos-row-bottom .photo-item:nth-child(1),
+  .photos-row-bottom .photo-item:nth-child(2) {
     transform: none;
+  }
+
+  /* Row 2 cards maintain their width on tablet */
+  .photos-row-bottom .photo-item {
+    flex: 0 0 calc((100% - 14px * 2) / 3);
   }
 
   /* Overlay and titles always visible */
@@ -1002,8 +1031,22 @@ body.dark .footer-icon-img {
   /* Remove tilt and always show overlay on small screens */
   .photo-item:nth-child(1),
   .photo-item:nth-child(2),
-  .photo-item:nth-child(3) {
+  .photo-item:nth-child(3),
+  .photos-row-bottom .photo-item:nth-child(1),
+  .photos-row-bottom .photo-item:nth-child(2) {
     transform: none;
+  }
+
+  /* Stack rows vertically on mobile - each row becomes a column */
+  .photos-row {
+    flex-direction: column;
+    gap: 16px;
+  }
+
+  /* Row 2 cards full width on mobile */
+  .photos-row-bottom .photo-item {
+    flex: 0 0 auto;
+    width: 100%;
   }
 
   /* Always show project title on mobile */
