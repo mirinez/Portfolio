@@ -80,7 +80,7 @@ function openModal(card) {
   const img   = card.querySelector('.project-img');
 
   modalTitle.textContent = title;
-  modalDesc.textContent  = desc;
+  modalDesc.innerHTML = desc.replace(/\n/g, '<br>');
   modalLink.href         = demo;
 
   // The card's <img> may have display:none (set by suppressBrokenIcon) which
@@ -255,7 +255,7 @@ function renderDetailView(card) {
   detailTitle.textContent = title;
 
   // Long description
-  detailDesc.textContent = desc;
+  detailDesc.innerHTML = desc.replace(/\n/g, '<br>');
 
   // Gallery, pipe-separated media paths (images or .mp4 videos)
   detailGallery.innerHTML = '';
