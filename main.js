@@ -367,9 +367,7 @@ const router = {
       renderDetailView(projectsMap[param]);
       showView('detail');
     } else {
-      // Section anchor (#about, #projects, etc.) or empty hash →
-      // only switch back to main view if we were in the detail view,
-      // and let the browser handle the native anchor scroll naturally.
+      // Section anchor (#about, #projects, etc.) or empty hash → only switch back to main view if we were in the detail view, and let the browser handle the native anchor scroll naturally
       if (!detailView.classList.contains('view-hidden')) {
         showView('main');
       }
