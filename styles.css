@@ -463,8 +463,6 @@ h1.name {
 }
 
 /* On strip hover: all cards straighten and lift together */
-/* Both selectors needed - bottom row tilt rules have higher specificity
-   (.photos-row-bottom .photo-item:nth-child) so we match that specificity here */
 .photos-strip:hover .photo-item,
 .photos-strip:hover .photos-row-bottom .photo-item:nth-child(1),
 .photos-strip:hover .photos-row-bottom .photo-item:nth-child(2) {
@@ -485,11 +483,13 @@ h1.name {
   min-width: 0;
   height: var(--photo-h);
   border-radius: 14px;
-  /* overflow:hidden removed - causes hairline corner artifact when combined
-     with transform:rotate(). Clipping is handled by border-radius on .project-img */
+  /* 
+    overflow:hidden removed, causes hairline corner artifact when combined
+    with transform:rotate(). Clipping is handled by border-radius on .project-img 
+  */
   position: relative;
   cursor: pointer;
-  background: var(--bg-nav); /* fallback shown when project image is missing */
+  background: var(--bg-nav);           /* fallback shown when project image is missing */
   box-shadow:
     0 6px 20px rgba(0, 0, 0, 0.10),
     0 0 0 1.5px rgba(0, 0, 0, 0.15); /* outline-style ring to frame white images */
@@ -752,7 +752,7 @@ h1.name {
 
 .lang-bar-fill {
   height: 100%;
-  width: 0; /* starts at 0 - animated by JS via IntersectionObserver */
+  width: 0; /* starts at 0, animated by JS via IntersectionObserver */
   border-radius: 999px;
   background: var(--text-primary);
   transition: width 0.9s cubic-bezier(0.4, 0, 0.2, 1), background var(--transition);
@@ -881,7 +881,7 @@ h1.name {
   color: var(--text-primary);
 }
 
-/* SVG loaded via <img> - size + hover opacity since filter can't use CSS color vars */
+/* SVG loaded via <img> - size + hover opacity since filter cant use CSS color vars */
 .footer-icon-img {
   width: 20px;
   height: 20px;
@@ -894,7 +894,7 @@ h1.name {
   opacity: 1;
 }
 
-/* Dark mode - invert the SVG from black to white */
+/* In dark mode, invert the SVG from black to white */
 body.dark .footer-icon-img {
   filter: invert(1);
 }
@@ -1216,6 +1216,57 @@ body.dark .footer-icon-img {
 }
 
 /* END RESPONSIVE */
+
+
+/* =================
+   18b. SCROLL TO TOP BUTTON
+   Appears after scrolling down; same visual language as .btn-cv
+   =================
+*/
+
+.scroll-top {
+  position: fixed;
+  bottom: 32px;
+  right: 32px;
+  z-index: 200;
+  background: var(--btn-bg);
+  color: var(--btn-text);
+  border: none;
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  font-size: 18px;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-family: 'Inter', sans-serif;
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.15);
+  opacity: 0;
+  pointer-events: none;
+  transform: translateY(8px);
+  transition: opacity 0.3s ease, transform 0.3s ease,
+              background var(--transition), color var(--transition);
+}
+
+.scroll-top.visible {
+  opacity: 1;
+  pointer-events: auto;
+  transform: translateY(0);
+}
+
+.scroll-top:hover {
+  transform: translateY(-2px);
+}
+
+@media (max-width: 600px) {
+  .scroll-top {
+    bottom: 20px;
+    right: 16px;
+  }
+}
+
+/* END SCROLL TO TOP BUTTON */
 
 
 /* =================
