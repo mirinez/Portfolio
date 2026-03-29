@@ -13,7 +13,8 @@
   <link rel="stylesheet" href="styles.css" />
   <link rel="icon" type="image/x-icon" href="img/ico/favicon.ico">
 
-  <!-- Open Graph tags -->
+  <!-- Open Graph tags --> 
+  <!-- I think they dnt work, i need to checkout later -->
   <meta property="og:title" content="Míriam Domínguez Martínez - Porfolio" />
   <meta property="og:description" content="Portfolio of Míriam Domínguez Martínez, Full Stack Web Developer. Showcasing projects, education, and experience." />
   <meta property="og:image" content="https://github.com/mirinez/portfolio/img/ico/favicon.ico" />
@@ -27,12 +28,12 @@
       NAVBAR
   -->
   <nav class="site-nav" aria-label="Main navigation">
-    <div class="nav-inner">
+    <div class="nav-inner">  <!-- put a "home" link with an emoji or svg -->
       <a href="#projects"   class="nav-link">Projects</a>
       <a href="#about"      class="nav-link">About Me</a>
       <a href="#education"  class="nav-link">Education</a>
       <a href="#beyond"     class="nav-link">Beyond the Code</a>
-      <a href="#contact"    class="nav-link">Contact Me</a>
+      <a href="#contact"    class="nav-link">Contact Me</a> <!-- is without backend so dnt work -->
     </div>
   </nav>
   <!-- END NAVBAR -->
@@ -45,7 +46,7 @@
     <div class="side side-left"></div>
     <div class="center-col">
 
-      <!-- Theme toggle button, top-right corner of the card -->
+      <!-- Theme toggle button, top/right corner of the card -->
       <button class="theme-toggle" onclick="toggleTheme()" title="Toggle theme" aria-label="Toggle light/dark mode">
         <span class="icon-sun" aria-hidden="true">&#9728;</span>
         <span class="icon-moon" aria-hidden="true">&#9790;</span>
@@ -59,9 +60,15 @@
         <img class="avatar" src="img/avatar.jpg" alt="Míriam Domínguez Martínez - Profile picture" />
         <h1 class="name">Míriam Domínguez Martínez</h1>
         <p class="tagline">Full Stack Web Developer</p>
-        <button class="btn-work" disabled title="Currently studying at bootcamp">
-          Studying
-        </button>
+        <div class="hero-btns">
+          <button class="btn-work" disabled title="Currently studying at bootcamp">
+            Studying
+          </button>
+          <!-- CV download button -->
+          <a class="btn-cv" href="https://drive.google.com/file/d/1JmqCWxrOpxVeGomETu3dsrFtNjZmxo5y/view?usp=drive_link" target="_blank" rel="noopener noreferrer" aria-label="Download CV as PDF">
+            CV ↓
+          </a>
+        </div>
       </div>
       <!-- END HERO -->
 
@@ -318,12 +325,53 @@ The ultimate goal of this project is to transition from a static interface into 
               Writer and plant enthusiast.<br>
               Published poet, currently working on a fantasy trilogy.
             </p>
-            <div class="about-tags">
-              <span class="about-tag">Spanish</span>
-              <span class="about-tag">German</span>
-              <span class="about-tag">Italian</span>
-              <span class="about-tag">English</span>
+
+            <!-- LANGUAGES -->
+            <div class="lang-grid" aria-label="Languages">
+
+              <div class="lang-item">
+                <div class="lang-header">
+                  <span class="lang-name">Spanish</span>
+                  <span class="lang-badge">Native</span>
+                </div>
+                <div class="lang-bar-track" role="progressbar" aria-valuenow="100" aria-valuemin="0" aria-valuemax="100" aria-label="Spanish: Native">
+                  <div class="lang-bar-fill" data-width="100"></div>
+                </div>
+              </div>
+
+              <div class="lang-item">
+                <div class="lang-header">
+                  <span class="lang-name">English</span>
+                  <span class="lang-badge">C1</span>
+                </div>
+                <div class="lang-bar-track" role="progressbar" aria-valuenow="85" aria-valuemin="0" aria-valuemax="100" aria-label="English: C1">
+                  <div class="lang-bar-fill" data-width="85"></div>
+                </div>
+              </div>
+
+              <div class="lang-item">
+                <div class="lang-header">
+                  <span class="lang-name">German</span>
+                  <span class="lang-badge">C1</span>
+                </div>
+                <div class="lang-bar-track" role="progressbar" aria-valuenow="85" aria-valuemin="0" aria-valuemax="100" aria-label="German: C1">
+                  <div class="lang-bar-fill" data-width="85"></div>
+                </div>
+              </div>
+
+              <div class="lang-item">
+                <div class="lang-header">
+                  <span class="lang-name">Italian</span>
+                  <span class="lang-badge">B1</span>
+                </div>
+                <div class="lang-bar-track" role="progressbar" aria-valuenow="55" aria-valuemin="0" aria-valuemax="100" aria-label="Italian: B1">
+                  <div class="lang-bar-fill" data-width="55"></div>
+                </div>
+              </div>
+
             </div>
+            <!-- END LANGUAGES -->
+
           </div>
         </section>
         <!-- END BEYOND THE CODE -->
