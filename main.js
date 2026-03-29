@@ -10,6 +10,7 @@
    Step 4 · Email Validation
    Step 5 · SPA Router - Project Detail View
    Step 6 · Language Bar Animation
+   Step 6b · Scroll To Top Button
    Step 7 · Click sound (This part of the code was an idea copied entirely from the internet)
 */
 
@@ -343,7 +344,7 @@ function showView(view) {
     mainView.classList.remove('view-hidden');
     mainView.setAttribute('aria-hidden', 'false');
     document.body.classList.remove('detail-active');
-    // Note: no scrollTo here — we let the browser handle native anchor scrolling
+    // Note: no scrollTo here, we let the browser handle native anchor scrolling
   }
 }
 
@@ -437,6 +438,33 @@ router.handle();
       fill.classList.add('lang-bar-animated');
     });
   }
+})();
+
+
+/* =================
+   STEP 6b · SCROLL TO TOP BUTTON
+   Shows after the user scrolls down 300 px.
+   Works in both the main view and the detail view.
+   =================
+*/
+
+(function initScrollTop() {
+  const btn = document.getElementById('scrollTop');
+  if (!btn) return;
+
+  // Toggle visibility based on scroll position
+  window.addEventListener('scroll', function () {
+    if (window.scrollY > 300) {
+      btn.classList.add('visible');
+    } else {
+      btn.classList.remove('visible');
+    }
+  }, { passive: true });
+
+  // Scroll smoothly to the top on click
+  btn.addEventListener('click', function () {
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+  });
 })();
 
 
