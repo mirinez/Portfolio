@@ -34,6 +34,7 @@ portfolio-project/
 │       └── p-3.mp4
 │   └── svg/
 │       ├── github.svg
+│       ├── bnss-card.svg
 │       └── linkedin.svg
 └── font/
     ├── Inter-Light.woff2
