@@ -83,10 +83,11 @@ function openModal(card) {
   modalDesc.innerHTML = desc.replace(/\n/g, '<br>');
   modalLink.href         = demo;
 
-  // The card's <img> may have display:none (set by suppressBrokenIcon) which
-  // makes naturalWidth unreliable. Instead we probe the src with a fresh Image
-  // object that is never added to the DOM, so display never interferes.
-  // We clear the wrap first, then inject an <img> only if the probe succeeds.
+  /* 
+     The card's <img> may have display:none (set by suppressBrokenIcon) which makes naturalWidth unreliable. 
+     Instead we probe the src with a fresh Image object that is never added to the DOM, so display never interferes. 
+     We clear the wrap first, then inject an <img> only if the probe succeeds.
+  */
   modalImgWrap.innerHTML = '';
   const src = img ? img.getAttribute('src') : '';
   if (src) {
