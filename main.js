@@ -9,7 +9,8 @@
    Step 3 · Project Modal
    Step 4 · Email Validation
    Step 5 · SPA Router - Project Detail View
-   Step 6 · Click sound (This part of the code was an idea copied entirely from the internet)
+   Step 6 · Language Bar Animation
+   Step 7 · Click sound (This part of the code was an idea copied entirely from the internet)
 */
 
 
@@ -83,10 +84,11 @@ function openModal(card) {
   modalDesc.innerHTML = desc.replace(/\n/g, '<br>');
   modalLink.href         = demo;
 
-  /* 
-     The card's <img> may have display:none (set by suppressBrokenIcon) which makes naturalWidth unreliable. 
-     Instead we probe the src with a fresh Image object that is never added to the DOM, so display never interferes. 
-     We clear the wrap first, then inject an <img> only if the probe succeeds.
+  /*
+    The card's <img> may have display:none (set by suppressBrokenIcon) which
+    makes naturalWidth unreliable. Instead we probe the src with a fresh Image
+    object that is never added to the DOM, so display never interferes.
+    We clear the wrap first, then inject an <img> only if the probe succeeds.
   */
   modalImgWrap.innerHTML = '';
   const src = img ? img.getAttribute('src') : '';
@@ -368,7 +370,11 @@ const router = {
       renderDetailView(projectsMap[param]);
       showView('detail');
     } else {
-      // Section anchor (#about, #projects, etc.) or empty hash → only switch back to main view if we were in the detail view, and let the browser handle the native anchor scroll naturally
+      /* 
+        Section anchor (#about, #projects, etc.) or empty hash →
+        only switch back to main view if we were in the detail view,
+        and let the browser handle the native anchor scroll naturally.
+      */
       if (!detailView.classList.contains('view-hidden')) {
         showView('main');
       }
@@ -396,7 +402,46 @@ router.handle();
 
 
 /* =================
-   STEP 6 · SOUND ENGINE
+   STEP 6 · LANGUAGE BAR ANIMATION
+   Uses IntersectionObserver so the bars fill only when the
+   section scrolls into view, making the animation feel intentional.
+   Falls back gracefully if IntersectionObserver is not available.
+   =================
+*/
+
+(function initLangBars() {
+  const fills = document.querySelectorAll('.lang-bar-fill');
+  if (!fills.length) return;
+
+  function animateBars(entries, observer) {
+    entries.forEach(function (entry) {
+      if (!entry.isIntersecting) return;
+      const fill      = entry.target;
+      const targetPct = fill.dataset.width || '0';
+      // Set the CSS custom property the transition reads from
+      fill.style.setProperty('--lang-target-width', targetPct + '%');
+      fill.classList.add('lang-bar-animated');
+      observer.unobserve(fill); // fire once only
+    });
+  }
+
+  if ('IntersectionObserver' in window) {
+    const obs = new IntersectionObserver(animateBars, {
+      threshold: 0.3 // trigger when 30% of the bar is visible
+    });
+    fills.forEach(function (fill) { obs.observe(fill); });
+  } else {
+    // Fallback: fill immediately without animation
+    fills.forEach(function (fill) {
+      fill.style.setProperty('--lang-target-width', (fill.dataset.width || '0') + '%');
+      fill.classList.add('lang-bar-animated');
+    });
+  }
+})();
+
+
+/* =================
+   STEP 7 · SOUND ENGINE
    Click sound reverse-engineered from a real mechanical mouse sample:
      Press   - bandpass noise centred on ~830 Hz, decay ~5 ms
      Release - bandpass noise centred on ~690 Hz, decay ~7 ms, at +78 ms
@@ -405,8 +450,11 @@ router.handle();
    =================
 */
 
-// 6.1 · AudioContext, lazily created on the first user gesture to
-//       comply with browser autoplay policies (Chrome, Safari, Firefox).
+/*
+  7.1 · AudioContext, lazily created on the first user gesture to 
+  comply with browser autoplay policies (Chrome, Safari, Firefox).
+*/
+
 const sfx = (function () {
   let ctx = null;
 
@@ -416,16 +464,18 @@ const sfx = (function () {
     return ctx;
   }
 
-  // Respect the OS-level "reduce motion" preference as a proxy for
-  // users who want a quieter, less stimulating experience.
+  // Respect the OS-level "reduce motion"
   const reducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
 
-  // 6.2 · snap, short filtered-noise burst modelling a single switch hit.
-  //   at    : AudioContext timestamp (seconds)
-  //   freq  : bandpass centre frequency (Hz), sets the "pitch" of the click
-  //   q     : filter Q higher = narrower band = more tonal
-  //   vol   : peak gain
-  //   decay : time (s) to fade to silence
+/*
+  7.2 · snap, short filtered-noise burst modelling a single switch hit.
+  at    : AudioContext timestamp (seconds)
+  freq  : bandpass centre frequency (Hz), sets the "pitch" of the click
+  q     : filter Q higher = narrower band = more tonal
+  vol   : peak gain
+  decay : time (s) to fade to silence
+*/
+
   function snap(at, freq, q, vol, decay) {
     const c = getCtx();
 
@@ -462,11 +512,13 @@ const sfx = (function () {
     src.stop(at + decay + 0.005);
   }
 
-  // 6.3 · Mechanical mouse click, two snaps derived from spectral analysis
-  //       of a real mouse sample:
-  //         Press   : ~830 Hz centre, very tight decay (5 ms)
-  //         Release : ~690 Hz centre (lower/darker), slightly longer (7 ms)
-  //                   arrives 78 ms after the press, measured from the sample.
+/* 
+  7.3 · Mechanical mouse click, two snaps derived from spectral analysis of a real mouse sample:
+  Press   : ~830 Hz centre, very tight decay (5 ms)
+  Release : ~690 Hz centre (lower/darker), slightly longer (7 ms)
+  arrives 78 ms after the press, measured from the sample.
+*/
+
   return {
     click: function () {
       if (reducedMotion) return;
@@ -479,10 +531,13 @@ const sfx = (function () {
   };
 })();
 
-// 6.4 · Universal click listener, one delegated handler on the document
-//       catches every click that originates from a button, link, or any
-//       element with a recognised interactive role / attribute, without
-//       touching the existing individual listeners.
+/* 
+  7.4 · Universal click listener, one delegated handler on the document
+  catches every click that originates from a button, link, or any
+  element with a recognised interactive role / attribute, without
+  touching the existing individual listeners.
+*/ 
+
 document.addEventListener('click', function (e) {
   const target = e.target.closest(
     'button, a, [role="button"], [tabindex], .photo-item, label'
