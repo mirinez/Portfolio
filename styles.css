@@ -329,6 +329,46 @@ h1.name {
 
 
 /* =================
+   6b. HERO BUTTONS ROW
+   =================
+*/
+
+.hero-btns {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+/* CV download button - outlined style to complement the filled btn-work */
+.btn-cv {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  background: transparent;
+  color: var(--text-secondary);
+  border: 1px solid var(--border);
+  padding: 10px 20px;
+  border-radius: 999px;
+  font-size: 14px;
+  font-weight: 500;
+  font-family: 'Inter', sans-serif;
+  text-decoration: none;
+  cursor: pointer;
+  transition: background var(--transition), color var(--transition),
+              border-color var(--transition), transform 0.15s;
+}
+
+.btn-cv:hover {
+  background: var(--bg-card-inner);
+  color: var(--text-primary);
+  border-color: var(--text-muted);
+  transform: translateY(-1px);
+}
+
+/* END HERO BUTTONS ROW */
+
+
+/* =================
    7. MAIN CONTENT WRAPPER
    =================
 */
@@ -651,6 +691,88 @@ h1.name {
 
 
 /* =================
+   14b. LANGUAGE BARS
+   =================
+*/
+
+.lang-grid {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  /* Thin separator between the bio text and the language list */
+  margin-top: 22px;
+  padding-top: 20px;
+  border-top: 1px solid var(--border);
+  transition: border-color var(--transition);
+}
+
+.lang-item {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+/* Header row: language name flush left, level badge flush right */
+.lang-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.lang-name {
+  font-size: 13px;
+  font-weight: 500;
+  color: var(--text-primary);
+  letter-spacing: 0.01em;
+  transition: color var(--transition);
+}
+
+.lang-badge {
+  font-size: 10.5px;
+  font-weight: 600;
+  color: var(--text-muted);
+  background: var(--bg-card);
+  border: 1px solid var(--border);
+  border-radius: 999px;
+  padding: 2px 10px;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  transition: background var(--transition), color var(--transition), border-color var(--transition);
+}
+
+/* Full-width track, slightly taller for more presence */
+.lang-bar-track {
+  width: 100%;
+  height: 4px;
+  background: var(--border);
+  border-radius: 999px;
+  overflow: hidden;
+  transition: background var(--transition);
+}
+
+.lang-bar-fill {
+  height: 100%;
+  width: 0; /* starts at 0 - animated by JS via IntersectionObserver */
+  border-radius: 999px;
+  background: var(--text-primary);
+  transition: width 0.9s cubic-bezier(0.4, 0, 0.2, 1), background var(--transition);
+}
+
+/* Stagger the animation per bar using nth-child delays */
+.lang-item:nth-child(1) .lang-bar-fill { transition-delay: 0s;    }
+.lang-item:nth-child(2) .lang-bar-fill { transition-delay: 0.08s; }
+.lang-item:nth-child(3) .lang-bar-fill { transition-delay: 0.16s; }
+.lang-item:nth-child(4) .lang-bar-fill { transition-delay: 0.24s; }
+
+/* When the bar is visible and animated */
+.lang-bar-fill.lang-bar-animated {
+  width: var(--lang-target-width);
+}
+
+/* END LANGUAGE BARS */
+
+
+/* =================
    15. CONTACT / NEWSLETTER
    =================
 */
@@ -886,6 +1008,7 @@ body.dark .footer-icon-img {
   line-height: 1.75;
   margin-bottom: 18px;
   transition: color var(--transition);
+  white-space: pre-wrap; 
 }
 
 .modal-tags {
@@ -1302,6 +1425,7 @@ body.dark .detail-btn-icon {
   color: var(--text-secondary);
   line-height: 1.8;
   transition: color var(--transition);
+  white-space: pre-wrap;
 }
 
 /* 20.9 - Features list */
@@ -1423,4 +1547,3 @@ body.dark .detail-btn-icon {
 }
 
 /* END RESPONSIVE - DETAIL VIEW */
-
