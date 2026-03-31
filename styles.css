@@ -71,7 +71,7 @@
 */
 
 :root {
-  --bg-outer:       #eef0f3;
+  --bg-outer:       #ffffff;
   --bg-card:        #ffffff;
   --bg-card-inner:  #f5f6f8;
   --bg-nav:         #1e2330;
@@ -108,6 +108,12 @@ body.dark {
    2. BASE
    =================
 */
+
+html, body {
+  overflow-x: hidden;
+  width: 100%;
+  position: relative;
+}
 
 /* I've visually removed the scrollbar but it still works; it's purely aesthetic */ 
 html {
@@ -773,7 +779,7 @@ h1.name {
 
 
 /* =================
-   15. CONTACT / NEWSLETTER
+   15. CONTACT
    =================
 */
 
@@ -833,7 +839,7 @@ h1.name {
   transform: translateY(-1px);
 }
 
-/* END CONTACT / NEWSLETTER */
+/* END CONTACT */
 
 
 /* =================
@@ -1199,19 +1205,34 @@ body.dark .footer-icon-img {
   }
 
   .nav-inner {
-    gap: 0;
-    padding: 0 8px;
-    height: 44px;
+    gap: 4;
+    padding: 0 4px;
+    height: 50px;
+    justify-content: space-around;
   }
   .nav-link {
     font-size: 10px;
     padding: 4px 6px;
+    letter-spacing: -0.2px;
+    white-space: nowrap;
   }
   .modal-backdrop {
     padding: 16px;
   }
   .modal-img-wrap {
     height: 160px;
+  }
+}
+
+@media (max-width: 380px) {
+  .nav-inner {
+    padding: 0 2px;
+    gap: 2px;
+  }
+
+  .nav-link {
+    font-size: 9px;
+    padding: 4px 3px;
   }
 }
 
@@ -1598,3 +1619,223 @@ body.dark .detail-btn-icon {
 }
 
 /* END RESPONSIVE - DETAIL VIEW */
+
+/* =================
+   23. PLAYGROUND VIEW
+   Infinite draggable canvas, dot-grid background, photos
+   scattered around a centred tagline, fade-in on entry.
+   =================
+*/
+
+/* 23a. Shell */
+
+.playground-view {
+  position: fixed;
+  inset: 0;
+  z-index: 150;
+  overflow: hidden;
+}
+
+/* 23b. Viewport (draggable surface) */
+
+.playground-viewport {
+  position: absolute;
+  inset: 0;
+  overflow: hidden;
+  cursor: grab;
+}
+
+.playground-viewport.dragging {
+  cursor: grabbing;
+}
+
+/* 23c. Infinite canvas, dot-grid exactly like the reference */
+
+.playground-canvas {
+  position: absolute;
+  width: 4000px;
+  height: 3000px;
+  will-change: transform;
+
+  /* Warm off-white base */
+  background-color: #ffffff;
+
+  /* Small dark dot grid */
+  background-image: radial-gradient(
+    circle,
+    rgba(0, 0, 0, 0.18) 1px,
+    transparent 1px
+  );
+  background-size: 22px 22px;
+}
+
+body.dark .playground-canvas {
+  background-color: #11151d;
+  background-image: radial-gradient(
+    circle,
+    rgba(255, 255, 255, 0.12) 1px,
+    transparent 1px
+  );
+}
+
+/* 23d. Back button */
+
+.playground-back {
+  position: fixed;
+  top: 22px;
+  left: 28px;
+  z-index: 200;
+  background: rgba(255, 255, 255, 0.85);
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
+  border: 1px solid rgba(0, 0, 0, 0.10);
+  border-radius: 999px;
+  padding: 9px 20px;
+  font-size: 13px;
+  font-family: 'Inter', sans-serif;
+  font-weight: 500;
+  color: var(--text-primary);
+  cursor: pointer;
+  transition: background 0.2s ease;
+}
+
+.playground-back:hover {
+  background: rgba(255, 255, 255, 0.98);
+}
+
+body.dark .playground-back {
+  background: rgba(17, 21, 29, 0.85);
+  border-color: rgba(255, 255, 255, 0.10);
+}
+
+body.dark .playground-back:hover {
+  background: rgba(30, 37, 53, 0.98);
+}
+
+/* 23e. Centre tagline Inter, consistent with the rest of the portfolio */
+
+.playground-center {
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%, -50%);
+  text-align: center;
+  pointer-events: none;
+  user-select: none;
+}
+
+.playground-title {
+  font-family: 'Dancing Script', sans-serif;
+  font-size: 48px;
+  font-weight: 400;
+  font-style: italic;
+  color: var(--text-secondary);
+  line-height: 1.35;
+  letter-spacing: 0.05em;
+}
+
+body.dark .playground-title {
+  color: var(--text-secondary);
+}
+
+.playground-subtitle {
+  margin-top: 14px;
+  font-family: 'Inter', sans-serif;
+  font-size: 10px;
+  font-weight: 500;
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
+  color: var(--text-muted);
+}
+
+/* 23f. Photo cards, entry animation + drag interactions */
+
+.playground-item {
+  position: absolute;
+  width: 268px;
+  user-select: none;
+  pointer-events: auto;
+  cursor: grab;
+  transform-origin: center center;
+
+  /* Entry fade-in: JS adds .pg-visible after layout */
+  opacity: 0;
+  transition:
+    opacity    0.55s ease,
+    transform  0.22s cubic-bezier(0.25, 0.46, 0.45, 0.94),
+    box-shadow 0.22s ease,
+    filter     0.22s ease;
+  will-change: transform, opacity;
+}
+
+/* JS adds this class staggered so items appear one after another */
+.playground-item.pg-visible {
+  opacity: 1;
+}
+
+/* Dragging kills the transition for instant follow */
+.playground-item.dragging-item {
+  transition: none;
+}
+
+.playground-item-small {
+  width: 210px;
+}
+
+.playground-item-wide {
+  width: 330px;
+}
+
+.playground-item img {
+  width: 100%;
+  display: block;
+  box-shadow:
+    3px 5px 18px rgba(0, 0, 0, 0.12),
+    0  1px  4px rgba(0, 0, 0, 0.06);
+  background: #e0dcd6;
+}
+
+/* Hover: slight lift */
+.playground-item:hover {
+  z-index: 40;
+  transform: scale(1.03) rotate(var(--item-rotation, 0deg)) !important;
+  filter: brightness(1.04);
+}
+
+.playground-item:hover img {
+  box-shadow:
+    6px 12px 36px rgba(0, 0, 0, 0.16),
+    0   2px  6px rgba(0, 0, 0, 0.08);
+}
+
+/* Active drag: bigger lift, no transition */
+.playground-item.dragging-item {
+  cursor: grabbing;
+  z-index: 60;
+  transform: scale(1.06) rotate(var(--item-rotation, 0deg)) !important;
+  filter: brightness(1.05);
+}
+
+.playground-item.dragging-item img {
+  box-shadow: 10px 20px 50px rgba(0, 0, 0, 0.20);
+}
+
+
+/* =================
+   24. MEDIA
+   Ajustes a parte sin ordenar, 
+   pendientes de traducción y de colocar en su sitio.
+   =================
+*/
+
+
+@media (max-width: 480px) {
+  #playgroundView {
+    padding-top: 60px;      /* Deja espacio para el botón Back */
+  }
+  
+  .playground-item {
+    width: 150px;           /* Imágenes más pequeñas en móvil para que no colapsen el centro */
+    height: auto;
+  }
+}
