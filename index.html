@@ -33,6 +33,9 @@
       <a href="#about"      class="nav-link">About Me</a>
       <a href="#education"  class="nav-link">Education</a>
       <a href="#beyond"     class="nav-link">Beyond the Code</a>
+      <a href="javascript:void(0)" class="nav-link" onclick="router.navigate('playground')">
+        Playground
+      </a>
       <a href="#contact"    class="nav-link">Contact Me</a> <!-- is without backend so dnt work -->
     </div>
   </nav>
@@ -493,6 +496,70 @@ The interface follows a consistent visual style with a dark navbar, breadcrumb n
   </div>
   <!-- END PROJECT DETAIL VIEW -->
 
+  <div class="playground-view view-hidden" id="playgroundView" aria-hidden="true">
+
+    <button class="playground-back" id="playgroundBack">
+      ← Back
+    </button>
+
+    <div class="playground-viewport" id="playgroundViewport">
+      <div class="playground-canvas" id="playgroundCanvas">
+
+        <!-- Centre tagline -->
+        <div class="playground-center" id="playgroundCenter">
+          <h2 class="playground-title">My little<br>family</h2>
+          <p class="playground-subtitle">drag to move</p>
+        </div>
+
+        <!-- Draggable photo items — positions and rotations set by JS on each open -->
+        <div class="playground-item draggable-item playground-item-small" data-rot="-7">
+          <img src="img/playgd/p-1.jpeg" alt="Playground image 1">
+        </div>
+
+        <div class="playground-item draggable-item playground-item-small" data-rot="4">
+          <img src="img/playgd/p-2.jpeg" alt="Playground image 2">
+        </div>
+
+        <div class="playground-item draggable-item playground-item-small" data-rot="-5">
+          <img src="img/playgd/p-3.jpeg" alt="Playground image 3">
+        </div>
+
+        <div class="playground-item draggable-item playground-item-small" data-rot="9">
+          <img src="img/playgd/p-4.jpeg" alt="Playground image 4">
+        </div>
+
+        <div class="playground-item draggable-item playground-item-small" data-rot="-3">
+          <img src="img/playgd/p-5.jpeg" alt="Playground image 5">
+        </div>
+
+        <div class="playground-item draggable-item playground-item-small" data-rot="6">
+          <img src="img/playgd/p-6.jpeg" alt="Playground image 6">
+        </div>
+
+        <div class="playground-item draggable-item playground-item-small" data-rot="-11">
+          <img src="img/playgd/p-7.jpeg" alt="Playground image 7">
+        </div>
+
+        <div class="playground-item draggable-item playground-item-small" data-rot="3">
+          <img src="img/playgd/p-8.jpeg" alt="Playground image 8">
+        </div>
+
+        <div class="playground-item draggable-item playground-item-small" data-rot="-8">
+          <img src="img/playgd/p-9.jpeg" alt="Playground image 9">
+        </div>
+
+        <div class="playground-item draggable-item playground-item-small" data-rot="5">
+          <img src="img/playgd/p-10.jpeg" alt="Playground image 10">
+        </div>
+
+        <div class="playground-item draggable-item playground-item-small" data-rot="-4">
+          <img src="img/playgd/p-11.jpeg" alt="Playground image 11">
+        </div>p-3
+
+      </div><!-- /playground-canvas -->
+    </div><!-- /playground-viewport -->
+
+  </div><!-- /playground-view -->
 
   <!--
       PROJECT MODAL
