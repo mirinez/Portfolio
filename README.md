@@ -40,6 +40,18 @@ portfolio-project/
 │       ├── github.svg
 │       ├── bnss-card.svg
 │       └── linkedin.svg
+│   └── playgd/
+│       ├── p-1.jpeg
+│       ├── p-2.jpeg
+│       ├── p-3.jpeg
+│       ├── p-4.jpeg
+│       ├── p-5.jpeg
+│       ├── p-6.jpeg
+│       ├── p-7.jpeg
+│       ├── p-8.jpeg
+│       ├── p-9.jpeg
+│       ├── p-10.jpeg
+│       └── p-11.jpeg
 └── font/
     ├── Inter-Light.woff2
     ├── Inter-Regular.woff2
