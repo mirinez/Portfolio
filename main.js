@@ -4,14 +4,14 @@
 */
 
 /*
-   Step 1 · Theme Toggle
-   Step 2 · Image Fallbacks
-   Step 3 · Project Modal
-   Step 4 · Email Validation
-   Step 5 · SPA Router - Project Detail View
-   Step 6 · Language Bar Animation
+   Step 1  · Theme Toggle
+   Step 2  · Image Fallbacks
+   Step 3  · Project Modal
+   Step 4  · Email Validation
+   Step 5  · SPA Router - Project Detail View - Playground (This part of the code was configured using an internet tutorial)
+   Step 6  · Language Bar Animation
    Step 6b · Scroll To Top Button
-   Step 7 · Click sound (This part of the code was an idea copied entirely from the internet)
+   Step 7  · Click sound (This part of the code was an idea copied entirely from the internet)
 */
 
 
@@ -438,8 +438,7 @@ window.addEventListener('hashchange', function () {
   router.handle();
 });
 
-// 5.9 · Handle the initial hash on page load
-// Delayed until playground references are initialized
+// 5.9 · Handle the initial hash on page load (after playground refs are initialized below)
 
 /* =================
    STEP 5b · PLAYGROUND VIEW
@@ -496,7 +495,9 @@ function randomizePlaygroundItems() {
 
   // Remove any previous visibility classes so the animation re-runs
   items.forEach(function (item) {
+    // Reset visibility and scale so the spring animation re-runs cleanly
     item.classList.remove('pg-visible');
+    item.style.scale = '0.6';
   });
 
   // Canvas centre anchor
@@ -504,7 +505,7 @@ function randomizePlaygroundItems() {
   const originY = 1500;
 
   // Safe zone around the tagline, items must not overlap this area
-  const safeW = 350; /* Bajar o subir los num hace que als fotos se acerquen mas o menos al texto */
+  const safeW = 350; /* Lowering or raising the numbers makes the photos zoom in or out on the text */
   const safeH = 100;
 
   /*
@@ -513,8 +514,8 @@ function randomizePlaygroundItems() {
     Alternating items go on inner vs outer ring to create depth.
   */
   const rings = [
-    { minR: 280, maxR: 280 },  // inner ring
-    { minR: 410, maxR: 380 },  // outer ring
+    { minR: 260, maxR: 300 },  // inner ring
+    { minR: 330, maxR: 380 },  // outer ring
   ];
 
   const placed = [];
@@ -535,7 +536,7 @@ function randomizePlaygroundItems() {
 
       // Spread angle evenly then add jitter so items are not perfectly equidistant
       const baseAngle = (Math.PI * 2 / items.length) * idx - Math.PI / 2;
-      const jitter    = (Math.random() - 0.5) * (Math.PI / items.length) * 1.4;
+      const jitter    = (Math.random() - 0.5) * (Math.PI / items.length) * 0.6;
       const angle     = baseAngle + jitter;
       const r         = ring.minR + Math.random() * (ring.maxR - ring.minR);
 
@@ -544,18 +545,18 @@ function randomizePlaygroundItems() {
 
       // Must clear the centre safe zone
       const clearCenter =
-        x + iW < originX - safeW / 2 ||
+        x + iW  < originX - safeW / 2 ||
         x       > originX + safeW / 2 ||
         y + iH  < originY - safeH / 2 ||
         y       > originY + safeH / 2;
 
-      // Must not overlap already-placed items (16px gap)
+      // Must not overlap already-placed items (32px gap on all sides)
       const clearOthers = placed.every(function (p) {
         return (
-          x + iW + 16 < p.x          ||
-          x            > p.x + p.w + 16 ||
-          y + iH + 16  < p.y          ||
-          y            > p.y + p.h + 16
+          x + iW + 32 < p.x            ||
+          x           > p.x + p.w + 32 ||
+          y + iH + 32 < p.y            ||
+          y           > p.y + p.h + 32
         );
       });
 
@@ -573,8 +574,9 @@ function randomizePlaygroundItems() {
     item.style.setProperty('--item-rotation', rot + 'deg');
     item.style.transform = 'rotate(' + rot + 'deg)';
 
-    // Staggered fade-in: each item appears 60ms after the previous one
+    // Staggered spring entry: each item launches into place after the previous
     setTimeout(function () {
+      item.style.scale = '';   // let CSS handle scale via .pg-visible
       item.classList.add('pg-visible');
     }, 80 + idx * 60);
   });
@@ -613,6 +615,9 @@ window.addEventListener('mouseup', function () {
 // 5b.8 · Mobile touch support
 if (playgroundViewport) {
   playgroundViewport.addEventListener('touchstart', function (e) {
+    // If the touch started on a draggable item, let the item handler take over
+    if (e.target.closest('.draggable-item')) return;
+
     const touch = e.touches[0];
 
     isDraggingPlayground = true;
@@ -622,6 +627,19 @@ if (playgroundViewport) {
 }
 
 window.addEventListener('touchmove', function (e) {
+  // Item drag takes full priority, prevent scroll and move the photo
+  if (activePlaygroundItem && playgroundCanvas) {
+    e.preventDefault();
+
+    const touch = e.touches[0];
+    const canvasRect = playgroundCanvas.getBoundingClientRect();
+
+    activePlaygroundItem.style.left = (touch.clientX - canvasRect.left - activeItemOffsetX) + 'px';
+    activePlaygroundItem.style.top  = (touch.clientY - canvasRect.top  - activeItemOffsetY) + 'px';
+    return;
+  }
+
+  // Canvas pan, only if no item is being dragged
   if (!isDraggingPlayground) return;
 
   const touch = e.touches[0];
@@ -630,10 +648,14 @@ window.addEventListener('touchmove', function (e) {
   currentCanvasY = touch.clientY - playgroundStartY;
 
   updatePlaygroundCanvas();
-}, { passive: true });
+}, { passive: false }); // passive:false needed so we can call preventDefault() during item drag
 
 window.addEventListener('touchend', function () {
+  // Release canvas pan
   isDraggingPlayground = false;
+
+  // Release item drag with drop animation
+  releasePlaygroundItem();
 });
 
 // 5b.9 · Back button
@@ -645,6 +667,90 @@ if (playgroundBack) {
 
 // 5b.10 · Handle the initial route after all playground refs exist
 router.handle();
+
+/* =================
+   STEP 5c · DRAGGABLE PLAYGROUND ITEMS
+   Allows each playground card to be picked up and moved independently.
+   =================
+*/
+
+let activePlaygroundItem = null;
+let activeItemOffsetX = 0;
+let activeItemOffsetY = 0;
+
+document.querySelectorAll('.draggable-item').forEach(function (item) {
+  item.addEventListener('mousedown', function (e) {
+    e.stopPropagation();
+    e.preventDefault();
+
+    activePlaygroundItem = item;
+
+    // Brief pick-up phase: CSS transition lifts it before we freeze transitions
+    item.classList.remove('dropping');
+    item.classList.add('picking-up');
+    setTimeout(function () {
+      item.classList.remove('picking-up');
+      item.classList.add('dragging-item');
+    }, 180);
+
+    const itemRect = item.getBoundingClientRect();
+    activeItemOffsetX = e.clientX - itemRect.left;
+    activeItemOffsetY = e.clientY - itemRect.top;
+  });
+
+  item.addEventListener('touchstart', function (e) {
+    // Stop the canvas drag from also activating
+    e.stopPropagation();
+    // Prevent browser scroll/pan from interfering while dragging a photo
+    e.preventDefault();
+
+    const touch = e.touches[0];
+    activePlaygroundItem = item;
+
+    // Brief pick-up phase: CSS transition lifts it before we freeze transitions
+    item.classList.remove('dropping');
+    item.classList.add('picking-up');
+    setTimeout(function () {
+      item.classList.remove('picking-up');
+      item.classList.add('dragging-item');
+    }, 180);
+
+    const itemRect = item.getBoundingClientRect();
+    activeItemOffsetX = touch.clientX - itemRect.left;
+    activeItemOffsetY = touch.clientY - itemRect.top;
+  }, { passive: false }); // passive:false required to call preventDefault()
+});
+
+window.addEventListener('mousemove', function (e) {
+  if (!activePlaygroundItem || !playgroundCanvas) return;
+
+  const canvasRect = playgroundCanvas.getBoundingClientRect();
+
+  const left = e.clientX - canvasRect.left - activeItemOffsetX;
+  const top = e.clientY - canvasRect.top - activeItemOffsetY;
+
+  activePlaygroundItem.style.left = left + 'px';
+  activePlaygroundItem.style.top = top + 'px';
+});
+
+function releasePlaygroundItem() {
+  if (!activePlaygroundItem) return;
+
+  const item = activePlaygroundItem;
+  activePlaygroundItem = null;
+
+  // Swap dragging → dropping so CSS spring plays on release
+  item.classList.remove('dragging-item', 'picking-up');
+  item.classList.add('dropping');
+
+  // Clean up the dropping class once the transition ends
+  item.addEventListener('transitionend', function cleanup() {
+    item.classList.remove('dropping');
+    item.removeEventListener('transitionend', cleanup);
+  });
+}
+
+window.addEventListener('mouseup', releasePlaygroundItem);
 
 /* =================
    STEP 6 · LANGUAGE BAR ANIMATION
@@ -816,75 +922,3 @@ document.addEventListener('click', function (e) {
   );
   if (target) sfx.click();
 }, { passive: true });
-
-
-/* =================
-   STEP 5c · DRAGGABLE PLAYGROUND ITEMS
-   Allows each playground card to be picked up and moved independently.
-   =================
-*/
-
-let activePlaygroundItem = null;
-let activeItemOffsetX = 0;
-let activeItemOffsetY = 0;
-
-document.querySelectorAll('.draggable-item').forEach(function (item) {
-  item.addEventListener('mousedown', function (e) {
-    e.stopPropagation();
-    e.preventDefault();
-
-    activePlaygroundItem = item;
-    item.classList.add('dragging-item');
-
-    const itemRect = item.getBoundingClientRect();
-    activeItemOffsetX = e.clientX - itemRect.left;
-    activeItemOffsetY = e.clientY - itemRect.top;
-  });
-
-  item.addEventListener('touchstart', function (e) {
-    e.stopPropagation();
-
-    const touch = e.touches[0];
-    activePlaygroundItem = item;
-    item.classList.add('dragging-item');
-
-    const itemRect = item.getBoundingClientRect();
-    activeItemOffsetX = touch.clientX - itemRect.left;
-    activeItemOffsetY = touch.clientY - itemRect.top;
-  }, { passive: true });
-});
-
-window.addEventListener('mousemove', function (e) {
-  if (!activePlaygroundItem || !playgroundCanvas) return;
-
-  const canvasRect = playgroundCanvas.getBoundingClientRect();
-
-  const left = e.clientX - canvasRect.left - activeItemOffsetX;
-  const top = e.clientY - canvasRect.top - activeItemOffsetY;
-
-  activePlaygroundItem.style.left = left + 'px';
-  activePlaygroundItem.style.top = top + 'px';
-});
-
-window.addEventListener('touchmove', function (e) {
-  if (!activePlaygroundItem || !playgroundCanvas) return;
-
-  const touch = e.touches[0];
-  const canvasRect = playgroundCanvas.getBoundingClientRect();
-
-  const left = touch.clientX - canvasRect.left - activeItemOffsetX;
-  const top = touch.clientY - canvasRect.top - activeItemOffsetY;
-
-  activePlaygroundItem.style.left = left + 'px';
-  activePlaygroundItem.style.top = top + 'px';
-}, { passive: true });
-
-function releasePlaygroundItem() {
-  if (!activePlaygroundItem) return;
-
-  activePlaygroundItem.classList.remove('dragging-item');
-  activePlaygroundItem = null;
-}
-
-window.addEventListener('mouseup', releasePlaygroundItem);
-window.addEventListener('touchend', releasePlaygroundItem);
