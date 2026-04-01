@@ -46,6 +46,7 @@ portfolio-project/
     ├── Inter-Medium.woff2
     ├── Inter-SemiBold.woff2
     ├── Inter-Bold.woff2
+    ├── Caveat-Regular.woff2
     └── DancingScript-Bold.woff2
 ```
 
