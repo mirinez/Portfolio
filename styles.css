@@ -1202,8 +1202,8 @@ body.dark .footer-icon-img {
 
   /* Make "click to learn more" visible and in normal position */
   .project-view-hint {
-  opacity: 1;
-  transform: translateY(0);
+    opacity: 1;
+    transform: translateY(0);
   }
 
   /* Remove hover effect on mobile */
