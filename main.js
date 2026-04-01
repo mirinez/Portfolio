@@ -201,7 +201,6 @@ if (newsletterInput && newsletterBtn) {
     e.preventDefault();
     const email = newsletterInput.value.trim();
     if (isValidEmail(email)) {
-      console.log('Email válido:', email);
       alert('Thank you!');
       newsletterInput.value      = '';
       newsletterBtn.disabled     = true;
@@ -401,7 +400,7 @@ const router = {
     const { route, param } = router.parse();
 
     if (route === 'playground') {
-    showView('playground');
+      showView('playground');
 
     } else if (route === 'project' && param && projectsMap[param]) {
       // SPA route → render detail view
@@ -474,9 +473,8 @@ function centerPlaygroundCanvas() {
   if (!playgroundViewport || !playgroundCenter) return;
 
   const viewportRect = playgroundViewport.getBoundingClientRect();
-  const centerRect   = playgroundCenter.getBoundingClientRect();
 
-  const canvasWidth = 4000;
+  const canvasWidth  = 4000;
   const canvasHeight = 3000;
 
   const centerX = viewportRect.width / 2 - (canvasWidth / 2);
