@@ -95,9 +95,6 @@
   --photo-h:  140px;
   --bleed:    80px;
 
-  /* Cursor */
-  --cursor-size: 8px;
-  --cursor-halo: 36px;
 }
 
 body.dark {
@@ -1092,7 +1089,6 @@ h1.name {
   border-radius: 999px;
   font-size: 13.5px;
   font-weight: 500;
-  cursor: none;
   font-family: 'Inter', sans-serif;
   white-space: nowrap;
   transition: background var(--transition), color var(--transition), transform 0.15s;
@@ -1232,7 +1228,6 @@ body.dark .footer-icon-img {
   width: 30px;
   height: 30px;
   border-radius: 50%;
-  cursor: none;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -1527,7 +1522,6 @@ body.dark .footer-icon-img {
   height: 40px;
   border-radius: 50%;
   font-size: 18px;
-  cursor: none;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -1623,7 +1617,6 @@ body.detail-active {
   font-family: 'Inter', sans-serif;
   padding: 8px 18px;
   border-radius: 999px;
-  cursor: none;
   margin-bottom: 32px;
   transition: background var(--transition), color var(--transition),
               border-color var(--transition), transform 0.15s;
@@ -1717,7 +1710,6 @@ body.detail-active {
   font-weight: 500;
   font-family: 'Inter', sans-serif;
   text-decoration: none;
-  cursor: none;
   border: none;
   white-space: nowrap;
   transition: background var(--transition), color var(--transition),
@@ -1851,7 +1843,6 @@ body.dark .detail-btn-icon {
   background: var(--bg-card-inner);
   color: var(--text-secondary);
   border: 1px solid var(--border);
-  cursor: none;
   font-family: 'Inter', sans-serif;
   transition: background var(--transition), color var(--transition),
               border-color var(--transition), transform 0.15s;
@@ -1975,7 +1966,6 @@ body.dark .playground-canvas {
   font-family: 'Inter', sans-serif;
   font-weight: 500;
   color: var(--text-primary);
-  cursor: none;
   transition: background 0.2s ease;
 }
 
@@ -2174,4 +2164,3 @@ body.dark .polaroid-label {
     width: 120px;           /* Imágenes más pequeñas en móvil para que no colapsen el centro */
   }
 }
-
