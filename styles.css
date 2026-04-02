@@ -844,29 +844,12 @@ h1.name {
   flex-shrink: 0;
   width: 108px;
   position: relative;
-  /* No perspective here — it interferes with child transforms */
+  /* No perspective here, it interferes with child transforms */
 }
 
 .book-link {
   display: block;
   text-decoration: none;
-}
-
-/* Pages — positioned identically to the cover, rotated open more on hover */
-.book-pages {
-  position: absolute;
-  top: 0;
-  left: 0;
-  width: 108px;
-  height: 152px;
-  border-radius: 3px 8px 8px 3px;
-  background: #ffffff;
-  box-shadow: 4px 2px 10px rgba(0,0,0,0.15);
-  transform-origin: left center;
-  /* Same starting angle as the cover so it hides behind it */
-  transform: perspective(900px) rotateY(-8deg);
-  transition: transform 0.5s cubic-bezier(0.34, 1.2, 0.64, 1);
-  z-index: 0; /* behind cover (z-index: 1) */
 }
 
 body.dark .book-pages {
@@ -937,23 +920,6 @@ body.dark .book-pages {
   padding: 10px 8px;
   text-align: center;
   pointer-events: none;
-}
-
-.book-cover-fallback span {
-  font-family: 'Dancing Script', cursive;
-  font-size: 13px;
-  color: rgba(255,255,255,0.85);
-  line-height: 1.4;
-}
-
-/* "currently writing" label below book */
-.book-label {
-  margin-top: 8px;
-  text-align: center;
-  font-family: 'Caveat', cursive;
-  font-size: 12px;
-  color: var(--text-muted);
-  transition: color var(--transition);
 }
 
 /* END BOOK WIDGET */
@@ -2041,7 +2007,7 @@ body.dark .playground-title {
     scale   0.55s cubic-bezier(0.34, 1.4, 0.64, 1),
     box-shadow 0.25s ease,
     filter     0.25s ease;
-  /* transform is left free for rotation + drag, only scale/opacity are animated in */
+  /* Transform is left free for rotation + drag, only scale/opacity are animated in */
   will-change: transform, opacity;
 }
 
@@ -2053,7 +2019,10 @@ body.dark .playground-item {
     0  0    0 1px rgba(255, 255, 255, 0.05);
 }
 
-/* JS adds this class staggered — springs into place */
+/* 
+  JS adds this class staggered, 
+  springs into place 
+*/
 .playground-item.pg-visible {
   opacity: 1;
   scale: 1;
@@ -2105,7 +2074,7 @@ body.dark .playground-item {
   object-fit: cover;
   display: block;
   border-radius: 1px;
-  background: #d4cfc9;  /* placeholder colour while image loads */
+  background: #d4cfc9;  /* Placeholder colour while image loads */
 }
 
 body.dark .playground-item img {
@@ -2146,17 +2115,17 @@ body.dark .polaroid-label {
 
 /* =================
    24. RESPONSIVE - PLAYGROUND VIEW
-   Sección por traducir y ordenar
+   Section to be sorted and checked
    =================
 */
 
 
 @media (max-width: 480px) {
   #playgroundView {
-    padding-top: 60px;      /* Deja espacio para el botón Back */
+    padding-top: 60px;      /* Leave space for the Back button */
   }
   
   .playground-item {
-    width: 120px;           /* Imágenes más pequeñas en móvil para que no colapsen el centro */
+    width: 120px;           /* Smaller images on mobile so they don't overload the center */
   }
 }
