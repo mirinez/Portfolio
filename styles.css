@@ -94,6 +94,10 @@
   /* Photo strip bleed */
   --photo-h:  140px;
   --bleed:    80px;
+
+  /* Cursor */
+  --cursor-size: 8px;
+  --cursor-halo: 36px;
 }
 
 body.dark {
@@ -140,6 +144,11 @@ body {
   transition: background-color var(--transition);
 }
 
+/* Restore native cursor in touch devices and playground */
+@media (hover: none) {
+  body { cursor: auto; }
+}
+
 .project-img,
 .avatar,
 .modal-img {
@@ -149,6 +158,30 @@ body {
 
 /* END BASE */
 
+
+/* =================
+   2b. GRAIN OVERLAY
+   Subtle noise texture over the whole page, like Vercel/Linear.
+   Pure CSS SVG filter, zero images, zero performance cost.
+   =================
+*/
+
+body::after {
+  content: '';
+  position: fixed;
+  inset: 0;
+  z-index: 9999;
+  pointer-events: none;
+  opacity: 0.028;
+  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)'/%3E%3C/svg%3E");
+  background-size: 200px 200px;
+}
+
+body.dark::after {
+  opacity: 0.045;
+}
+
+/* END GRAIN OVERLAY */
 
 /* =================
    3. NAVBAR
@@ -245,7 +278,6 @@ body.dark .site-nav {
   right: 20px;
   background: none;
   border: none;
-  cursor: pointer;
   color: var(--text-muted);
   font-size: 17px;
   z-index: 10;
@@ -300,6 +332,8 @@ body.dark .icon-moon {
   object-fit: cover;
   margin-bottom: 16px;
   background: var(--bg-nav); /* fallback shown when img/avatar.jpg is missing */
+  /* Hero entry animation */
+  animation: heroFadeUp 0.6s cubic-bezier(0.22, 1, 0.36, 1) both;
 }
 
 h1.name {
@@ -309,6 +343,7 @@ h1.name {
   letter-spacing: -0.3px;
   margin-bottom: 6px;
   transition: color var(--transition);
+  animation: heroFadeUp 0.6s cubic-bezier(0.22, 1, 0.36, 1) 0.08s both;
 }
 
 .tagline {
@@ -317,6 +352,42 @@ h1.name {
   color: var(--text-secondary);
   margin-bottom: 20px;
   transition: color var(--transition);
+  animation: heroFadeUp 0.6s cubic-bezier(0.22, 1, 0.36, 1) 0.16s both;
+  min-height: 1.4em; /* prevent layout shift during typed text */
+}
+
+/* Typed text cursor blink */
+.typed-cursor {
+  display: inline-block;
+  width: 2px;
+  height: 1em;
+  background: var(--text-secondary);
+  margin-left: 1px;
+  vertical-align: text-bottom;
+  animation: blink 0.9s step-end infinite;
+}
+
+@keyframes blink {
+  0%, 100% { opacity: 1; }
+  50%       { opacity: 0; }
+}
+
+.hero-btns {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  animation: heroFadeUp 0.6s cubic-bezier(0.22, 1, 0.36, 1) 0.24s both;
+}
+
+@keyframes heroFadeUp {
+  from {
+    opacity: 0;
+    transform: translateY(16px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
 }
 
 .btn-work {
@@ -330,7 +401,6 @@ h1.name {
   border-radius: 999px;
   font-size: 14px;
   font-weight: 500;
-  cursor: pointer;
   font-family: 'Inter', sans-serif;
   transition: background var(--transition), color var(--transition), transform 0.15s;
 }
@@ -347,12 +417,6 @@ h1.name {
    =================
 */
 
-.hero-btns {
-  display: flex;
-  align-items: center;
-  gap: 10px;
-}
-
 /* CV download button - outlined style to complement the filled btn-work */
 .btn-cv {
   display: inline-flex;
@@ -367,7 +431,6 @@ h1.name {
   font-weight: 500;
   font-family: 'Inter', sans-serif;
   text-decoration: none;
-  cursor: pointer;
   transition: background var(--transition), color var(--transition),
               border-color var(--transition), transform 0.15s;
 }
@@ -416,6 +479,33 @@ h1.name {
 }
 
 /* END SHARED SECTION TITLE */
+
+
+/* =================
+   8b. SCROLL REVEAL
+   Elements start invisible; JS adds .sr-visible via IntersectionObserver.
+   =================
+*/
+
+.sr {
+  opacity: 0;
+  transform: translateY(22px);
+  transition: opacity 0.55s cubic-bezier(0.22, 1, 0.36, 1),
+              transform 0.55s cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+.sr.sr-visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+/* Stagger delays for child elements */
+.sr-delay-1 { transition-delay: 0.07s; }
+.sr-delay-2 { transition-delay: 0.14s; }
+.sr-delay-3 { transition-delay: 0.21s; }
+.sr-delay-4 { transition-delay: 0.28s; }
+
+/* END SCROLL REVEAL */
 
 
 /* =================
@@ -502,7 +592,6 @@ h1.name {
     with transform:rotate(). Clipping is handled by border-radius on .project-img 
   */
   position: relative;
-  cursor: pointer;
   background: var(--bg-nav);           /* fallback shown when project image is missing */
   box-shadow:
     0 6px 20px rgba(0, 0, 0, 0.10),
@@ -608,6 +697,12 @@ h1.name {
   margin-top: 14px;
 }
 
+/* =================
+   12b. FLOATING TECH BADGES
+   Replace the flat .about-tags with animated floating badges
+   =================
+*/
+
 .about-tags {
   display: flex;
   flex-wrap: wrap;
@@ -623,8 +718,26 @@ h1.name {
   border: 1px solid var(--border);
   border-radius: 999px;
   padding: 4px 12px;
-  transition: background var(--transition), color var(--transition), border-color var(--transition);
+  transition: background var(--transition), color var(--transition), border-color var(--transition),
+              transform 0.3s ease, box-shadow 0.3s ease;
+  animation: floatBadge var(--float-dur, 3s) ease-in-out var(--float-delay, 0s) infinite alternate;
 }
+
+.about-tag:hover {
+  transform: translateY(-3px) scale(1.05) !important;
+  animation-play-state: paused;
+  background: var(--btn-bg);
+  color: var(--btn-text);
+  border-color: transparent;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+}
+
+@keyframes floatBadge {
+  from { transform: translateY(0px); }
+  to   { transform: translateY(-5px); }
+}
+
+/* Each badge gets a slightly different timing via inline style set by JS */
 
 /* END ABOUT ME */
 
@@ -643,7 +756,12 @@ h1.name {
   border-radius: 14px;
   padding: 20px 22px;
   margin-bottom: 12px;
-  transition: background var(--transition);
+  transition: background var(--transition), transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.edu-card:hover {
+  transform: translateX(4px);
+  box-shadow: 0 4px 20px rgba(0,0,0,0.08);
 }
 
 .edu-date {
@@ -697,11 +815,148 @@ h1.name {
 .beyond-text {
   font-size: 14px;
   color: var(--text-secondary);
-  line-height: 1.75;
   transition: color var(--transition);
+  margin-bottom: 8px;
 }
 
-/* END BEYOND THE CODE */
+.beyond-text-col {
+  display: flex;
+  flex-direction: column;
+  height: 100%; 
+  justify-content: space-between; 
+}
+
+.beyond-quote {
+  font-style: italic;    
+  color: var(--text-secondary);
+  margin-top: 25px;      /* This is where i push the text down */
+  font-size: 14px;
+}
+
+
+/* =================
+   14c. BOOK WIDGET
+   =================
+*/
+
+.beyond-card-inner {
+  display: flex;
+  align-items: flex-start;
+  gap: 28px;
+}
+
+.beyond-text-col {
+  flex: 1;
+  min-width: 0;
+}
+
+/* Book wrapper sits on the right, fixed width */
+.book-wrapper {
+  flex-shrink: 0;
+  width: 108px;
+  position: relative;
+  /* perspective lives here so children can use rotateY */
+  perspective: 1000px;
+}
+
+
+/* When wrapper is hovered, pages fan open a bit */
+.book-wrapper:hover .book-pages {
+  right: -14px;
+  width: 18px;
+  transform: perspective(900px) rotateY(12deg);
+}
+
+/* Book cover */
+.book-cover {
+  position: relative;
+  z-index: 1;
+  width: 108px;
+  height: 152px;
+  border-radius: 3px 8px 8px 3px;
+  background: var(--bg-nav);
+  transform-origin: left center;
+  transform: perspective(900px) rotateY(-8deg);
+  transition: transform 0.5s cubic-bezier(0.34, 1.2, 0.64, 1),
+              box-shadow 0.4s ease;
+  box-shadow:
+    -4px 6px 20px rgba(0,0,0,0.22),
+     2px 2px  8px rgba(0,0,0,0.12),
+     inset -3px 0 8px rgba(0,0,0,0.18);
+  overflow: hidden;
+}
+
+.book-wrapper:hover .book-cover {
+  transform: perspective(900px) rotateY(-26deg);
+  box-shadow:
+    -10px 10px 30px rgba(0,0,0,0.28),
+      4px  2px  10px rgba(0,0,0,0.12),
+      inset -3px 0 8px rgba(0,0,0,0.18);
+}
+
+/* Spine shadow line */
+.book-cover::before {
+  content: '';
+  position: absolute;
+  left: 0; top: 0; bottom: 0;
+  width: 6px;
+  background: linear-gradient(to right, rgba(0,0,0,0.28), transparent);
+  border-radius: 3px 0 0 3px;
+  z-index: 1;
+}
+
+/* Cover image */
+.book-cover-img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+  border-radius: 2px 7px 7px 2px;
+}
+
+/* Fallback when no image */
+.book-cover-fallback {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 10px 8px;
+  text-align: center;
+  pointer-events: none;
+}
+
+.book-cover-fallback span {
+  font-family: 'Dancing Script', cursive;
+  font-size: 13px;
+  color: rgba(255,255,255,0.85);
+  line-height: 1.4;
+}
+
+.book-link {
+  display: block;
+  width: 100%;
+  height: 100%;
+  text-decoration: none;
+  /* Position so that the absolute children do not move */
+  position: relative; 
+}
+
+.book-wrapper:hover .book-pages {
+  right: -14px; 
+  width: 18px;
+  transform: perspective(900px) rotateY(12deg);
+}
+
+.book-wrapper:hover .book-cover {
+  transform: perspective(900px) rotateY(-26deg);
+  /* Deeper shadow as it opens */
+  box-shadow: -10px 10px 30px rgba(0,0,0,0.28), 4px 2px 10px rgba(0,0,0,0.12);
+}
+
+
+/* END BOOK WIDGET */
 
 
 /* =================
@@ -837,7 +1092,7 @@ h1.name {
   border-radius: 999px;
   font-size: 13.5px;
   font-weight: 500;
-  cursor: pointer;
+  cursor: none;
   font-family: 'Inter', sans-serif;
   white-space: nowrap;
   transition: background var(--transition), color var(--transition), transform 0.15s;
@@ -888,11 +1143,12 @@ h1.name {
   justify-content: center;
   width: 28px;
   height: 28px;
-  transition: color var(--transition);
+  transition: color var(--transition), transform 0.2s ease;
 }
 
 .footer-icon:hover {
   color: var(--text-primary);
+  transform: translateY(-2px);
 }
 
 /* SVG loaded via <img> - size + hover opacity since filter cant use CSS color vars */
@@ -956,13 +1212,13 @@ body.dark .footer-icon-img {
   max-height: 90vh;
   overflow-y: auto;
   position: relative;
-  transform: translateY(12px);
-  transition: transform 0.25s ease, background var(--transition);
+  transform: translateY(12px) scale(0.97);
+  transition: transform 0.3s cubic-bezier(0.34, 1.4, 0.64, 1), background var(--transition);
   box-shadow: 0 24px 60px rgba(0, 0, 0, 0.25);
 }
 
 .modal-backdrop.is-open .modal-box {
-  transform: translateY(0);
+  transform: translateY(0) scale(1);
 }
 
 .modal-close {
@@ -976,17 +1232,18 @@ body.dark .footer-icon-img {
   width: 30px;
   height: 30px;
   border-radius: 50%;
-  cursor: pointer;
+  cursor: none;
   display: flex;
   align-items: center;
   justify-content: center;
   z-index: 1;
-  transition: background var(--transition), color var(--transition);
+  transition: background var(--transition), color var(--transition), transform 0.2s ease;
 }
 
 .modal-close:hover {
   background: var(--border);
   color: var(--text-primary);
+  transform: rotate(90deg);
 }
 
 .modal-img-wrap {
@@ -1141,6 +1398,13 @@ body.dark .footer-icon-img {
     opacity: 1;
     transform: translateY(0);
   }
+
+  /* Book scene stacks on mobile */
+  .book-scene {
+    gap: 12px;
+  }
+  .book-wrapper { width: 90px; }
+  .book-cover { width: 90px; height: 126px; }
 }
 
 @media (max-width: 600px) {
@@ -1230,6 +1494,16 @@ body.dark .footer-icon-img {
   .modal-img-wrap {
     height: 160px;
   }
+
+  .book-scene {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 12px;
+  }
+  .book-wrapper { width: 100px; }
+  .book-cover { width: 100px; height: 140px; }
+  .postit { transform: rotate(0deg); }
+  .book-wrapper:hover ~ .postit { transform: translateX(4px); }
 }
 
 /* END RESPONSIVE */
@@ -1253,7 +1527,7 @@ body.dark .footer-icon-img {
   height: 40px;
   border-radius: 50%;
   font-size: 18px;
-  cursor: pointer;
+  cursor: none;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -1288,13 +1562,23 @@ body.dark .footer-icon-img {
 
 /* =================
    19. SPA VIEW TRANSITIONS
-   .view-hidden removes a view from layout and interaction
-   without a jarring snap - fades out before display:none
    =================
 */
 
+/* Views fade in/out instead of snapping */
+.page-wrapper,
+.detail-view,
+.playground-view {
+  transition: opacity 0.25s ease;
+}
+
 .view-hidden {
   display: none;
+}
+
+.view-fading-out {
+  opacity: 0;
+  pointer-events: none;
 }
 
 /* END SPA VIEW TRANSITIONS */
@@ -1339,7 +1623,7 @@ body.detail-active {
   font-family: 'Inter', sans-serif;
   padding: 8px 18px;
   border-radius: 999px;
-  cursor: pointer;
+  cursor: none;
   margin-bottom: 32px;
   transition: background var(--transition), color var(--transition),
               border-color var(--transition), transform 0.15s;
@@ -1433,7 +1717,7 @@ body.detail-active {
   font-weight: 500;
   font-family: 'Inter', sans-serif;
   text-decoration: none;
-  cursor: pointer;
+  cursor: none;
   border: none;
   white-space: nowrap;
   transition: background var(--transition), color var(--transition),
@@ -1567,7 +1851,7 @@ body.dark .detail-btn-icon {
   background: var(--bg-card-inner);
   color: var(--text-secondary);
   border: 1px solid var(--border);
-  cursor: pointer;
+  cursor: none;
   font-family: 'Inter', sans-serif;
   transition: background var(--transition), color var(--transition),
               border-color var(--transition), transform 0.15s;
@@ -1691,7 +1975,7 @@ body.dark .playground-canvas {
   font-family: 'Inter', sans-serif;
   font-weight: 500;
   color: var(--text-primary);
-  cursor: pointer;
+  cursor: none;
   transition: background 0.2s ease;
 }
 
@@ -1876,8 +2160,7 @@ body.dark .polaroid-label {
 
 /* =================
    24. RESPONSIVE - PLAYGROUND VIEW
-   Parte en correción y traducción
-   de comentarios
+   Parte por traducir y ordenar
    =================
 */
 
@@ -1891,3 +2174,4 @@ body.dark .polaroid-label {
     width: 120px;           /* Imágenes más pequeñas en móvil para que no colapsen el centro */
   }
 }
+
