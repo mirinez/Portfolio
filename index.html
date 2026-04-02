@@ -24,17 +24,21 @@
 </head>
 <body>
 
+  <!-- Custom cursor -->
+  <div class="cursor-dot" id="cursorDot" aria-hidden="true"></div>
+  <div class="cursor-halo" id="cursorHalo" aria-hidden="true"></div>
+
   <!--
       NAVBAR
   -->
   <nav class="site-nav" aria-label="Main navigation">
     <div class="nav-inner">  <!-- put a "home" link with an emoji or svg -->
-      <a href="#projects"   class="nav-link">Projects</a>
-      <a href="#about"      class="nav-link">About Me</a>
-      <a href="#education"  class="nav-link">Education</a>
-      <a href="#beyond"     class="nav-link">Beyond the Code</a>
+      <a href="#projects"    class="nav-link">Projects</a>
+      <a href="#about"       class="nav-link">About Me</a>
+      <a href="#education"   class="nav-link">Education</a>
+      <a href="#beyond"      class="nav-link">Beyond the Code</a>
       <a href="#playground"  class="nav-link">Playground</a>
-      <a href="#contact"    class="nav-link">Contact Me</a> <!-- is without backend so dnt work -->
+      <a href="#contact"     class="nav-link">Contact Me</a> <!-- is without backend so dnt work -->
     </div>
   </nav>
   <!-- END NAVBAR -->
@@ -83,7 +87,7 @@
 
         <section class="projects-section" id="projects" aria-labelledby="projects-title">
           <h2 class="section-title" id="projects-title">Projects</h2>
-          <p class="projects-intro">
+          <p class="projects-intro sr">
             Hi! I'm Míriam, a Full Stack Web Developer in progress with a background in IT Systems &amp; Networks.
             Here are some of the things I've been building while learning the craft.
           </p>
@@ -245,7 +249,7 @@ The interface follows a consistent visual style with a dark navbar, breadcrumb n
         -->
         <section class="about-section" id="about" aria-labelledby="about-title">
           <h2 class="section-title" id="about-title">About Me</h2>
-          <div class="about-card">
+          <div class="about-card sr">
             <p class="about-text">
               I'm not just learning to write code. I come from a background in IT Systems and Network Administration,
               which means I understand how things work before they ever reach the browser.
@@ -272,7 +276,7 @@ The interface follows a consistent visual style with a dark navbar, breadcrumb n
           <h2 class="section-title" id="education-title">Education</h2>
 
           <!-- Education entry -->
-          <div class="edu-card">
+          <div class="edu-card sr">
             <div class="edu-date">2026 - Today</div>
             <div class="edu-title">Full Stack Web Developer</div>
             <div class="edu-location">Germany - DBE Academy - Bootcamp</div>
@@ -285,7 +289,7 @@ The interface follows a consistent visual style with a dark navbar, breadcrumb n
           <!-- END Education entry -->
 
           <!-- Education entry -->
-          <div class="edu-card">
+          <div class="edu-card sr sr-delay-1">
             <div class="edu-date">2022 - 6 months</div>
             <div class="edu-title">Google IT Support Professional Certificate</div>
             <div class="edu-location">Germany - Coursera</div>
@@ -299,7 +303,7 @@ The interface follows a consistent visual style with a dark navbar, breadcrumb n
           <!-- END Education entry -->
 
           <!-- Education entry -->
-          <div class="edu-card">
+          <div class="edu-card sr sr-delay-2">
             <div class="edu-date">2017 - 2019</div>
             <div class="edu-title">Intermediate degree of Microsystems and Networks</div>
             <div class="edu-location">Spain, Alicante - I.E.S. Mare Nostrum</div>
@@ -324,11 +328,34 @@ The interface follows a consistent visual style with a dark navbar, breadcrumb n
         -->
         <section class="beyond-section" id="beyond" aria-labelledby="beyond-title">
           <h2 class="section-title" id="beyond-title">Beyond the Code</h2>
-          <div class="beyond-card">
-            <p class="beyond-text">
-              Writer and plant enthusiast.<br>
-              Published poet, currently working on a fantasy trilogy.
-            </p>
+          <div class="beyond-card sr">
+
+            <div class="beyond-card-inner">
+
+              <!-- Text column (left) -->
+              <div class="beyond-text-col">
+                <div class="top-content">
+                  <p class="beyond-text">By day, I tend to a small jungle of plants and a chaotic family. 
+                  <p class="beyond-text">Life partner to Alf (an old, wise dog), a slug with a house, and a cat who definitely has a second family nearby.</p>
+                  <p class="beyond-text">By night, I weave worlds. As a published poet, I’m currently deep into the lore of my first fantasy trilogy.</p>
+                </div>
+
+                <p class="beyond-quote">
+                “Every project is part of the spell. Every bug is part of the ritual”
+                </p>
+              </div>
+
+              <!-- Book widget (right) -->
+              <div class="book-wrapper" aria-label="Currently reading">
+                <a href="https://amzn.eu/d/00L4UFdw" target="_blank" rel="noopener noreferrer" class="book-link">
+                  <div class="book-pages"></div> <!-- To emulate pages in the opening animation, but not working.-->
+                  <div class="book-cover">
+                    <img src="img/book/mdm.jpg" alt="My book cover" class="book-cover-img" />
+                  </div>
+                </a>
+              </div>
+
+            </div><!-- /beyond-card-inner -->
 
             <!-- LANGUAGES -->
             <div class="lang-grid" aria-label="Languages">
