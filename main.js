@@ -8,10 +8,13 @@
    Step 2  · Image Fallbacks
    Step 3  · Project Modal
    Step 4  · Email Validation
-   Step 5  · SPA Router - Project Detail View - Playground (This part of the code was configured using an internet tutorial)
+   Step 5  · SPA Router - Project Detail View - Playground
    Step 6  · Language Bar Animation
    Step 6b · Scroll To Top Button
-   Step 7  · Click sound (This part of the code was an idea copied entirely from the internet)
+   Step 7  · Click sound
+   Step 8  · Scroll Reveal          
+   Step 9  · Typed Text Hero        
+   Step 10 · Float Badge Timing     
 */
 
 
@@ -920,3 +923,121 @@ document.addEventListener('click', function (e) {
   );
   if (target) sfx.click();
 }, { passive: true });
+
+/* =================
+   STEP 8 · SCROLL REVEAL
+   IntersectionObserver adds .sr-visible to any .sr element
+   when it enters the viewport.
+   =================
+*/
+
+(function initScrollReveal() {
+  const elements = document.querySelectorAll('.sr');
+  if (!elements.length) return;
+
+  if (!('IntersectionObserver' in window)) {
+    elements.forEach(function (el) { el.classList.add('sr-visible'); });
+    return;
+  }
+
+  const observer = new IntersectionObserver(function (entries) {
+    entries.forEach(function (entry) {
+      if (entry.isIntersecting) {
+        entry.target.classList.add('sr-visible');
+        observer.unobserve(entry.target); // fire once
+      }
+    });
+  }, {
+    threshold: 0.12,
+    rootMargin: '0px 0px -40px 0px'
+  });
+
+  elements.forEach(function (el) { observer.observe(el); });
+})();
+
+
+/* =================
+   STEP 9 · TYPED TEXT HERO
+   Cycles through role labels with a blinking cursor.
+   =================
+*/
+
+(function initTypedText() {
+  const tagline = document.querySelector('.tagline');
+  if (!tagline) return;
+
+  // Respect reduced motion preference
+  if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+
+  const words  = ['Full Stack Web Developer', 'Frontend Enthusiast', 'Learning to code magic'];
+  let wordIdx  = 0;
+  let charIdx  = 0;
+  let deleting = false;
+  let paused   = false;
+
+  // Insert cursor span
+  const cursor = document.createElement('span');
+  cursor.className   = 'typed-cursor';
+  cursor.setAttribute('aria-hidden', 'true');
+
+  function type() {
+    if (paused) return;
+
+    const currentWord = words[wordIdx];
+
+    if (!deleting) {
+      charIdx++;
+      tagline.textContent = currentWord.slice(0, charIdx);
+      tagline.appendChild(cursor);
+
+      if (charIdx === currentWord.length) {
+        // Pause before deleting
+        paused = true;
+        setTimeout(function () {
+          deleting = true;
+          paused   = false;
+          setTimeout(type, 60);
+        }, 1800);
+        return;
+      }
+      setTimeout(type, 70);
+    } else {
+      charIdx--;
+      tagline.textContent = currentWord.slice(0, charIdx);
+      tagline.appendChild(cursor);
+
+      if (charIdx === 0) {
+        deleting = false;
+        wordIdx  = (wordIdx + 1) % words.length;
+        // Brief pause between words
+        paused = true;
+        setTimeout(function () {
+          paused = false;
+          setTimeout(type, 70);
+        }, 400);
+        return;
+      }
+      setTimeout(type, 38);
+    }
+  }
+
+  // Small delay so the hero fade-in completes first
+  setTimeout(type, 800);
+})();
+
+
+/* =================
+   STEP 10 · FLOAT BADGE TIMING
+   Each .about-tag gets a random float duration and delay
+   so they all move at slightly different rhythms.
+   =================
+*/
+
+(function initFloatBadges() {
+  document.querySelectorAll('.about-tag').forEach(function (badge) {
+    const dur   = (2.5 + Math.random() * 2).toFixed(2) + 's';
+    const delay = (Math.random() * 1.5).toFixed(2) + 's';
+    badge.style.setProperty('--float-dur',   dur);
+    badge.style.setProperty('--float-delay', delay);
+  });
+})();
