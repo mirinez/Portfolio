@@ -14,7 +14,7 @@
   <link rel="icon" type="image/x-icon" href="img/ico/favicon.ico">
 
   <!-- Open Graph tags --> 
-  <!-- I think they dnt work, i need to checkout later -->
+  <!-- They are used so that when the full website link is shared, the website's thumbnail, description, name, etc., are displayed --> 
   <meta property="og:title" content="Míriam Domínguez Martínez - Portfolio" />
   <meta property="og:description" content="Portfolio of Míriam Domínguez Martínez, Full Stack Developer. Showcasing projects, education, and experience." />
   <meta property="og:image" content="https://miriam-dominguezm.com/img/ico/favicon.png" />
@@ -24,21 +24,17 @@
 </head>
 <body>
 
-  <!-- Custom cursor -->
-  <div class="cursor-dot" id="cursorDot" aria-hidden="true"></div>
-  <div class="cursor-halo" id="cursorHalo" aria-hidden="true"></div>
-
   <!--
       NAVBAR
   -->
   <nav class="site-nav" aria-label="Main navigation">
-    <div class="nav-inner">  <!-- put a "home" link with an emoji or svg -->
+    <div class="nav-inner">  <!-- I've added an arrow-shaped button to return to the website's homepage -->
       <a href="#projects"    class="nav-link">Projects</a>
       <a href="#about"       class="nav-link">About Me</a>
       <a href="#education"   class="nav-link">Education</a>
       <a href="#beyond"      class="nav-link">Beyond the Code</a>
       <a href="#playground"  class="nav-link">Playground</a>
-      <a href="#contact"     class="nav-link">Contact Me</a> <!-- is without backend so dnt work -->
+      <a href="#contact"     class="nav-link">Contact Me</a> <!-- No backend -->
     </div>
   </nav>
   <!-- END NAVBAR -->
@@ -97,10 +93,15 @@
           -->
           <div class="photos-strip" role="region" aria-label="Project portfolio">
 
-            <!-- Row 1: 3 projects -->
+            <!-- ROW 1: 3 projects -->
             <div class="photos-row photos-row-top">
 
-            <!-- Project 1 -->
+            <!-- 
+              The line breaks are intentionally placed there so they're displayed on the website;
+              this will change when I learn how to do it without the actual line breaks in the code
+            -->
+
+            <!-- PROJECT 1 -->
             <div class="photo-item"
                  data-id="portfolio"
                  data-title="Portfolio"
@@ -125,9 +126,9 @@ It is more than a gallery; it is a direct demonstration of clean code, organized
                 <span class="project-view-hint">Click to learn more →</span>
               </div>
             </div>
-            <!-- END Project 1 -->
+            <!-- END PROJECT 1 -->
 
-            <!-- Project 2 -->
+            <!-- PROJECT 2 -->
             <div class="photo-item"
                  data-id="studenthub"
                  data-title="Student Hub"
@@ -151,9 +152,9 @@ Beyond individual metrics, the platform integrates social collaboration tools, c
                 <span class="project-view-hint">Click to learn more →</span>
               </div>
             </div>
-            <!-- END Project 2 -->
+            <!-- END PROJECT 2 -->
 
-            <!-- Project 3 -->
+            <!-- PROJECT 3 -->
             <div class="photo-item"
                  data-id="minecraft-gui"
                  data-title="Minecraft GUI"
@@ -177,14 +178,14 @@ To enhance immersion, I integrated the Web Audio API to synthesize procedural cl
                 <span class="project-view-hint">Click to learn more →</span>
               </div>
             </div>
-            <!-- END Project 3 -->
+            <!-- END PROJECT 3 -->
 
-            </div><!-- END Row 1 -->
+            </div><!-- END ROW 1 -->
 
-            <!-- Row 2: 2 projects - inverted pyramid -->
+            <!-- ROW 2: 2 projects - inverted pyramid -->
             <div class="photos-row photos-row-bottom">
 
-            <!-- Project 4 -->
+            <!-- PROJECT 4 -->
             <div class="photo-item"
                  data-id="dbe-fly"
                  data-title="DBE Fly"
@@ -208,9 +209,9 @@ The ultimate goal of this project is to transition from a static interface into 
                 <span class="project-view-hint">Click to learn more →</span>
               </div>
             </div>
-            <!-- END Project 4 -->
+            <!-- END PROJECT 4 -->
 
-            <!-- Project 5 -->
+            <!-- PROJECT 5 -->
             <div class="photo-item"
                  data-id="admin-bootstrap"
                  data-title="Admin Bootstrap"
@@ -233,9 +234,9 @@ The interface follows a consistent visual style with a dark navbar, breadcrumb n
                 <span class="project-view-hint">Click to learn more →</span>
               </div>
             </div>
-            <!-- END Project 5 -->
+            <!-- END PROJECT 5 -->
 
-            </div><!-- END Row 2 -->
+            </div><!-- END ROW 2 -->
 
           </div>
           <!-- END PHOTOS STRIP -->
@@ -335,7 +336,7 @@ The interface follows a consistent visual style with a dark navbar, breadcrumb n
               <!-- Text column (left) -->
               <div class="beyond-text-col">
                 <div class="top-content">
-                  <p class="beyond-text">By day, I tend to a small jungle of plants and a chaotic family. 
+                  <p class="beyond-text">By day, I tend to a small jungle of plants and a chaotic family.</p>
                   <p class="beyond-text">Life partner to Alf (an old, wise dog), a slug with a house, and a cat who definitely has a second family nearby.</p>
                   <p class="beyond-text">By night, I weave worlds. As a published poet, I’m currently deep into the lore of my first fantasy trilogy.</p>
                 </div>
@@ -420,7 +421,7 @@ The interface follows a consistent visual style with a dark navbar, breadcrumb n
               type="email" 
               placeholder="Enter your email..." 
               required
-              aria-label="Email address for newsletter"
+              aria-label="Email address input"
             />
             <button type="button" class="newsletter-btn" disabled>Email me!</button>
           </div>
