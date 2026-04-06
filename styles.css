@@ -1,4 +1,4 @@
-/* 
+/*
    styles.css | Portfolio
    Míriam Domínguez Martínez
 */
@@ -124,7 +124,7 @@ html, body {
   position: relative;
 }
 
-/* I've visually removed the scrollbar but it still works; it's purely aesthetic */ 
+/* I've visually removed the scrollbar but it still works; it's purely aesthetic */
 html {
   font-family: 'Inter', sans-serif;
   scroll-behavior: smooth;
@@ -166,6 +166,7 @@ body::after {
   z-index: 9999;
   pointer-events: none;
   opacity: 0.028;
+  /* Subtle noise texture via SVG filter */
   background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)'/%3E%3C/svg%3E");
   background-size: 200px 200px;
 }
@@ -580,9 +581,9 @@ h1.name {
   min-width: 0;
   height: var(--photo-h);
   border-radius: 14px;
-  /* 
+  /*
     overflow:hidden removed, causes hairline corner artifact when combined
-    with transform:rotate(). Clipping is handled by border-radius on .project-img 
+    with transform:rotate(). Clipping is handled by border-radius on .project-img
   */
   position: relative;
   background: var(--bg-nav);           /* fallback shown when project image is missing */
@@ -821,7 +822,7 @@ h1.name {
 }
 
 .beyond-quote {
-  font-style: italic;    
+  font-style: italic;
   color: var(--text-secondary);
   margin-top: 25px;
   font-size: 14px;
@@ -907,19 +908,6 @@ body.dark .book-pages {
   object-fit: cover;
   display: block;
   border-radius: 2px 7px 7px 2px;
-}
-
-/* Fallback when no image */
-.book-cover-fallback {
-  position: absolute;
-  inset: 0;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  padding: 10px 8px;
-  text-align: center;
-  pointer-events: none;
 }
 
 /* END BOOK WIDGET */
@@ -1242,7 +1230,7 @@ body.dark .footer-icon-img {
   line-height: 1.75;
   margin-bottom: 18px;
   transition: color var(--transition);
-  white-space: pre-wrap; 
+  white-space: pre-wrap;
 }
 
 .modal-tags {
@@ -1362,10 +1350,6 @@ body.dark .footer-icon-img {
     transform: translateY(0);
   }
 
-  /* Book scene stacks on mobile */
-  .book-scene {
-    gap: 12px;
-  }
   .book-wrapper { width: 90px; }
   .book-cover { width: 90px; height: 126px; }
 }
@@ -1530,11 +1514,6 @@ body.dark .footer-icon-img {
 
 .view-hidden {
   display: none;
-}
-
-.view-fading-out {
-  opacity: 0;
-  pointer-events: none;
 }
 
 /* END SPA VIEW TRANSITIONS */
@@ -2019,9 +1998,9 @@ body.dark .playground-item {
     0  0    0 1px rgba(255, 255, 255, 0.05);
 }
 
-/* 
-  JS adds this class staggered, 
-  springs into place 
+/*
+  JS adds this class staggered,
+  springs into place
 */
 .playground-item.pg-visible {
   opacity: 1;
@@ -2064,9 +2043,6 @@ body.dark .playground-item {
   width: 160px;
 }
 
-.playground-item-wide {
-  width: 220px;
-}
 
 .playground-item img {
   width: 100%;
@@ -2124,7 +2100,7 @@ body.dark .polaroid-label {
   #playgroundView {
     padding-top: 60px;      /* Leave space for the Back button */
   }
-  
+
   .playground-item {
     width: 120px;           /* Smaller images on mobile so they don't overload the center */
   }
