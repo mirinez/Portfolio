@@ -1,4 +1,4 @@
-/* 
+/*
    main.js | Portfolio
    Míriam Domínguez Martínez
 */
@@ -12,16 +12,15 @@
    Step 6  · Language Bar Animation
    Step 6b · Scroll To Top Button
    Step 7  · Click sound
-   Step 8  · Scroll Reveal          
-   Step 9  · Typed Text Hero        
-   Step 10 · Float Badge Timing     
+   Step 8  · Scroll Reveal
+   Step 9  · Typed Text Hero
+   Step 10 · Float Badge Timing
 */
 
 
 /* =================
    STEP 1 · THEME TOGGLE
-   Persists the light/dark preference in localStorage to
-   avoid a flash of the wrong theme on reload.
+   Persists the light/dark preference in localStorage
    =================
 */
 
@@ -42,7 +41,7 @@ function toggleTheme() {
 /* =================
    STEP 2 · IMAGE FALLBACKS
    Hides broken images so the container background fills the
-   space cleanly, no broken icon, no alt text rendered.
+   space cleanly, no broken icon, no alt text rendered
    =================
 */
 
@@ -61,8 +60,8 @@ document.querySelectorAll('img').forEach(suppressBrokenIcon);
    STEP 3 · PROJECT MODAL
    Opens a quick-peek modal from the card's data-* attributes.
    A "Full Details →" button inside the modal navigates to the
-   SPA detail view.
-   =================
+   SPA detail view for that project, using the same data-id as the hash param
+  =================
 */
 
 // 3.1 · DOM references
@@ -85,14 +84,13 @@ function openModal(card) {
   const img   = card.querySelector('.project-img');
 
   modalTitle.textContent = title;
-  modalDesc.innerHTML = desc.replace(/\n/g, '<br>');
+  modalDesc.textContent = desc;
   modalLink.href         = demo;
 
   /*
-    The card's <img> may have display:none (set by suppressBrokenIcon) which
-    makes naturalWidth unreliable. Instead we probe the src with a fresh Image
-    object that is never added to the DOM, so display never interferes.
     We clear the wrap first, then inject an <img> only if the probe succeeds.
+    This way if the image URL is broken, the modal still opens with the title and description,
+    and the wrap area just shows the background color without a broken icon or alt text
   */
   modalImgWrap.innerHTML = '';
   const src = img ? img.getAttribute('src') : '';
@@ -181,6 +179,7 @@ modal.addEventListener('keydown', function (e) {
 
 /* =================
    STEP 4 · EMAIL VALIDATION
+   No backend, just a front-end validation for a better UX.
    =================
 */
 
@@ -222,8 +221,8 @@ if (newsletterInput && newsletterBtn) {
 /* =================
    STEP 5 · SPA ROUTER PROJECT DETAIL VIEW
    Hash-based routing:  #project/:id  →  detail view
-   Empty hash / no match →  main portfolio view
-   Browser back / forward buttons work natively via popstate.
+   Empty hash   / no match →  main portfolio view
+   Browser back / forward buttons work natively via popstate
    =================
 */
 
@@ -261,7 +260,7 @@ function renderDetailView(card) {
   detailTitle.textContent = title;
 
   // Long description
-  detailDesc.innerHTML = desc.replace(/\n/g, '<br>');
+  detailDesc.textContent = desc;
 
   // Gallery, pipe-separated media paths (images or .mp4 videos)
   detailGallery.innerHTML = '';
@@ -410,7 +409,7 @@ const router = {
       renderDetailView(projectsMap[param]);
       showView('detail');
     } else {
-      /* 
+      /*
         Section anchor (#about, #projects, etc.) or empty hash →
         only switch back to main view if we were in the detail view,
         and let the browser handle the native anchor scroll naturally.
@@ -427,7 +426,10 @@ const router = {
 
 // 5.7 · Back button, goes to the previous history entry
 detailBack.addEventListener('click', function () {
-  // If there's history to go back to, use it; otherwise fall back to home hash
+  /*
+    If there's history to go back to, use it; otherwise fall back to home hash
+    to ensure we don't get stuck on a non-existent hash
+  */
   if (history.length > 1) {
     history.back();
   } else {
@@ -445,7 +447,7 @@ window.addEventListener('hashchange', function () {
 /* =================
    STEP 5b · PLAYGROUND VIEW
    Free draggable canvas with centered intro message.
-   Uses the same hash router system as the project detail view.
+   Uses the same hash router system as the project detail view
    =================
 */
 
@@ -551,7 +553,7 @@ function randomizePlaygroundItems() {
         y + iH  < originY - safeH / 2 ||
         y       > originY + safeH / 2;
 
-      // Must not overlap already-placed items (32px gap on all sides)
+      // No overlap already-placed items (32px gap on all sides) to prevent visual crowding
       const clearOthers = placed.every(function (p) {
         return (
           x + iW + 32 < p.x            ||
@@ -577,7 +579,7 @@ function randomizePlaygroundItems() {
 
     // Staggered spring entry: each item launches into place after the previous
     setTimeout(function () {
-      item.style.scale = '';   // let CSS handle scale via .pg-visible
+      item.style.scale = '';   // let CSS handle scale via .pg-visible class
       item.classList.add('pg-visible');
     }, 80 + idx * 60);
   });
@@ -604,14 +606,7 @@ window.addEventListener('mousemove', function (e) {
   updatePlaygroundCanvas();
 });
 
-// 5b.7 · Ends dragging
-window.addEventListener('mouseup', function () {
-  isDraggingPlayground = false;
-
-  if (playgroundViewport) {
-    playgroundViewport.classList.remove('dragging');
-  }
-});
+// 5b.7 · Ends dragging (canvas pan + item release merged into one handler)
 
 // 5b.8 · Mobile touch support
 if (playgroundViewport) {
@@ -671,7 +666,7 @@ router.handle();
 
 /* =================
    STEP 5c · DRAGGABLE PLAYGROUND ITEMS
-   Allows each playground card to be picked up and moved independently.
+   Allows each playground card to be picked up and moved independently of the canvas drag
    =================
 */
 
@@ -751,14 +746,22 @@ function releasePlaygroundItem() {
   });
 }
 
-window.addEventListener('mouseup', releasePlaygroundItem);
+window.addEventListener('mouseup', function () {
+  // End canvas pan
+  isDraggingPlayground = false;
+  if (playgroundViewport) {
+    playgroundViewport.classList.remove('dragging');
+  }
+  // Release dragged item (no-op if no item is active)
+  releasePlaygroundItem();
+});
 
 /* =================
    STEP 6 · LANGUAGE BAR ANIMATION
    Uses IntersectionObserver so the bars fill only when the
    section scrolls into view, making the animation feel intentional.
-   Falls back gracefully if IntersectionObserver is not available.
-   =================
+   Each bar's target percentage is stored in a data-width attribute
+  =================
 */
 
 (function initLangBars() {
@@ -830,8 +833,7 @@ window.addEventListener('mouseup', releasePlaygroundItem);
 */
 
 /*
-  7.1 · AudioContext, lazily created on the first user gesture to 
-  comply with browser autoplay policies (Chrome, Safari, Firefox).
+  7.1 · AudioContext is created on demand, and resumed if suspended, to comply with browser autoplay policies
 */
 
 const sfx = (function () {
@@ -891,11 +893,11 @@ const sfx = (function () {
     src.stop(at + decay + 0.005);
   }
 
-/* 
+/*
   7.3 · Mechanical mouse click, two snaps derived from spectral analysis of a real mouse sample:
   Press   : ~830 Hz centre, very tight decay (5 ms)
   Release : ~690 Hz centre (lower/darker), slightly longer (7 ms)
-  arrives 78 ms after the press, measured from the sample.
+  arrives 78 ms after the press, measured from the sample
 */
 
   return {
@@ -910,12 +912,11 @@ const sfx = (function () {
   };
 })();
 
-/* 
+/*
   7.4 · Universal click listener, one delegated handler on the document
   catches every click that originates from a button, link, or any
-  element with a recognised interactive role / attribute, without
-  touching the existing individual listeners.
-*/ 
+  element with an interactive role / attribute
+*/
 
 document.addEventListener('click', function (e) {
   const target = e.target.closest(
@@ -927,7 +928,9 @@ document.addEventListener('click', function (e) {
 /* =================
    STEP 8 · SCROLL REVEAL
    IntersectionObserver adds .sr-visible to any .sr element
-   when it enters the viewport.
+   when it enters the viewport for the first time, triggering CSS transitions.
+     - threshold 0.12 means the element is considered "visible" when 12% of it is in view
+     - rootMargin with a negative bottom value triggers the reveal slightly before the element fully enters the viewport, creating a smoother effect
    =================
 */
 
@@ -958,7 +961,7 @@ document.addEventListener('click', function (e) {
 
 /* =================
    STEP 9 · TYPED TEXT HERO
-   Cycles through role labels with a blinking cursor.
+   Cycles through role labels with a blinking cursor, using a simple custom typewriter effect
    =================
 */
 
@@ -969,7 +972,7 @@ document.addEventListener('click', function (e) {
   // Respect reduced motion preference
   if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
 
-  const words  = ['Full Stack Web Developer', 'Frontend Enthusiast', 'Learning to code magic'];
+  const words  = ['Full Stack Developer', 'Frontend Enthusiast', 'Learning to code magic'];
   let wordIdx  = 0;
   let charIdx  = 0;
   let deleting = false;
@@ -1028,8 +1031,8 @@ document.addEventListener('click', function (e) {
 
 /* =================
    STEP 10 · FLOAT BADGE TIMING
-   Each .about-tag gets a random float duration and delay
-   so they all move at slightly different rhythms.
+  Each badge gets a random float duration and delay within a defined range.
+   These values are set as CSS custom properties, creating a floating effect
    =================
 */
 
