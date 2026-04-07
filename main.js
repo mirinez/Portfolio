@@ -4,34 +4,34 @@
 */
 
 /*
-   Step 1  · Theme Toggle
-   Step 2  · Image Fallbacks
-   Step 3  · Project Modal
-   Step 4  · Email Validation
-   Step 5  · SPA Router - Project Detail View - Playground
-   Step 6  · Language Bar Animation
-   Step 6b · Scroll To Top Button
-   Step 7  · Click sound
-   Step 8  · Scroll Reveal
-   Step 9  · Typed Text Hero
-   Step 10 · Float Badge Timing
+   Step 1  - Theme Toggle
+   Step 2  - Image Fallbacks
+   Step 3  - Project Modal
+   Step 4  - Email Validation
+   Step 5  - SPA Router (main view / detail view / playground)
+   Step 6  - Language Bar Animation
+   Step 6b - Scroll To Top Button
+   Step 7  - Click Sound
+   Step 8  - Scroll Reveal
+   Step 9  - Typed Text Hero
+   Step 10 - Float Badge Timing
 */
 
 
 /* =================
-   STEP 1 · THEME TOGGLE
+   STEP 1 - THEME TOGGLE
    Persists the light/dark preference in localStorage
    =================
 */
 
-// 1.1 · Restore, applies the saved theme before the first paint
+// 1.1 - Restore: applies the saved theme before the first paint
 (function restoreTheme() {
   if (localStorage.getItem('theme') === 'dark') {
     document.body.classList.add('dark');
   }
 })();
 
-// 1.2 · Toggle, called from the button in the HTML (onclick)
+// 1.2 - Toggle: called from the button in the HTML (onclick)
 function toggleTheme() {
   const isDark = document.body.classList.toggle('dark');
   localStorage.setItem('theme', isDark ? 'dark' : 'light');
@@ -39,32 +39,32 @@ function toggleTheme() {
 
 
 /* =================
-   STEP 2 · IMAGE FALLBACKS
+   STEP 2 - IMAGE FALLBACKS
    Hides broken images so the container background fills the
    space cleanly, no broken icon, no alt text rendered
    =================
 */
 
-// 2.1 · Suppresses the broken-image icon on a given <img>
+// 2.1 - Suppresses the broken-image icon on a given <img>
 function suppressBrokenIcon(img) {
   img.addEventListener('error', function () {
     img.style.display = 'none';
   });
 }
 
-// 2.2 · Apply to all existing images on load
+// 2.2 - Apply to all existing images on load
 document.querySelectorAll('img').forEach(suppressBrokenIcon);
 
 
 /* =================
-   STEP 3 · PROJECT MODAL
+   STEP 3 - PROJECT MODAL
    Opens a quick-peek modal from the card's data-* attributes.
-   A "Full Details →" button inside the modal navigates to the
+   A "Full Details" button inside the modal navigates to the
    SPA detail view for that project, using the same data-id as the hash param
-  =================
+   =================
 */
 
-// 3.1 · DOM references
+// 3.1 - DOM references
 const modal           = document.getElementById('projectModal');
 const modalClose      = document.getElementById('modalClose');
 const modalImgWrap    = document.getElementById('modalImgWrap');
@@ -74,7 +74,7 @@ const modalTags       = document.getElementById('modalTags');
 const modalLink       = document.getElementById('modalLink');
 const modalDetailBtn  = document.getElementById('modalDetailBtn');
 
-// 3.2 · Open modal, populates content from the card's data-* attributes
+// 3.2 - Open modal: populates content from the card's data-* attributes
 function openModal(card) {
   const title = card.dataset.title || 'Project';
   const desc  = card.dataset.desc  || '';
@@ -84,7 +84,7 @@ function openModal(card) {
   const img   = card.querySelector('.project-img');
 
   modalTitle.textContent = title;
-  modalDesc.textContent = desc;
+  modalDesc.textContent  = desc;
   modalLink.href         = demo;
 
   /*
@@ -133,14 +133,14 @@ function openModal(card) {
   modalClose.focus();
 }
 
-// 3.3 · Close modal, restores page scroll
+// 3.3 - Close modal: restores page scroll
 function closeModal() {
   modal.classList.remove('is-open');
   modal.setAttribute('aria-hidden', 'true');
   document.body.style.overflow = '';
 }
 
-// 3.4 · Open / close event listeners
+// 3.4 - Open / close event listeners
 document.querySelectorAll('.photo-item').forEach(function (card) {
   card.addEventListener('click', function () { openModal(card); });
   card.addEventListener('keydown', function (e) {
@@ -161,7 +161,7 @@ document.addEventListener('keydown', function (e) {
   if (e.key === 'Escape' && modal.classList.contains('is-open')) closeModal();
 });
 
-// 3.5 · Focus trap, keeps Tab key inside the modal while it's open
+// 3.5 - Focus trap: keeps Tab key inside the modal while it's open
 modal.addEventListener('keydown', function (e) {
   if (!modal.classList.contains('is-open') || e.key !== 'Tab') return;
   const focusable = Array.from(
@@ -178,7 +178,7 @@ modal.addEventListener('keydown', function (e) {
 
 
 /* =================
-   STEP 4 · EMAIL VALIDATION
+   STEP 4 - EMAIL VALIDATION
    No backend, just a front-end validation for a better UX.
    =================
 */
@@ -204,12 +204,13 @@ if (newsletterInput && newsletterBtn) {
     const email = newsletterInput.value.trim();
     if (isValidEmail(email)) {
       alert('Thank you!');
-      newsletterInput.value      = '';
-      newsletterBtn.disabled     = true;
+      newsletterInput.value       = '';
+      newsletterBtn.disabled      = true;
       newsletterBtn.style.opacity = '0.5';
     }
   });
 
+  // Also trigger on Enter key inside the input field
   newsletterInput.addEventListener('keypress', function (e) {
     if (e.key === 'Enter' && !newsletterBtn.disabled) {
       newsletterBtn.click();
@@ -219,24 +220,30 @@ if (newsletterInput && newsletterBtn) {
 
 
 /* =================
-   STEP 5 · SPA ROUTER PROJECT DETAIL VIEW
-   Hash-based routing:  #project/:id  →  detail view
-   Empty hash   / no match →  main portfolio view
-   Browser back / forward buttons work natively via popstate
+   STEP 5 - SPA ROUTER
+   Hash-based routing:
+     #project/:id   -> project detail view
+     #playground    -> playground view
+     empty / other  -> main portfolio view
+
+   Browser back/forward buttons work natively via popstate.
+   The router is defined first, then the playground references
+   are collected below (5b), and router.handle() is called last
+   so all DOM nodes exist before we try to read the hash.
    =================
 */
 
-// 5.1 · Collect all project cards into a map keyed by data-id
+// 5.1 - Collect all project cards into a map keyed by data-id
 const projectsMap = {};
 document.querySelectorAll('.photo-item[data-id]').forEach(function (card) {
   projectsMap[card.dataset.id] = card;
 });
 
-// 5.2 · View references
+// 5.2 - View references
 const mainView   = document.getElementById('mainView');
 const detailView = document.getElementById('detailView');
 
-// 5.3 · Detail view DOM references
+// 5.3 - Detail view DOM references
 const detailTitle     = document.getElementById('detailTitle');
 const detailDesc      = document.getElementById('detailDesc');
 const detailFeatures  = document.getElementById('detailFeatures');
@@ -246,15 +253,15 @@ const detailDemoBtn   = document.getElementById('detailDemoBtn');
 const detailGithubBtn = document.getElementById('detailGithubBtn');
 const detailBack      = document.getElementById('detailBack');
 
-// 5.4 · Populate the detail view with data from a project card
+// 5.4 - Populate the detail view with data from a project card
 function renderDetailView(card) {
-  const title      = card.dataset.title     || 'Project';
-  const desc       = card.dataset.longDesc  || card.dataset.desc || '';
-  const tech       = card.dataset.tech      || '';
-  const features   = card.dataset.features  || '';
-  const github     = card.dataset.github    || '#';
-  const demo       = card.dataset.demo      || '#';
-  const images     = card.dataset.images    || '';
+  const title    = card.dataset.title    || 'Project';
+  const desc     = card.dataset.longDesc || card.dataset.desc || '';
+  const tech     = card.dataset.tech     || '';
+  const features = card.dataset.features || '';
+  const github   = card.dataset.github   || '#';
+  const demo     = card.dataset.demo     || '#';
+  const images   = card.dataset.images   || '';
 
   // Title
   detailTitle.textContent = title;
@@ -262,7 +269,7 @@ function renderDetailView(card) {
   // Long description
   detailDesc.textContent = desc;
 
-  // Gallery, pipe-separated media paths (images or .mp4 videos)
+  // Gallery: pipe-separated media paths (images or .mp4 videos)
   detailGallery.innerHTML = '';
   if (images.trim()) {
     images.split('|').forEach(function (src) {
@@ -274,7 +281,7 @@ function renderDetailView(card) {
         // Video: autoplay, loop, muted, no controls
         const video       = document.createElement('video');
         video.src         = cleanSrc;
-        video.className   = 'detail-gallery-img';  // reuses same sizing CSS
+        video.className   = 'detail-gallery-img'; // reuses same sizing CSS
         video.autoplay    = true;
         video.loop        = true;
         video.muted       = true;                  // required for autoplay in all browsers
@@ -298,7 +305,7 @@ function renderDetailView(card) {
     });
   }
 
-  // Features, separated list
+  // Features: pipe-separated list
   detailFeatures.innerHTML = '';
   if (features.trim()) {
     features.split('|').forEach(function (feat) {
@@ -329,17 +336,17 @@ function renderDetailView(card) {
   detailGithubBtn.style.display = (github && github !== '#') ? '' : 'none';
 }
 
-// 5.5 · Show / hide views with a smooth transition
+// 5.5 - Show/hide views with a smooth transition
 function showView(view) {
   if (view === 'detail') {
     mainView.classList.add('view-hidden');
+    mainView.setAttribute('aria-hidden', 'true');
 
     if (playgroundView) {
       playgroundView.classList.add('view-hidden');
       playgroundView.setAttribute('aria-hidden', 'true');
     }
 
-    mainView.setAttribute('aria-hidden', 'true');
     detailView.classList.remove('view-hidden');
     detailView.setAttribute('aria-hidden', 'false');
 
@@ -350,9 +357,9 @@ function showView(view) {
 
   } else if (view === 'playground') {
     mainView.classList.add('view-hidden');
-    detailView.classList.add('view-hidden');
-
     mainView.setAttribute('aria-hidden', 'true');
+
+    detailView.classList.add('view-hidden');
     detailView.setAttribute('aria-hidden', 'true');
 
     if (playgroundView) {
@@ -362,12 +369,14 @@ function showView(view) {
 
     document.body.classList.add('detail-active');
 
+    // Wait for the next frame so the canvas has rendered dimensions
     requestAnimationFrame(function () {
       centerPlaygroundCanvas();
       randomizePlaygroundItems();
     });
 
   } else {
+    // Default: show main view, hide everything else
     detailView.classList.add('view-hidden');
     detailView.setAttribute('aria-hidden', 'true');
 
@@ -383,16 +392,16 @@ function showView(view) {
   }
 }
 
-// 5.6 · Router, reads the current hash and routes accordingly
+// 5.6 - Router: reads the current hash and routes accordingly
 const router = {
-  // Parse hash → route segments
+  // Parse hash into { route, param }
   parse: function () {
-    const hash = window.location.hash.replace('#', '');
+    const hash  = window.location.hash.replace('#', '');
     const parts = hash.split('/');
     return { route: parts[0], param: parts[1] || null };
   },
 
-  // Programmatic navigation, pushes a new history entry
+  // Programmatic navigation: pushes a new history entry
   navigate: function (path) {
     window.location.hash = path;
   },
@@ -405,14 +414,14 @@ const router = {
       showView('playground');
 
     } else if (route === 'project' && param && projectsMap[param]) {
-      // SPA route → render detail view
       renderDetailView(projectsMap[param]);
       showView('detail');
+
     } else {
       /*
-        Section anchor (#about, #projects, etc.) or empty hash →
-        only switch back to main view if we were in the detail view,
-        and let the browser handle the native anchor scroll naturally.
+        Section anchor (#about, #projects, etc.) or empty hash:
+        only switch back to main view if we were already in a sub-view.
+        The browser handles the native anchor scroll by itself.
       */
       if (
         !detailView.classList.contains('view-hidden') ||
@@ -424,7 +433,7 @@ const router = {
   }
 };
 
-// 5.7 · Back button, goes to the previous history entry
+// 5.7 - Back button: goes to the previous history entry
 detailBack.addEventListener('click', function () {
   /*
     If there's history to go back to, use it; otherwise fall back to home hash
@@ -437,73 +446,68 @@ detailBack.addEventListener('click', function () {
   }
 });
 
-// 5.8 · Listen for hash changes (back / forward buttons, direct URL)
+// 5.8 - Listen for hash changes (back/forward buttons, direct URL)
 window.addEventListener('hashchange', function () {
   router.handle();
 });
 
-// 5.9 · Handle the initial hash on page load (after playground refs are initialized below)
 
 /* =================
-   STEP 5b · PLAYGROUND VIEW
+   STEP 5b - PLAYGROUND VIEW
    Free draggable canvas with centered intro message.
-   Uses the same hash router system as the project detail view
+   Uses the same hash router system as the project detail view.
    =================
 */
 
-// 5b.1 · View references
+// 5b.1 - View references
 const playgroundView     = document.getElementById('playgroundView');
 const playgroundViewport = document.getElementById('playgroundViewport');
 const playgroundCanvas   = document.getElementById('playgroundCanvas');
 const playgroundBack     = document.getElementById('playgroundBack');
 const playgroundCenter   = document.getElementById('playgroundCenter');
 
-// 5b.2 · Drag state
+// 5b.2 - Drag state for the canvas pan
 let isDraggingPlayground = false;
 let playgroundStartX     = 0;
 let playgroundStartY     = 0;
 let currentCanvasX       = 0;
 let currentCanvasY       = 0;
 
-// 5b.3 · Updates the canvas position
+// 5b.3 - Apply the current canvas position via transform
 function updatePlaygroundCanvas() {
   if (!playgroundCanvas) return;
-
   playgroundCanvas.style.transform =
     `translate(${currentCanvasX}px, ${currentCanvasY}px)`;
 }
 
-// 5b.4 · Centers the welcome message on first open
+// 5b.4 - Centers the canvas so the tagline sits in the middle of the viewport on first open
 function centerPlaygroundCanvas() {
   if (!playgroundViewport || !playgroundCenter) return;
 
   const viewportRect = playgroundViewport.getBoundingClientRect();
 
+  // These match the explicit width/height set on .playground-canvas in CSS
   const canvasWidth  = 4000;
   const canvasHeight = 3000;
 
-  const centerX = viewportRect.width / 2 - (canvasWidth / 2);
-  const centerY = viewportRect.height / 2 - (canvasHeight / 2);
-
-  currentCanvasX = centerX;
-  currentCanvasY = centerY;
+  currentCanvasX = viewportRect.width  / 2 - canvasWidth  / 2;
+  currentCanvasY = viewportRect.height / 2 - canvasHeight / 2;
 
   updatePlaygroundCanvas();
 }
 
-
+// 5b.5 - Scatter the polaroid items around the central tagline
 function randomizePlaygroundItems() {
   const items = document.querySelectorAll('.playground-item');
   if (!items.length || !playgroundCenter) return;
 
-  // Remove any previous visibility classes so the animation re-runs
+  // Reset visibility so the spring entry animation re-runs each time
   items.forEach(function (item) {
-    // Reset visibility and scale so the spring animation re-runs cleanly
     item.classList.remove('pg-visible');
     item.style.scale = '0.6';
   });
 
-  // Canvas centre anchor
+  // Canvas centre anchor (matches the 4000x3000 canvas)
   const originX = 2000;
   const originY = 1500;
 
@@ -529,15 +533,16 @@ function randomizePlaygroundItems() {
 
     const ring = rings[idx % rings.length];
 
-    let x = 0;
-    let y = 0;
-    let valid = false;
+    let x        = 0;
+    let y        = 0;
+    let valid    = false;
     let attempts = 0;
 
+    // Try up to 500 times to find a valid position that clears the safe zone and other items
     while (!valid && attempts < 500) {
       attempts++;
 
-      // Spread angle evenly then add jitter so items are not perfectly equidistant
+      // Spread angle evenly, then add jitter so items are not perfectly equidistant
       const baseAngle = (Math.PI * 2 / items.length) * idx - Math.PI / 2;
       const jitter    = (Math.random() - 0.5) * (Math.PI / items.length) * 0.6;
       const angle     = baseAngle + jitter;
@@ -553,7 +558,7 @@ function randomizePlaygroundItems() {
         y + iH  < originY - safeH / 2 ||
         y       > originY + safeH / 2;
 
-      // No overlap already-placed items (32px gap on all sides) to prevent visual crowding
+      // No overlap with already-placed items (32px gap on all sides to prevent visual crowding)
       const clearOthers = placed.every(function (p) {
         return (
           x + iW + 32 < p.x            ||
@@ -568,7 +573,7 @@ function randomizePlaygroundItems() {
 
     placed.push({ x, y, w: iW, h: iH });
 
-    // Rotation: use the value from data-rot if provided, else random ±10°
+    // Rotation: use the value from data-rot if provided, else random +-10 degrees
     const dataRot = parseFloat(item.dataset.rot);
     const rot     = isNaN(dataRot) ? (Math.random() * 20) - 10 : dataRot;
 
@@ -585,7 +590,7 @@ function randomizePlaygroundItems() {
   });
 }
 
-// 5b.5 · Starts dragging
+// 5b.6 - Mouse: start canvas pan
 if (playgroundViewport) {
   playgroundViewport.addEventListener('mousedown', function (e) {
     isDraggingPlayground = true;
@@ -596,7 +601,7 @@ if (playgroundViewport) {
   });
 }
 
-// 5b.6 · Moves canvas while dragging
+// 5b.7 - Mouse: move canvas while panning
 window.addEventListener('mousemove', function (e) {
   if (!isDraggingPlayground) return;
 
@@ -606,9 +611,7 @@ window.addEventListener('mousemove', function (e) {
   updatePlaygroundCanvas();
 });
 
-// 5b.7 · Ends dragging (canvas pan + item release merged into one handler)
-
-// 5b.8 · Mobile touch support
+// 5b.8 - Touch: start canvas pan (item drag is handled in 5c and takes priority)
 if (playgroundViewport) {
   playgroundViewport.addEventListener('touchstart', function (e) {
     // If the touch started on a draggable item, let the item handler take over
@@ -622,12 +625,13 @@ if (playgroundViewport) {
   }, { passive: true });
 }
 
+// 5b.9 - Touch: move handler for both canvas pan and item drag
 window.addEventListener('touchmove', function (e) {
   // Item drag takes full priority, prevent scroll and move the photo
   if (activePlaygroundItem && playgroundCanvas) {
     e.preventDefault();
 
-    const touch = e.touches[0];
+    const touch     = e.touches[0];
     const canvasRect = playgroundCanvas.getBoundingClientRect();
 
     activePlaygroundItem.style.left = (touch.clientX - canvasRect.left - activeItemOffsetX) + 'px';
@@ -646,61 +650,77 @@ window.addEventListener('touchmove', function (e) {
   updatePlaygroundCanvas();
 }, { passive: false }); // passive:false needed so we can call preventDefault() during item drag
 
+// 5b.10 - Touch: release
 window.addEventListener('touchend', function () {
-  // Release canvas pan
   isDraggingPlayground = false;
-
-  // Release item drag with drop animation
   releasePlaygroundItem();
 });
 
-// 5b.9 · Back button
+// 5b.11 - Back button
 if (playgroundBack) {
   playgroundBack.addEventListener('click', function () {
     router.navigate('');
   });
 }
 
-// 5b.10 · Handle the initial route after all playground refs exist
-router.handle();
 
 /* =================
-   STEP 5c · DRAGGABLE PLAYGROUND ITEMS
-   Allows each playground card to be picked up and moved independently of the canvas drag
+   STEP 5c - DRAGGABLE PLAYGROUND ITEMS
+   Each polaroid can be picked up and moved independently of the canvas.
+   Double-click (or double-tap on mobile) flips the card to show the label.
    =================
 */
 
 let activePlaygroundItem = null;
-let activeItemOffsetX = 0;
-let activeItemOffsetY = 0;
+let activeItemOffsetX    = 0;
+let activeItemOffsetY    = 0;
 
 document.querySelectorAll('.draggable-item').forEach(function (item) {
+
+  // Mouse: pick up item
   item.addEventListener('mousedown', function (e) {
     e.stopPropagation();
     e.preventDefault();
 
+    const now = Date.now();
+
+    // Double-click detection via timestamps (dblclick is blocked by preventDefault above)
+    if (item._lastMouseDown && (now - item._lastMouseDown) < 350) {
+      item._lastMouseDown = null;
+      // Flip immediately, no drag needed
+      item.classList.remove('dragging-item', 'picking-up');
+      item.classList.toggle('is-flipped');
+      activePlaygroundItem = null; // cancel any pending drag
+      return;
+    }
+    item._lastMouseDown = now;
+    item._mouseDownX    = e.clientX;
+    item._mouseDownY    = e.clientY;
+
     activePlaygroundItem = item;
+    item._pendingFlip    = false;
 
     // Brief pick-up phase: CSS transition lifts it before we freeze transitions
     item.classList.remove('dropping');
     item.classList.add('picking-up');
     setTimeout(function () {
-      item.classList.remove('picking-up');
-      item.classList.add('dragging-item');
+      if (activePlaygroundItem === item) { // only if still being dragged
+        item.classList.remove('picking-up');
+        item.classList.add('dragging-item');
+      }
     }, 180);
 
-    const itemRect = item.getBoundingClientRect();
+    const itemRect    = item.getBoundingClientRect();
     activeItemOffsetX = e.clientX - itemRect.left;
     activeItemOffsetY = e.clientY - itemRect.top;
   });
 
+  // Touch: pick up item
   item.addEventListener('touchstart', function (e) {
-    // Stop the canvas drag from also activating
-    e.stopPropagation();
-    // Prevent browser scroll/pan from interfering while dragging a photo
-    e.preventDefault();
+    e.stopPropagation();  // stop the canvas drag from also activating
+    e.preventDefault();   // prevent browser scroll/pan from interfering while dragging a photo
 
-    const touch = e.touches[0];
+    const touch          = e.touches[0];
     activePlaygroundItem = item;
 
     // Brief pick-up phase: CSS transition lifts it before we freeze transitions
@@ -711,31 +731,39 @@ document.querySelectorAll('.draggable-item').forEach(function (item) {
       item.classList.add('dragging-item');
     }, 180);
 
-    const itemRect = item.getBoundingClientRect();
+    const itemRect    = item.getBoundingClientRect();
     activeItemOffsetX = touch.clientX - itemRect.left;
     activeItemOffsetY = touch.clientY - itemRect.top;
+
+    // Double-tap detection for mobile flip
+    const now = Date.now();
+    if (item._lastTap && (now - item._lastTap) < 300) {
+      item.classList.toggle('is-flipped');
+      item._lastTap = null;
+    } else {
+      item._lastTap = now;
+    }
   }, { passive: false }); // passive:false required to call preventDefault()
 });
 
+// Mouse: move item while dragging
 window.addEventListener('mousemove', function (e) {
   if (!activePlaygroundItem || !playgroundCanvas) return;
 
   const canvasRect = playgroundCanvas.getBoundingClientRect();
 
-  const left = e.clientX - canvasRect.left - activeItemOffsetX;
-  const top = e.clientY - canvasRect.top - activeItemOffsetY;
-
-  activePlaygroundItem.style.left = left + 'px';
-  activePlaygroundItem.style.top = top + 'px';
+  activePlaygroundItem.style.left = (e.clientX - canvasRect.left - activeItemOffsetX) + 'px';
+  activePlaygroundItem.style.top  = (e.clientY - canvasRect.top  - activeItemOffsetY) + 'px';
 });
 
+// Releases an item with a drop spring animation
 function releasePlaygroundItem() {
   if (!activePlaygroundItem) return;
 
-  const item = activePlaygroundItem;
+  const item       = activePlaygroundItem;
   activePlaygroundItem = null;
 
-  // Swap dragging → dropping so CSS spring plays on release
+  // Swap dragging -> dropping so CSS spring plays on release
   item.classList.remove('dragging-item', 'picking-up');
   item.classList.add('dropping');
 
@@ -746,22 +774,27 @@ function releasePlaygroundItem() {
   });
 }
 
+// Mouse: release item and end canvas pan
 window.addEventListener('mouseup', function () {
-  // End canvas pan
   isDraggingPlayground = false;
   if (playgroundViewport) {
     playgroundViewport.classList.remove('dragging');
   }
-  // Release dragged item (no-op if no item is active)
-  releasePlaygroundItem();
+  releasePlaygroundItem(); // no-op if no item is active
 });
 
+
+// Initial route
+// Called here so all playground references exist before we try to handle any hash
+router.handle();
+
+
 /* =================
-   STEP 6 · LANGUAGE BAR ANIMATION
+   STEP 6 - LANGUAGE BAR ANIMATION
    Uses IntersectionObserver so the bars fill only when the
    section scrolls into view, making the animation feel intentional.
-   Each bar's target percentage is stored in a data-width attribute
-  =================
+   Each bar's target percentage is stored in a data-width attribute.
+   =================
 */
 
 (function initLangBars() {
@@ -796,7 +829,7 @@ window.addEventListener('mouseup', function () {
 
 
 /* =================
-   STEP 6b · SCROLL TO TOP BUTTON
+   STEP 6b - SCROLL TO TOP BUTTON
    Shows after the user scrolls down 300 px.
    Works in both the main view and the detail view.
    =================
@@ -823,7 +856,7 @@ window.addEventListener('mouseup', function () {
 
 
 /* =================
-   STEP 7 · SOUND ENGINE
+   STEP 7 - SOUND ENGINE
    Click sound reverse-engineered from a real mechanical mouse sample:
      Press   - bandpass noise centred on ~830 Hz, decay ~5 ms
      Release - bandpass noise centred on ~690 Hz, decay ~7 ms, at +78 ms
@@ -833,7 +866,7 @@ window.addEventListener('mouseup', function () {
 */
 
 /*
-  7.1 · AudioContext is created on demand, and resumed if suspended, to comply with browser autoplay policies
+  7.1 - AudioContext is created on demand, and resumed if suspended, to comply with browser autoplay policies
 */
 
 const sfx = (function () {
@@ -845,17 +878,17 @@ const sfx = (function () {
     return ctx;
   }
 
-  // Respect the OS-level "reduce motion"
+  // Respect the OS-level "reduce motion" setting
   const reducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
 
-/*
-  7.2 · snap, short filtered-noise burst modelling a single switch hit.
-  at    : AudioContext timestamp (seconds)
-  freq  : bandpass centre frequency (Hz), sets the "pitch" of the click
-  q     : filter Q higher = narrower band = more tonal
-  vol   : peak gain
-  decay : time (s) to fade to silence
-*/
+  /*
+    7.2 - snap: short filtered-noise burst modelling a single switch hit.
+    at    : AudioContext timestamp (seconds)
+    freq  : bandpass centre frequency (Hz), sets the "pitch" of the click
+    q     : filter Q, higher = narrower band = more tonal
+    vol   : peak gain
+    decay : time (s) to fade to silence
+  */
 
   function snap(at, freq, q, vol, decay) {
     const c = getCtx();
@@ -866,22 +899,22 @@ const sfx = (function () {
     const d       = buf.getChannelData(0);
     for (let i = 0; i < bufSize; i++) d[i] = Math.random() * 2 - 1;
 
-    const src    = c.createBufferSource();
-    src.buffer   = buf;
+    const src  = c.createBufferSource();
+    src.buffer = buf;
 
     // Narrow bandpass, concentrates energy around the target frequency
-    const bp     = c.createBiquadFilter();
+    const bp           = c.createBiquadFilter();
     bp.type            = 'bandpass';
     bp.frequency.value = freq;
     bp.Q.value         = q;
 
     // Soft roll-off above 5 kHz to remove harshness
-    const lp     = c.createBiquadFilter();
+    const lp           = c.createBiquadFilter();
     lp.type            = 'lowpass';
     lp.frequency.value = 5000;
 
-    const gain   = c.createGain();
-    gain.gain.setValueAtTime(vol,   at);
+    const gain = c.createGain();
+    gain.gain.setValueAtTime(vol,    at);
     gain.gain.exponentialRampToValueAtTime(0.0001, at + decay);
 
     src.connect(bp);
@@ -893,12 +926,11 @@ const sfx = (function () {
     src.stop(at + decay + 0.005);
   }
 
-/*
-  7.3 · Mechanical mouse click, two snaps derived from spectral analysis of a real mouse sample:
-  Press   : ~830 Hz centre, very tight decay (5 ms)
-  Release : ~690 Hz centre (lower/darker), slightly longer (7 ms)
-  arrives 78 ms after the press, measured from the sample
-*/
+  /*
+    7.3 - Mechanical mouse click: two snaps derived from spectral analysis of a real mouse sample.
+    Press   : ~830 Hz centre, very tight decay (5 ms)
+    Release : ~690 Hz centre (lower/darker), slightly longer (7 ms), arrives 78 ms after press
+  */
 
   return {
     click: function () {
@@ -906,16 +938,16 @@ const sfx = (function () {
       const c   = getCtx();
       const now = c.currentTime;
 
-      snap(now,         830, 2.2, 0.55, 0.005);   // press
-      snap(now + 0.078, 690, 2.0, 0.38, 0.007);   // release
+      snap(now,         830, 2.2, 0.55, 0.005); // press
+      snap(now + 0.078, 690, 2.0, 0.38, 0.007); // release
     }
   };
 })();
 
 /*
-  7.4 · Universal click listener, one delegated handler on the document
+  7.4 - Universal click listener: one delegated handler on the document
   catches every click that originates from a button, link, or any
-  element with an interactive role / attribute
+  element with an interactive role/attribute
 */
 
 document.addEventListener('click', function (e) {
@@ -925,12 +957,14 @@ document.addEventListener('click', function (e) {
   if (target) sfx.click();
 }, { passive: true });
 
+
 /* =================
-   STEP 8 · SCROLL REVEAL
+   STEP 8 - SCROLL REVEAL
    IntersectionObserver adds .sr-visible to any .sr element
    when it enters the viewport for the first time, triggering CSS transitions.
      - threshold 0.12 means the element is considered "visible" when 12% of it is in view
-     - rootMargin with a negative bottom value triggers the reveal slightly before the element fully enters the viewport, creating a smoother effect
+     - rootMargin with a negative bottom value triggers the reveal slightly before the element
+       fully enters the viewport, creating a smoother effect
    =================
 */
 
@@ -938,6 +972,7 @@ document.addEventListener('click', function (e) {
   const elements = document.querySelectorAll('.sr');
   if (!elements.length) return;
 
+  // Fallback for old browsers that don't support IntersectionObserver
   if (!('IntersectionObserver' in window)) {
     elements.forEach(function (el) { el.classList.add('sr-visible'); });
     return;
@@ -960,8 +995,8 @@ document.addEventListener('click', function (e) {
 
 
 /* =================
-   STEP 9 · TYPED TEXT HERO
-   Cycles through role labels with a blinking cursor, using a simple custom typewriter effect
+   STEP 9 - TYPED TEXT HERO
+   Cycles through role labels with a blinking cursor, using a simple custom typewriter effect.
    =================
 */
 
@@ -978,9 +1013,9 @@ document.addEventListener('click', function (e) {
   let deleting = false;
   let paused   = false;
 
-  // Insert cursor span
+  // Insert cursor span (aria-hidden so screen readers ignore it)
   const cursor = document.createElement('span');
-  cursor.className   = 'typed-cursor';
+  cursor.className = 'typed-cursor';
   cursor.setAttribute('aria-hidden', 'true');
 
   function type() {
@@ -1004,6 +1039,7 @@ document.addEventListener('click', function (e) {
         return;
       }
       setTimeout(type, 70);
+
     } else {
       charIdx--;
       tagline.textContent = currentWord.slice(0, charIdx);
@@ -1030,9 +1066,9 @@ document.addEventListener('click', function (e) {
 
 
 /* =================
-   STEP 10 · FLOAT BADGE TIMING
-  Each badge gets a random float duration and delay within a defined range.
-   These values are set as CSS custom properties, creating a floating effect
+   STEP 10 - FLOAT BADGE TIMING
+   Each badge (Tech stack tags) gets a random float duration and delay within a defined range.
+   These values are set as CSS custom properties, creating a floating effect.
    =================
 */
 
