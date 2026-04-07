@@ -62,9 +62,9 @@
         <h1 class="name">Míriam Domínguez Martínez</h1>
         <p class="tagline">Full Stack Developer</p>
         <div class="hero-btns">
-          <button class="btn-work" disabled title="Currently studying at bootcamp">
+          <a href="#education" class="btn-work" style="text-decoration: none;" data-tooltip="Full Stack Developer"> <!-- data-tooltip attribute used to show a text on hover -->
             Studying
-          </button>
+          </a>
           <!-- CV download button -->
           <a class="btn-cv" href="https://drive.google.com/file/d/1mxiggAwld-suiPPxDDuHwLU9nt1DLTQ1/view?usp=sharing" target="_blank" rel="noopener noreferrer" aria-label="Download CV as PDF">
             CV ↓
@@ -120,7 +120,7 @@ It is more than a gallery; it is a direct demonstration of clean code, organized
                  role="button"
                  tabindex="0"
                  aria-label="Portfolio project, click to learn more">
-              <img src="img/prj/p-1.jpg" alt="Portfolio project preview" class="project-img" onerror="this.style.display='none'" />
+              <img src="img/prj/p-1.jpg" alt="Portfolio project preview" class="project-img" />
               <div class="project-overlay" aria-hidden="true">
                 <span class="project-title">Portfolio</span>
                 <span class="project-view-hint">Click to learn more →</span>
@@ -146,7 +146,8 @@ Beyond individual metrics, the platform integrates social collaboration tools, c
                  role="button"
                  tabindex="0"
                  aria-label="Student Hub project, click to learn more">
-              <img src="img/prj/p-2.jpg" alt="Student Hub project preview" class="project-img" onerror="this.style.display='none'" /> <!-- Added purely for aesthetic purposes so that the broken image icon is not visible when the image fails to load -->
+              <!-- Added purely for aesthetic purposes so that the broken image icon is not visible when the image fails to load -->
+              <img src="img/prj/p-2.jpg" alt="Student Hub project preview" class="project-img" />
               <div class="project-overlay" aria-hidden="true">
                 <span class="project-title">Student Hub</span>
                 <span class="project-view-hint">Click to learn more →</span>
@@ -172,7 +173,7 @@ To enhance immersion, I integrated the Web Audio API to synthesize procedural cl
                  role="button"
                  tabindex="0"
                  aria-label="Minecraft GUI, click to learn more">
-              <img src="img/prj/p-3.jpg" alt="Minecraft GUI project preview" class="project-img" onerror="this.style.display='none'" />
+              <img src="img/prj/p-3.jpg" alt="Minecraft GUI project preview" class="project-img" />
               <div class="project-overlay" aria-hidden="true">
                 <span class="project-title">Minecraft GUI</span>
                 <span class="project-view-hint">Click to learn more →</span>
@@ -203,7 +204,7 @@ The ultimate goal of this project is to transition from a static interface into 
                  role="button"
                  tabindex="0"
                  aria-label="DBE Fly, click to learn more">
-              <img src="img/prj/p-4.jpg" alt="DBE Fly project preview" class="project-img" onerror="this.style.display='none'" />
+              <img src="img/prj/p-4.jpg" alt="DBE Fly project preview" class="project-img" />
               <div class="project-overlay" aria-hidden="true">
                 <span class="project-title">DBE Fly</span>
                 <span class="project-view-hint">Click to learn more →</span>
@@ -228,7 +229,7 @@ The interface follows a consistent visual style with a dark navbar, breadcrumb n
                  role="button"
                  tabindex="0"
                  aria-label="Admin Bootstrap, click to learn more">
-              <img src="img/prj/p-5.jpg" alt="admin-bootstrap project preview" class="project-img" onerror="this.style.display='none'" />
+              <img src="img/prj/p-5.jpg" alt="Admin Bootstrap project preview" class="project-img" />
               <div class="project-overlay" aria-hidden="true">
                 <span class="project-title">Admin Bootstrap</span>
                 <span class="project-view-hint">Click to learn more →</span>
@@ -259,10 +260,12 @@ The interface follows a consistent visual style with a dark navbar, breadcrumb n
             <p class="about-text">
               "Learning the craft of code as a form of modern magic."
             </p>
+            <!-- Tech stack tags -->
             <div class="about-tags">
               <span class="about-tag">HTML</span>
               <span class="about-tag">CSS</span>
               <span class="about-tag">JavaScript</span>
+              <span class="about-tag">React</span>
               <span class="about-tag">Responsive</span>
             </div>
           </div>
@@ -338,11 +341,11 @@ The interface follows a consistent visual style with a dark navbar, breadcrumb n
                 <div class="top-content">
                   <p class="beyond-text">By day, I tend to a small jungle of plants and a chaotic family.</p>
                   <p class="beyond-text">Life partner to Alf (an old, wise dog), a slug with a house, and a cat who definitely has a second family nearby.</p>
-                  <p class="beyond-text">By night, I weave worlds. As a published poet, I’m currently deep into the lore of my first fantasy trilogy.</p>
+                  <p class="beyond-text">By night, I weave worlds. As a published poet, I'm currently deep into the lore of my first fantasy trilogy.</p>
                 </div>
 
                 <p class="beyond-quote">
-                “Every project is part of the spell. Every bug is part of the ritual”
+                "Every project is part of the spell. Every bug is part of the ritual"
                 </p>
               </div>
 
@@ -410,7 +413,7 @@ The interface follows a consistent visual style with a dark navbar, breadcrumb n
 
 
         <!--
-            CONTACT
+            CONTACT AND FOOTER
         -->
         <section class="connect-section" id="contact" aria-labelledby="contact-title">
           <h2 class="connect-title" id="contact-title">Let's Connect</h2>
@@ -432,8 +435,9 @@ The interface follows a consistent visual style with a dark navbar, breadcrumb n
               <a href="https://github.com/mirinez" class="footer-icon" aria-label="GitHub profile">
                 <img src="img/svg/github.svg" alt="GitHub" class="footer-icon-img" />
               </a>
+              <!-- Business card link - the alt says LinkedIn but this goes to the custom business card page -->
               <a href="https://mirinez.github.io/business-card" class="footer-icon" aria-label="Business card">
-                <img src="img/svg/bnss-card.svg" alt="LinkedIn" class="footer-icon-img" />
+                <img src="img/svg/bnss-card.svg" alt="Business card" class="footer-icon-img" />
               </a>
               <a href="https://linkedin.com/in/miriam-dominguezm" class="footer-icon" aria-label="LinkedIn profile">
                 <img src="img/svg/linkedin.svg" alt="LinkedIn" class="footer-icon-img" />
@@ -442,7 +446,7 @@ The interface follows a consistent visual style with a dark navbar, breadcrumb n
             <p class="copyright">© Míriam Domínguez Martínez</p>
           </div>
         </section>
-        <!-- END CONTACT -->
+        <!-- END CONTACT AND FOOTER -->
 
 
       </div><!-- /main-content -->
@@ -512,7 +516,7 @@ The interface follows a consistent visual style with a dark navbar, breadcrumb n
 
       </div><!-- /detail-content -->
 
-      <!-- Footer (minimal) -->
+      <!-- Footer -->
       <div class="detail-footer">
         <p class="copyright">© Míriam Domínguez Martínez</p>
       </div>
@@ -522,6 +526,11 @@ The interface follows a consistent visual style with a dark navbar, breadcrumb n
   </div>
   <!-- END PROJECT DETAIL VIEW -->
 
+
+  <!--
+      PLAYGROUND VIEW
+      Infinite draggable canvas; route = #playground
+  -->
   <div class="playground-view view-hidden" id="playgroundView" aria-hidden="true">
 
     <button class="playground-back" id="playgroundBack">
@@ -534,63 +543,130 @@ The interface follows a consistent visual style with a dark navbar, breadcrumb n
         <!-- Centre tagline -->
         <div class="playground-center" id="playgroundCenter">
           <h2 class="playground-title">My little<br>family</h2>
-          <p class="playground-subtitle">drag to move</p>
+          <p class="playground-subtitle">drag to move & double-click to flip</p>
         </div>
 
         <!-- Draggable photo items, positions and rotations set by JS on each open -->
+        <!-- Double-click to flip and reveal the label on the back -->
         <div class="playground-item draggable-item playground-item-small" data-rot="-7">
-          <img src="img/playgd/p-1.jpeg" alt="Playground image 1">
-          <p class="polaroid-label">Croqueta the glutton</p>
+          <div class="polaroid-inner">
+            <div class="polaroid-front">
+              <img src="img/playgd/p-1.jpeg" alt="Playground image 1">
+            </div>
+            <div class="polaroid-back">
+              <p class="polaroid-back-label">Croqueta the glutton</p>
+            </div>
+          </div>
         </div>
 
         <div class="playground-item draggable-item playground-item-small" data-rot="4">
-          <img src="img/playgd/p-2.jpeg" alt="Playground image 2">
-          <p class="polaroid-label">Bator the bear in Galicia</p>
+          <div class="polaroid-inner">
+            <div class="polaroid-front">
+              <img src="img/playgd/p-2.jpeg" alt="Playground image 2">
+            </div>
+            <div class="polaroid-back">
+              <p class="polaroid-back-label">Bator the bear in Galicia</p>
+            </div>
+          </div>
         </div>
 
         <div class="playground-item draggable-item playground-item-small" data-rot="-5">
-          <img src="img/playgd/p-3.jpeg" alt="Playground image 3">
-          <p class="polaroid-label">Alf just woke up</p>
+          <div class="polaroid-inner">
+            <div class="polaroid-front">
+              <img src="img/playgd/p-3.jpeg" alt="Playground image 3">
+            </div>
+            <div class="polaroid-back">
+              <p class="polaroid-back-label">Alf just woke up</p>
+            </div>
+          </div>
         </div>
 
         <div class="playground-item draggable-item playground-item-small" data-rot="9">
-          <img src="img/playgd/p-4.jpeg" alt="Playground image 4">
-          <p class="polaroid-label">Piki the snail</p>
+          <div class="polaroid-inner">
+            <div class="polaroid-front">
+              <img src="img/playgd/p-4.jpeg" alt="Playground image 4">
+            </div>
+            <div class="polaroid-back">
+              <p class="polaroid-back-label">Piki the snail</p>
+            </div>
+          </div>
         </div>
 
         <div class="playground-item draggable-item playground-item-small" data-rot="-3">
-          <img src="img/playgd/p-5.jpeg" alt="Playground image 5">
-          <p class="polaroid-label">Alf in adventure</p>
+          <div class="polaroid-inner">
+            <div class="polaroid-front">
+              <img src="img/playgd/p-5.jpeg" alt="Playground image 5">
+            </div>
+            <div class="polaroid-back">
+              <p class="polaroid-back-label">Alf in adventure</p>
+            </div>
+          </div>
         </div>
 
         <div class="playground-item draggable-item playground-item-small" data-rot="6">
-          <img src="img/playgd/p-6.jpeg" alt="Playground image 6">
-          <p class="polaroid-label">Odín the crow</p>
+          <div class="polaroid-inner">
+            <div class="polaroid-front">
+              <img src="img/playgd/p-6.jpeg" alt="Playground image 6">
+            </div>
+            <div class="polaroid-back">
+              <p class="polaroid-back-label">Odín the crow</p>
+            </div>
+          </div>
         </div>
 
         <div class="playground-item draggable-item playground-item-small" data-rot="-11">
-          <img src="img/playgd/p-7.jpeg" alt="Playground image 7">
-          <p class="polaroid-label">Alf suspicious</p>
+          <div class="polaroid-inner">
+            <div class="polaroid-front">
+              <img src="img/playgd/p-7.jpeg" alt="Playground image 7">
+            </div>
+            <div class="polaroid-back">
+              <p class="polaroid-back-label">Alf suspicious</p>
+            </div>
+          </div>
         </div>
 
         <div class="playground-item draggable-item playground-item-small" data-rot="3">
-          <img src="img/playgd/p-8.jpeg" alt="Playground image 8">
-          <p class="polaroid-label">Alf chiquito</p>
+          <div class="polaroid-inner">
+            <div class="polaroid-front">
+              <img src="img/playgd/p-8.jpeg" alt="Playground image 8">
+            </div>
+            <div class="polaroid-back">
+              <p class="polaroid-back-label">Alf chiquito</p>
+            </div>
+          </div>
         </div>
 
         <div class="playground-item draggable-item playground-item-small" data-rot="-8">
-          <img src="img/playgd/p-9.jpeg" alt="Playground image 9">
-          <p class="polaroid-label">Alf and his sister</p>
+          <div class="polaroid-inner">
+            <div class="polaroid-front">
+              <img src="img/playgd/p-9.jpeg" alt="Playground image 9">
+            </div>
+            <div class="polaroid-back">
+              <p class="polaroid-back-label">Alf and his sister</p>
+            </div>
+          </div>
         </div>
 
         <div class="playground-item draggable-item playground-item-small" data-rot="5">
-          <img src="img/playgd/p-10.jpeg" alt="Playground image 10">
-          <p class="polaroid-label">Bator in the snow</p>
+          <div class="polaroid-inner">
+            <div class="polaroid-front">
+              <img src="img/playgd/p-10.jpeg" alt="Playground image 10">
+            </div>
+            <div class="polaroid-back">
+              <p class="polaroid-back-label">Bator in the snow</p>
+            </div>
+          </div>
         </div>
 
         <div class="playground-item draggable-item playground-item-small" data-rot="-4">
-          <img src="img/playgd/p-11.jpeg" alt="Playground image 11">
-          <p class="polaroid-label">Bator camping</p>
+          <div class="polaroid-inner">
+            <div class="polaroid-front">
+              <img src="img/playgd/p-11.jpeg" alt="Playground image 11">
+            </div>
+            <div class="polaroid-back">
+              <p class="polaroid-back-label">Bator camping</p>
+            </div>
+          </div>
         </div>
 
       </div><!-- /playground-canvas -->
