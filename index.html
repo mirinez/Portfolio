@@ -28,12 +28,11 @@
       NAVBAR
   -->
   <nav class="site-nav" aria-label="Main navigation">
-    <div class="nav-inner">  <!-- I've added an arrow-shaped button to return to the website's homepage -->
+    <div class="nav-inner">  <!-- I've added a button to return to the website's homepage -->
       <a href="#projects"    class="nav-link">Projects</a>
       <a href="#about"       class="nav-link">About Me</a>
       <a href="#education"   class="nav-link">Education</a>
       <a href="#beyond"      class="nav-link">Beyond the Code</a>
-      <a href="#playground"  class="nav-link">Playground</a>
       <a href="#contact"     class="nav-link">Contact Me</a> <!-- No backend -->
     </div>
   </nav>
@@ -93,7 +92,7 @@
           -->
           <div class="photos-strip" role="region" aria-label="Project portfolio">
 
-            <!-- ROW 1: 3 projects -->
+            <!-- TOP: 3 PROJECTS -->
             <div class="photos-row photos-row-top">
 
             <!-- 
@@ -181,9 +180,9 @@ To enhance immersion, I integrated the Web Audio API to synthesize procedural cl
             </div>
             <!-- END PROJECT 3 -->
 
-            </div><!-- END ROW 1 -->
+            </div><!-- END TOP -->
 
-            <!-- ROW 2: 2 projects - inverted pyramid -->
+            <!-- BOTTOM: 2 PROJECTS -->
             <div class="photos-row photos-row-bottom">
 
             <!-- PROJECT 4 -->
@@ -237,7 +236,7 @@ The interface follows a consistent visual style with a dark navbar, breadcrumb n
             </div>
             <!-- END PROJECT 5 -->
 
-            </div><!-- END ROW 2 -->
+            </div><!-- END BOTTOM -->
 
           </div>
           <!-- END PHOTOS STRIP -->
@@ -432,13 +431,15 @@ The interface follows a consistent visual style with a dark navbar, breadcrumb n
           <div class="footer">
             <div class="signature" aria-hidden="true">&#8212;<em> mdm </em>&#8212;</div>
             <div class="footer-icons">
+              <!-- GitHub link -->
               <a href="https://github.com/mirinez" class="footer-icon" aria-label="GitHub profile">
                 <img src="img/svg/github.svg" alt="GitHub" class="footer-icon-img" />
               </a>
-              <!-- Business card link - the alt says LinkedIn but this goes to the custom business card page -->
+              <!-- Business card link -->
               <a href="https://mirinez.github.io/business-card" class="footer-icon" aria-label="Business card">
                 <img src="img/svg/bnss-card.svg" alt="Business card" class="footer-icon-img" />
               </a>
+              <!-- LinkedIn link -->
               <a href="https://linkedin.com/in/miriam-dominguezm" class="footer-icon" aria-label="LinkedIn profile">
                 <img src="img/svg/linkedin.svg" alt="LinkedIn" class="footer-icon-img" />
               </a>
@@ -458,8 +459,7 @@ The interface follows a consistent visual style with a dark navbar, breadcrumb n
 
 
   <!--
-      PROJECT DETAIL VIEW - SPA second "page"
-      Hidden by default; shown by the router when hash = #project/:id
+      PROJECT DETAIL VIEW - SPA
   -->
   <div class="page-wrapper detail-view" id="detailView" aria-hidden="true">
     <div class="side side-left"></div>
@@ -516,7 +516,7 @@ The interface follows a consistent visual style with a dark navbar, breadcrumb n
 
       </div><!-- /detail-content -->
 
-      <!-- Footer -->
+      <!-- FOOTER (SPA page) -->
       <div class="detail-footer">
         <p class="copyright">© Míriam Domínguez Martínez</p>
       </div>
@@ -526,153 +526,6 @@ The interface follows a consistent visual style with a dark navbar, breadcrumb n
   </div>
   <!-- END PROJECT DETAIL VIEW -->
 
-
-  <!--
-      PLAYGROUND VIEW
-      Infinite draggable canvas; route = #playground
-  -->
-  <div class="playground-view view-hidden" id="playgroundView" aria-hidden="true">
-
-    <button class="playground-back" id="playgroundBack">
-      ← Back
-    </button>
-
-    <div class="playground-viewport" id="playgroundViewport">
-      <div class="playground-canvas" id="playgroundCanvas">
-
-        <!-- Centre tagline -->
-        <div class="playground-center" id="playgroundCenter">
-          <h2 class="playground-title">My little<br>family</h2>
-          <p class="playground-subtitle">drag to move & double-click to flip</p>
-        </div>
-
-        <!-- Draggable photo items, positions and rotations set by JS on each open -->
-        <!-- Double-click to flip and reveal the label on the back -->
-        <div class="playground-item draggable-item playground-item-small" data-rot="-7">
-          <div class="polaroid-inner">
-            <div class="polaroid-front">
-              <img src="img/playgd/p-1.jpeg" alt="Playground image 1">
-            </div>
-            <div class="polaroid-back">
-              <p class="polaroid-back-label">Croqueta the glutton</p>
-            </div>
-          </div>
-        </div>
-
-        <div class="playground-item draggable-item playground-item-small" data-rot="4">
-          <div class="polaroid-inner">
-            <div class="polaroid-front">
-              <img src="img/playgd/p-2.jpeg" alt="Playground image 2">
-            </div>
-            <div class="polaroid-back">
-              <p class="polaroid-back-label">Bator the bear in Galicia</p>
-            </div>
-          </div>
-        </div>
-
-        <div class="playground-item draggable-item playground-item-small" data-rot="-5">
-          <div class="polaroid-inner">
-            <div class="polaroid-front">
-              <img src="img/playgd/p-3.jpeg" alt="Playground image 3">
-            </div>
-            <div class="polaroid-back">
-              <p class="polaroid-back-label">Alf just woke up</p>
-            </div>
-          </div>
-        </div>
-
-        <div class="playground-item draggable-item playground-item-small" data-rot="9">
-          <div class="polaroid-inner">
-            <div class="polaroid-front">
-              <img src="img/playgd/p-4.jpeg" alt="Playground image 4">
-            </div>
-            <div class="polaroid-back">
-              <p class="polaroid-back-label">Piki the snail</p>
-            </div>
-          </div>
-        </div>
-
-        <div class="playground-item draggable-item playground-item-small" data-rot="-3">
-          <div class="polaroid-inner">
-            <div class="polaroid-front">
-              <img src="img/playgd/p-5.jpeg" alt="Playground image 5">
-            </div>
-            <div class="polaroid-back">
-              <p class="polaroid-back-label">Alf in adventure</p>
-            </div>
-          </div>
-        </div>
-
-        <div class="playground-item draggable-item playground-item-small" data-rot="6">
-          <div class="polaroid-inner">
-            <div class="polaroid-front">
-              <img src="img/playgd/p-6.jpeg" alt="Playground image 6">
-            </div>
-            <div class="polaroid-back">
-              <p class="polaroid-back-label">Odín the crow</p>
-            </div>
-          </div>
-        </div>
-
-        <div class="playground-item draggable-item playground-item-small" data-rot="-11">
-          <div class="polaroid-inner">
-            <div class="polaroid-front">
-              <img src="img/playgd/p-7.jpeg" alt="Playground image 7">
-            </div>
-            <div class="polaroid-back">
-              <p class="polaroid-back-label">Alf suspicious</p>
-            </div>
-          </div>
-        </div>
-
-        <div class="playground-item draggable-item playground-item-small" data-rot="3">
-          <div class="polaroid-inner">
-            <div class="polaroid-front">
-              <img src="img/playgd/p-8.jpeg" alt="Playground image 8">
-            </div>
-            <div class="polaroid-back">
-              <p class="polaroid-back-label">Alf chiquito</p>
-            </div>
-          </div>
-        </div>
-
-        <div class="playground-item draggable-item playground-item-small" data-rot="-8">
-          <div class="polaroid-inner">
-            <div class="polaroid-front">
-              <img src="img/playgd/p-9.jpeg" alt="Playground image 9">
-            </div>
-            <div class="polaroid-back">
-              <p class="polaroid-back-label">Alf and his sister</p>
-            </div>
-          </div>
-        </div>
-
-        <div class="playground-item draggable-item playground-item-small" data-rot="5">
-          <div class="polaroid-inner">
-            <div class="polaroid-front">
-              <img src="img/playgd/p-10.jpeg" alt="Playground image 10">
-            </div>
-            <div class="polaroid-back">
-              <p class="polaroid-back-label">Bator in the snow</p>
-            </div>
-          </div>
-        </div>
-
-        <div class="playground-item draggable-item playground-item-small" data-rot="-4">
-          <div class="polaroid-inner">
-            <div class="polaroid-front">
-              <img src="img/playgd/p-11.jpeg" alt="Playground image 11">
-            </div>
-            <div class="polaroid-back">
-              <p class="polaroid-back-label">Bator camping</p>
-            </div>
-          </div>
-        </div>
-
-      </div><!-- /playground-canvas -->
-    </div><!-- /playground-viewport -->
-
-  </div><!-- /playground-view -->
 
   <!--
       PROJECT MODAL
@@ -700,11 +553,11 @@ The interface follows a consistent visual style with a dark navbar, breadcrumb n
   <!-- END PROJECT MODAL -->
 
 
-  <!-- Scroll to top button -->
+  <!-- TOP BUTTON -->
   <button class="scroll-top" id="scrollTop" aria-label="Scroll to top" title="Back to top">
     &#8593;
   </button>
-  <!-- END Scroll to top button -->
+  <!-- END TOP BUTTON -->
 
   <script src="main.js"></script>
 </body>
