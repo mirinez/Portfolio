@@ -8,7 +8,7 @@
    Step 2  - Image Fallbacks
    Step 3  - Project Modal
    Step 4  - Email Validation
-   Step 5  - SPA Router (main view / detail view / playground)
+   Step 5  - SPA Router (main view / detail view)
    Step 6  - Language Bar Animation
    Step 6b - Scroll To Top Button
    Step 7  - Click Sound
@@ -223,13 +223,9 @@ if (newsletterInput && newsletterBtn) {
    STEP 5 - SPA ROUTER
    Hash-based routing:
      #project/:id   -> project detail view
-     #playground    -> playground view
      empty / other  -> main portfolio view
 
    Browser back/forward buttons work natively via popstate.
-   The router is defined first, then the playground references
-   are collected below (5b), and router.handle() is called last
-   so all DOM nodes exist before we try to read the hash.
    =================
 */
 
@@ -342,11 +338,6 @@ function showView(view) {
     mainView.classList.add('view-hidden');
     mainView.setAttribute('aria-hidden', 'true');
 
-    if (playgroundView) {
-      playgroundView.classList.add('view-hidden');
-      playgroundView.setAttribute('aria-hidden', 'true');
-    }
-
     detailView.classList.remove('view-hidden');
     detailView.setAttribute('aria-hidden', 'false');
 
@@ -355,35 +346,10 @@ function showView(view) {
     window.scrollTo({ top: 0, behavior: 'smooth' });
     detailBack.focus();
 
-  } else if (view === 'playground') {
-    mainView.classList.add('view-hidden');
-    mainView.setAttribute('aria-hidden', 'true');
-
-    detailView.classList.add('view-hidden');
-    detailView.setAttribute('aria-hidden', 'true');
-
-    if (playgroundView) {
-      playgroundView.classList.remove('view-hidden');
-      playgroundView.setAttribute('aria-hidden', 'false');
-    }
-
-    document.body.classList.add('detail-active');
-
-    // Wait for the next frame so the canvas has rendered dimensions
-    requestAnimationFrame(function () {
-      centerPlaygroundCanvas();
-      randomizePlaygroundItems();
-    });
-
   } else {
-    // Default: show main view, hide everything else
+    // Default: show main view, hide detail
     detailView.classList.add('view-hidden');
     detailView.setAttribute('aria-hidden', 'true');
-
-    if (playgroundView) {
-      playgroundView.classList.add('view-hidden');
-      playgroundView.setAttribute('aria-hidden', 'true');
-    }
 
     mainView.classList.remove('view-hidden');
     mainView.setAttribute('aria-hidden', 'false');
@@ -410,23 +376,17 @@ const router = {
   handle: function () {
     const { route, param } = router.parse();
 
-    if (route === 'playground') {
-      showView('playground');
-
-    } else if (route === 'project' && param && projectsMap[param]) {
+    if (route === 'project' && param && projectsMap[param]) {
       renderDetailView(projectsMap[param]);
       showView('detail');
 
     } else {
       /*
         Section anchor (#about, #projects, etc.) or empty hash:
-        only switch back to main view if we were already in a sub-view.
+        only switch back to main view if we were already in the detail view.
         The browser handles the native anchor scroll by itself.
       */
-      if (
-        !detailView.classList.contains('view-hidden') ||
-        (playgroundView && !playgroundView.classList.contains('view-hidden'))
-      ) {
+      if (!detailView.classList.contains('view-hidden')) {
         showView('main');
       }
     }
@@ -451,341 +411,7 @@ window.addEventListener('hashchange', function () {
   router.handle();
 });
 
-
-/* =================
-   STEP 5b - PLAYGROUND VIEW
-   Free draggable canvas with centered intro message.
-   Uses the same hash router system as the project detail view.
-   =================
-*/
-
-// 5b.1 - View references
-const playgroundView     = document.getElementById('playgroundView');
-const playgroundViewport = document.getElementById('playgroundViewport');
-const playgroundCanvas   = document.getElementById('playgroundCanvas');
-const playgroundBack     = document.getElementById('playgroundBack');
-const playgroundCenter   = document.getElementById('playgroundCenter');
-
-// 5b.2 - Drag state for the canvas pan
-let isDraggingPlayground = false;
-let playgroundStartX     = 0;
-let playgroundStartY     = 0;
-let currentCanvasX       = 0;
-let currentCanvasY       = 0;
-
-// 5b.3 - Apply the current canvas position via transform
-function updatePlaygroundCanvas() {
-  if (!playgroundCanvas) return;
-  playgroundCanvas.style.transform =
-    `translate(${currentCanvasX}px, ${currentCanvasY}px)`;
-}
-
-// 5b.4 - Centers the canvas so the tagline sits in the middle of the viewport on first open
-function centerPlaygroundCanvas() {
-  if (!playgroundViewport || !playgroundCenter) return;
-
-  const viewportRect = playgroundViewport.getBoundingClientRect();
-
-  // These match the explicit width/height set on .playground-canvas in CSS
-  const canvasWidth  = 4000;
-  const canvasHeight = 3000;
-
-  currentCanvasX = viewportRect.width  / 2 - canvasWidth  / 2;
-  currentCanvasY = viewportRect.height / 2 - canvasHeight / 2;
-
-  updatePlaygroundCanvas();
-}
-
-// 5b.5 - Scatter the polaroid items around the central tagline
-function randomizePlaygroundItems() {
-  const items = document.querySelectorAll('.playground-item');
-  if (!items.length || !playgroundCenter) return;
-
-  // Reset visibility so the spring entry animation re-runs each time
-  items.forEach(function (item) {
-    item.classList.remove('pg-visible');
-    item.style.scale = '0.6';
-  });
-
-  // Canvas centre anchor (matches the 4000x3000 canvas)
-  const originX = 2000;
-  const originY = 1500;
-
-  // Safe zone around the tagline, items must not overlap this area
-  const safeW = 350; /* Lowering or raising the numbers makes the photos zoom in or out on the text */
-  const safeH = 100;
-
-  /*
-    Items are distributed across two loose orbital rings so they
-    surround the tagline naturally without bunching in a single circle.
-    Alternating items go on inner vs outer ring to create depth.
-  */
-  const rings = [
-    { minR: 260, maxR: 300 },  // inner ring
-    { minR: 330, maxR: 380 },  // outer ring
-  ];
-
-  const placed = [];
-
-  items.forEach(function (item, idx) {
-    const iW = item.offsetWidth  || 268;
-    const iH = item.offsetHeight || 200;
-
-    const ring = rings[idx % rings.length];
-
-    let x        = 0;
-    let y        = 0;
-    let valid    = false;
-    let attempts = 0;
-
-    // Try up to 500 times to find a valid position that clears the safe zone and other items
-    while (!valid && attempts < 500) {
-      attempts++;
-
-      // Spread angle evenly, then add jitter so items are not perfectly equidistant
-      const baseAngle = (Math.PI * 2 / items.length) * idx - Math.PI / 2;
-      const jitter    = (Math.random() - 0.5) * (Math.PI / items.length) * 0.6;
-      const angle     = baseAngle + jitter;
-      const r         = ring.minR + Math.random() * (ring.maxR - ring.minR);
-
-      x = originX + Math.cos(angle) * r - iW / 2;
-      y = originY + Math.sin(angle) * r - iH / 2;
-
-      // Must clear the centre safe zone
-      const clearCenter =
-        x + iW  < originX - safeW / 2 ||
-        x       > originX + safeW / 2 ||
-        y + iH  < originY - safeH / 2 ||
-        y       > originY + safeH / 2;
-
-      // No overlap with already-placed items (32px gap on all sides to prevent visual crowding)
-      const clearOthers = placed.every(function (p) {
-        return (
-          x + iW + 32 < p.x            ||
-          x           > p.x + p.w + 32 ||
-          y + iH + 32 < p.y            ||
-          y           > p.y + p.h + 32
-        );
-      });
-
-      if (clearCenter && clearOthers) valid = true;
-    }
-
-    placed.push({ x, y, w: iW, h: iH });
-
-    // Rotation: use the value from data-rot if provided, else random +-10 degrees
-    const dataRot = parseFloat(item.dataset.rot);
-    const rot     = isNaN(dataRot) ? (Math.random() * 20) - 10 : dataRot;
-
-    item.style.left = x + 'px';
-    item.style.top  = y + 'px';
-    item.style.setProperty('--item-rotation', rot + 'deg');
-    item.style.transform = 'rotate(' + rot + 'deg)';
-
-    // Staggered spring entry: each item launches into place after the previous
-    setTimeout(function () {
-      item.style.scale = '';   // let CSS handle scale via .pg-visible class
-      item.classList.add('pg-visible');
-    }, 80 + idx * 60);
-  });
-}
-
-// 5b.6 - Mouse: start canvas pan
-if (playgroundViewport) {
-  playgroundViewport.addEventListener('mousedown', function (e) {
-    isDraggingPlayground = true;
-    playgroundViewport.classList.add('dragging');
-
-    playgroundStartX = e.clientX - currentCanvasX;
-    playgroundStartY = e.clientY - currentCanvasY;
-  });
-}
-
-// 5b.7 - Mouse: move canvas while panning
-window.addEventListener('mousemove', function (e) {
-  if (!isDraggingPlayground) return;
-
-  currentCanvasX = e.clientX - playgroundStartX;
-  currentCanvasY = e.clientY - playgroundStartY;
-
-  updatePlaygroundCanvas();
-});
-
-// 5b.8 - Touch: start canvas pan (item drag is handled in 5c and takes priority)
-if (playgroundViewport) {
-  playgroundViewport.addEventListener('touchstart', function (e) {
-    // If the touch started on a draggable item, let the item handler take over
-    if (e.target.closest('.draggable-item')) return;
-
-    const touch = e.touches[0];
-
-    isDraggingPlayground = true;
-    playgroundStartX = touch.clientX - currentCanvasX;
-    playgroundStartY = touch.clientY - currentCanvasY;
-  }, { passive: true });
-}
-
-// 5b.9 - Touch: move handler for both canvas pan and item drag
-window.addEventListener('touchmove', function (e) {
-  // Item drag takes full priority, prevent scroll and move the photo
-  if (activePlaygroundItem && playgroundCanvas) {
-    e.preventDefault();
-
-    const touch     = e.touches[0];
-    const canvasRect = playgroundCanvas.getBoundingClientRect();
-
-    activePlaygroundItem.style.left = (touch.clientX - canvasRect.left - activeItemOffsetX) + 'px';
-    activePlaygroundItem.style.top  = (touch.clientY - canvasRect.top  - activeItemOffsetY) + 'px';
-    return;
-  }
-
-  // Canvas pan, only if no item is being dragged
-  if (!isDraggingPlayground) return;
-
-  const touch = e.touches[0];
-
-  currentCanvasX = touch.clientX - playgroundStartX;
-  currentCanvasY = touch.clientY - playgroundStartY;
-
-  updatePlaygroundCanvas();
-}, { passive: false }); // passive:false needed so we can call preventDefault() during item drag
-
-// 5b.10 - Touch: release
-window.addEventListener('touchend', function () {
-  isDraggingPlayground = false;
-  releasePlaygroundItem();
-});
-
-// 5b.11 - Back button
-if (playgroundBack) {
-  playgroundBack.addEventListener('click', function () {
-    router.navigate('');
-  });
-}
-
-
-/* =================
-   STEP 5c - DRAGGABLE PLAYGROUND ITEMS
-   Each polaroid can be picked up and moved independently of the canvas.
-   Double-click (or double-tap on mobile) flips the card to show the label.
-   =================
-*/
-
-let activePlaygroundItem = null;
-let activeItemOffsetX    = 0;
-let activeItemOffsetY    = 0;
-
-document.querySelectorAll('.draggable-item').forEach(function (item) {
-
-  // Mouse: pick up item
-  item.addEventListener('mousedown', function (e) {
-    e.stopPropagation();
-    e.preventDefault();
-
-    const now = Date.now();
-
-    // Double-click detection via timestamps (dblclick is blocked by preventDefault above)
-    if (item._lastMouseDown && (now - item._lastMouseDown) < 350) {
-      item._lastMouseDown = null;
-      // Flip immediately, no drag needed
-      item.classList.remove('dragging-item', 'picking-up');
-      item.classList.toggle('is-flipped');
-      activePlaygroundItem = null; // cancel any pending drag
-      return;
-    }
-    item._lastMouseDown = now;
-    item._mouseDownX    = e.clientX;
-    item._mouseDownY    = e.clientY;
-
-    activePlaygroundItem = item;
-    item._pendingFlip    = false;
-
-    // Brief pick-up phase: CSS transition lifts it before we freeze transitions
-    item.classList.remove('dropping');
-    item.classList.add('picking-up');
-    setTimeout(function () {
-      if (activePlaygroundItem === item) { // only if still being dragged
-        item.classList.remove('picking-up');
-        item.classList.add('dragging-item');
-      }
-    }, 180);
-
-    const itemRect    = item.getBoundingClientRect();
-    activeItemOffsetX = e.clientX - itemRect.left;
-    activeItemOffsetY = e.clientY - itemRect.top;
-  });
-
-  // Touch: pick up item
-  item.addEventListener('touchstart', function (e) {
-    e.stopPropagation();  // stop the canvas drag from also activating
-    e.preventDefault();   // prevent browser scroll/pan from interfering while dragging a photo
-
-    const touch          = e.touches[0];
-    activePlaygroundItem = item;
-
-    // Brief pick-up phase: CSS transition lifts it before we freeze transitions
-    item.classList.remove('dropping');
-    item.classList.add('picking-up');
-    setTimeout(function () {
-      item.classList.remove('picking-up');
-      item.classList.add('dragging-item');
-    }, 180);
-
-    const itemRect    = item.getBoundingClientRect();
-    activeItemOffsetX = touch.clientX - itemRect.left;
-    activeItemOffsetY = touch.clientY - itemRect.top;
-
-    // Double-tap detection for mobile flip
-    const now = Date.now();
-    if (item._lastTap && (now - item._lastTap) < 300) {
-      item.classList.toggle('is-flipped');
-      item._lastTap = null;
-    } else {
-      item._lastTap = now;
-    }
-  }, { passive: false }); // passive:false required to call preventDefault()
-});
-
-// Mouse: move item while dragging
-window.addEventListener('mousemove', function (e) {
-  if (!activePlaygroundItem || !playgroundCanvas) return;
-
-  const canvasRect = playgroundCanvas.getBoundingClientRect();
-
-  activePlaygroundItem.style.left = (e.clientX - canvasRect.left - activeItemOffsetX) + 'px';
-  activePlaygroundItem.style.top  = (e.clientY - canvasRect.top  - activeItemOffsetY) + 'px';
-});
-
-// Releases an item with a drop spring animation
-function releasePlaygroundItem() {
-  if (!activePlaygroundItem) return;
-
-  const item       = activePlaygroundItem;
-  activePlaygroundItem = null;
-
-  // Swap dragging -> dropping so CSS spring plays on release
-  item.classList.remove('dragging-item', 'picking-up');
-  item.classList.add('dropping');
-
-  // Clean up the dropping class once the transition ends
-  item.addEventListener('transitionend', function cleanup() {
-    item.classList.remove('dropping');
-    item.removeEventListener('transitionend', cleanup);
-  });
-}
-
-// Mouse: release item and end canvas pan
-window.addEventListener('mouseup', function () {
-  isDraggingPlayground = false;
-  if (playgroundViewport) {
-    playgroundViewport.classList.remove('dragging');
-  }
-  releasePlaygroundItem(); // no-op if no item is active
-});
-
-
 // Initial route
-// Called here so all playground references exist before we try to handle any hash
 router.handle();
 
 
