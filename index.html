@@ -430,7 +430,7 @@ The interface follows a consistent visual style with a dark navbar, breadcrumb n
           required
           aria-label="Your email address"
         />
-        <button type="submit" class="newsletter-btn" id="contactBtn">
+        <button type="submit" class="newsletter-btn contact-btn-desktop" id="contactBtn">
           Email me!
         </button>
     </div>
@@ -444,6 +444,11 @@ The interface follows a consistent visual style with a dark navbar, breadcrumb n
       aria-label="Your message"
       rows="4"
     ></textarea>
+
+    <!-- Shown only on small screens, hidden on desktop via CSS -->
+    <button type="submit" class="newsletter-btn contact-btn-mobile" aria-hidden="true" tabindex="-1">
+      Email me!
+    </button>
   
     <div id="toast-container"></div>
 </form>
