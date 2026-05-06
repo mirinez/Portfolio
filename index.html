@@ -1,0 +1,589 @@
+<!-- 
+   index.html | Portfolio
+   Míriam Domínguez Martínez
+-->
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="description" content="Portfolio of Míriam Domínguez Martínez, Full Stack Developer. Showcasing projects, education, and experience." />
+  <title>Míriam's - Portfolio</title>
+  <link rel="stylesheet" href="styles.css" />
+  <link rel="icon" type="image/x-icon" href="img/ico/favicon.ico">
+
+  <!-- Open Graph tags -->
+  <!-- They are used so that when the full website link is shared, the website's thumbnail, description, name, etc., are displayed --> 
+  <meta property="og:title" content="Míriam Domínguez Martínez - Portfolio" />
+  <meta property="og:description" content="Portfolio of Míriam Domínguez Martínez, Full Stack Developer. Showcasing projects, education, and experience." />
+  <meta property="og:image" content="https://miriam-dominguezm.com/img/ico/favicon.png" />
+  <meta property="og:url" content="https://miriam-dominguezm.com/" />
+  <meta property="og:type" content="website" />
+
+</head>
+<body>
+
+  <!-- ============================================
+       NAVBAR
+  -->
+  <nav class="site-nav" aria-label="Main navigation">
+    <div class="nav-inner">  <!-- I've added a button to return to the website's homepage -->
+      <a href="#projects"    class="nav-link">Projects</a>
+      <a href="#about"       class="nav-link">About Me</a>
+      <a href="#education"   class="nav-link">Education</a>
+      <a href="#beyond"      class="nav-link">Beyond the Code</a>
+      <a href="#contact"     class="nav-link">Contact Me</a> <!-- No backend -->
+    </div>
+  </nav>
+  <!-- END NAVBAR -->
+
+
+  <!-- ============================================
+       PAGE WRAPPER - MAIN PORTFOLIO VIEW
+  -->
+  <div class="page-wrapper" id="mainView">
+    <div class="side side-left"></div>
+    <div class="center-col">
+
+      <!-- Theme toggle button, top/right corner of the card -->
+      <button class="theme-toggle" onclick="toggleTheme()" title="Toggle theme" aria-label="Toggle light/dark mode">
+        <span class="icon-sun" aria-hidden="true">&#9728;</span>
+        <span class="icon-moon" aria-hidden="true">&#9790;</span>
+      </button>
+
+
+      <!-- ============================================
+           HERO
+      -->
+      <div class="hero">
+        <img class="avatar" src="img/avatar.png" alt="Míriam Domínguez Martínez - Profile picture" />
+        <h1 class="name">Míriam Domínguez Martínez</h1>
+        <p class="tagline">Full Stack Developer</p>
+        <div class="hero-btns">
+          <a href="#education" class="btn-work" style="text-decoration: none;" data-tooltip="Full Stack Developer"> <!-- data-tooltip attribute used to show a text on hover -->
+            Studying
+          </a>
+          <!-- CV download button -->
+          <a class="btn-cv" href="https://drive.google.com/file/d/1mxiggAwld-suiPPxDDuHwLU9nt1DLTQ1/view?usp=sharing" target="_blank" rel="noopener noreferrer" aria-label="Download CV as PDF">
+            CV ↓
+          </a>
+        </div>
+      </div>
+      <!-- END HERO -->
+
+
+      <!-- All portfolio sections live inside .main-content -->
+      <div class="main-content">
+
+        <!-- ============================================
+             PROJECTS
+        -->
+
+        <section class="projects-section" id="projects" aria-labelledby="projects-title">
+          <h2 class="section-title" id="projects-title">Projects</h2>
+          <p class="projects-intro sr">
+            Hi! I'm Míriam, a Full Stack Developer in progress with a background in IT Systems &amp; Networks.
+            Here are some of the things I've been building while learning the craft.
+          </p>
+
+          <!-- ============================================
+               PHOTOS STRIP
+          -->
+          <div class="photos-strip" role="region" aria-label="Project portfolio">
+
+            <!-- On top 3 PROJECTS -->
+            <div class="photos-row photos-row-top">
+
+            <!-- 
+              The line breaks are intentionally placed there so they're displayed on the website;
+              this will change when I learn how to do it without the actual line breaks in the code
+            -->
+
+            <!-- PROJECT 1 -->
+            <div class="photo-item"
+                 data-id="portfolio"
+                 data-title="Portfolio"
+                 data-desc="Portfolio where I'm working and implementing while doing my Full Stack Dev bootcamp, a showcase of my technical growth."
+                 data-long-desc="This platform is my personal portfolio and the very site you are currently navigating. 
+                 
+Developed from scratch during my bootcamp, it serves as a dynamic, living document of my evolution as a developer. Every feature implemented is a milestone of a mastered concept: from sophisticated CSS variable architectures for light and dark mode toggling to the use of LocalStorage for maintaining user preferences across sessions. 
+The site features high-fidelity accessible modals, a seamless SPA-style (Single Page Application) navigation system to enhance user flow, and a fully responsive layout engineered for flawless performance across all screen sizes. 
+
+It is more than a gallery; it is a direct demonstration of clean code, organized styling, and intuitive UX design."
+                 data-features="Light / dark theme with localStorage persistence|SPA project detail pages with hash-based routing|Accessible modal with focus trap and keyboard navigation|Fully responsive layout (desktop → tablet → mobile)|Photo strip with negative-margin bleed technique|Sound effects via Web Audio API"
+                 data-tech="HTML, CSS, JavaScript, Web Audio API"
+                 data-github="https://github.com/mirinez/portfolio"
+                 data-demo="https://miriam-dominguezm.com/"
+                 data-images="img/vid/p-1.mp4"
+                 role="button"
+                 tabindex="0"
+                 aria-label="Portfolio project, click to learn more">
+              <img src="img/prj/p-1.jpg" alt="Portfolio project preview" class="project-img" />
+              <div class="project-overlay" aria-hidden="true">
+                <span class="project-title">Portfolio</span>
+                <span class="project-view-hint">Click to learn more →</span>
+              </div>
+            </div>
+            <!-- END PROJECT 1 -->
+
+            <!-- PROJECT 2 -->
+            <div class="photo-item"
+                 data-id="studenthub"
+                 data-title="Student Hub"
+                 data-desc="This is the first phase of my Full Stack final project.
+A minimalist, web and mobile friendly dashboard designed to centralize the student experience. It focuses on real-time academic tracking and peer collaboration through an intuitive, high-performance interface."
+                 data-long-desc="This platform marks the initial phase of my Full Stack final project, designed to be a comprehensive digital workspace for the modern student. 
+                 
+Built with a strict minimalist, the application prioritizes speed and accessibility across all devices. At its core, the system features a sophisticated real-time GPA calculator operating on a 0-4 scale that allows students to track their academic performance dynamically. 
+Beyond individual metrics, the platform integrates social collaboration tools, centralized exam tracking, and a curated feed for university news and community forums. This project demonstrates my ability to merge complex data management (grades and schedules) with social features to create an intuitive, all in one academic environment."
+                 data-features="Automated GPA Calculator (0-4 scale)|Centralized Student Forum|Subject-Specific Chat Groups|Real-time Academic Dashboard|University News & Announcements Feed|Future Roadmap: Backend Integration & Interactive Calendars"
+                 data-tech="HTML, CSS, JavaScript"
+                 data-github="https://github.com/mirinez/student-hub"
+                 data-demo="https://mirinez.github.io/student-hub/"
+                 data-images="img/vid/p-2.mp4"
+                 role="button"
+                 tabindex="0"
+                 aria-label="Student Hub project, click to learn more">
+              <!-- Added purely for aesthetic purposes so that the broken image icon is not visible when the image fails to load -->
+              <img src="img/prj/p-2.jpg" alt="Student Hub project preview" class="project-img" />
+              <div class="project-overlay" aria-hidden="true">
+                <span class="project-title">Student Hub</span>
+                <span class="project-view-hint">Click to learn more →</span>
+              </div>
+            </div>
+            <!-- END PROJECT 2 -->
+
+            <!-- PROJECT 3 -->
+            <div class="photo-item"
+                 data-id="minecraft-gui"
+                 data-title="Minecraft GUI"
+                 data-desc="A technical showcase of a interactive Minecraft inventory.
+This project demonstrates advanced frontend capabilities, including a custom drag and drop architecture, real-time dynamic tooltips, and procedural sound synthesis via the Web Audio API."
+                 data-long-desc="This project is a high-fidelity, pixel-perfect recreation of the iconic Minecraft inventory system, engineered exclusively using vanilla HTML, CSS, and JavaScript. 
+                 
+By eschewing external libraries and the HTML5 Canvas, the project focuses on deep DOM manipulation and advanced CSS layouts to achieve a seamless gaming UI. The application features a custom built drag and drop system that allows users to manage items across various slots with precision. 
+To enhance immersion, I integrated the Web Audio API to synthesize procedural click sounds on the fly, eliminating the need for heavy audio files. Additionally, the interface includes a real-time tooltip rendering engine and utilizes LocalStorage to ensure that the user's inventory state persists perfectly between browser sessions."
+                 data-features="Drag-and-drop inventory slot management|Pixel-perfect UI recreation|Procedural sound effects via Web Audio API|localStorage state persistence|Custom tooltip system|Keyboard accessibility"
+                 data-tech="HTML, CSS, JavaScript, Web Audio API"
+                 data-github="https://github.com/mirinez/mine-gui"
+                 data-demo="https://mirinez.github.io/mine-gui/"
+                 data-images="img/vid/p-3.mp4"
+                 role="button"
+                 tabindex="0"
+                 aria-label="Minecraft GUI, click to learn more">
+              <img src="img/prj/p-3.jpg" alt="Minecraft GUI project preview" class="project-img" />
+              <div class="project-overlay" aria-hidden="true">
+                <span class="project-title">Minecraft GUI</span>
+                <span class="project-view-hint">Click to learn more →</span>
+              </div>
+            </div>
+            <!-- END PROJECT 3 -->
+
+            </div><!-- END TOP -->
+
+            <!-- On bottom 2 PROJECTS -->
+            <div class="photos-row photos-row-bottom">
+
+            <!-- PROJECT 4 -->
+            <div class="photo-item"
+                 data-id="dbe-fly"
+                 data-title="DBE Fly"
+                 data-desc="Developed during my Full Stack training at DBE - Academy, this travel platform focuses on providing a detailed and user friendly flight search experience."
+                 data-long-desc="This project is an evolving web application developed as part of the Full Stack Web Development Bootcamp at DBE - Academy. 
+
+It serves as a practical laboratory where I apply advanced concepts as I progress through the curriculum, starting with a robust frontend foundation and moving toward a complete backend integration. The platform allows users to search for flights by selecting destinations, departure and return dates, and specific travel preferences. Using a JSON-based data structure, the application dynamically displays flight details such as duration, layovers, and real-time price adjustments based on whether the user selects economy or business class, as well as the number of passengers. 
+
+The ultimate goal of this project is to transition from a static interface into a fully functional, end-to-end travel solution that includes integrated hotel access and a seamless booking experience."
+                 data-features="Dynamic Flight Search|Data-Driven Architecture|Scalable Hospitality Module|Tiered Pricing Logic"
+                 data-tech="HTML, CSS, JavaScript, JSON, Fetch API"
+                 data-github="https://github.com/mirinez/DBE-Fly"
+                 data-demo="https://mirinez.github.io/DBE-Fly/"
+                 data-images="img/vid/p-4.mp4"
+                 role="button"
+                 tabindex="0"
+                 aria-label="DBE Fly, click to learn more">
+              <img src="img/prj/p-4.jpg" alt="DBE Fly project preview" class="project-img" />
+              <div class="project-overlay" aria-hidden="true">
+                <span class="project-title">DBE Fly</span>
+                <span class="project-view-hint">Click to learn more →</span>
+              </div>
+            </div>
+            <!-- END PROJECT 4 -->
+
+            <!-- PROJECT 5 -->
+            <div class="photo-item"
+                 data-id="admin-bootstrap"
+                 data-title="Admin Bootstrap"
+                 data-desc="A Bootstrap 5 admin interface for managing course participants, featuring a data table, a registration form, and navigation, built with HTML, CSS and Bootstrap locally integrated."
+                 data-long-desc="This project is a static admin panel built as part of the Full Stack Web Development course at DBE Academy. 
+
+It provides a clean administration interface for managing course participants. The app consists of two pages: a main overview page displaying a paginated table of participants with action buttons, and a dedicated form page for registering new participants. 
+The interface follows a consistent visual style with a dark navbar, breadcrumb navigation, and custom CSS variables for theming. Bootstrap 5 is integrated locally rather than via CDN, as required by the exercise."
+                 data-features="Breadcrumb navigation|Participant table|Form validation|Local Bootstrap"
+                 data-tech="HTML, CSS, Bootstrap 5"
+                 data-github="https://github.com/mirinez/admin.bootstrap"
+                 data-demo="https://mirinez.github.io/admin.bootstrap/"
+                 data-images="img/vid/p-5.mp4"
+                 role="button"
+                 tabindex="0"
+                 aria-label="Admin Bootstrap, click to learn more">
+              <img src="img/prj/p-5.jpg" alt="Admin Bootstrap project preview" class="project-img" />
+              <div class="project-overlay" aria-hidden="true">
+                <span class="project-title">Admin Bootstrap</span>
+                <span class="project-view-hint">Click to learn more →</span>
+              </div>
+            </div>
+            <!-- END PROJECT 5 -->
+
+            </div><!-- END BOTTOM -->
+
+          </div>
+          <!-- END PHOTOS STRIP -->
+
+        </section>
+        <!-- END PROJECTS -->
+
+
+        <!-- ============================================
+             ABOUT ME
+        -->
+        <section class="about-section" id="about" aria-labelledby="about-title">
+          <h2 class="section-title" id="about-title">About Me</h2>
+          <div class="about-card sr">
+            <p class="about-text">
+              I'm not just learning to write code. I come from a background in IT Systems and Network Administration,
+              which means I understand how things work before they ever reach the browser.
+              My infrastructure roots give me a different lens: I think in systems, not just components.
+            </p>
+            <p class="about-text">
+              "Learning the craft of code as a form of modern magic."
+            </p>
+            <!-- Tech stack tags -->
+            <div class="about-tags">
+              <span class="about-tag">HTML</span>
+              <span class="about-tag">CSS</span>
+              <span class="about-tag">JavaScript</span>
+              <span class="about-tag">React</span>
+              <span class="about-tag">Responsive</span>
+            </div>
+          </div>
+        </section>
+        <!-- END ABOUT ME -->
+
+
+        <!-- ============================================
+             EDUCATION
+        -->
+        <section class="education-section" id="education" aria-labelledby="education-title">
+          <h2 class="section-title" id="education-title">Education</h2>
+
+          <!-- Education entry -->
+          <div class="edu-card sr">
+            <div class="edu-date">2026 - Today</div>
+            <div class="edu-title">Full Stack Web Developer</div>
+            <div class="edu-location">Germany - DBE Academy - Bootcamp</div>
+            <div class="edu-desc">
+              Currently enrolled in a professional Full Stack Web Development 
+              certification program covering the web application lifecycle, 
+              from frontend interfaces to backend architecture, deployment, and security.
+            </div>
+          </div>
+          <!-- END Education entry -->
+
+          <!-- Education entry -->
+          <div class="edu-card sr sr-delay-1">
+            <div class="edu-date">2022 - 6 months</div>
+            <div class="edu-title">Google IT Support Professional Certificate</div>
+            <div class="edu-location">Germany - Coursera</div>
+            <div class="edu-desc">
+              A certificate by Google, to prepare for an entry-level position in IT support.
+              Basic aspects of IT Support. Operating Systems and You: Becoming a Power User.
+              Administration of systems and IT infrastructure services.
+              Computer Security: Defense Against Digital Dark Arts.
+            </div>
+          </div>
+          <!-- END Education entry -->
+
+          <!-- Education entry -->
+          <div class="edu-card sr sr-delay-2">
+            <div class="edu-date">2017 - 2019</div>
+            <div class="edu-title">Intermediate degree of Microsystems and Networks</div>
+            <div class="edu-location">Spain, Alicante - I.E.S. Mare Nostrum</div>
+            <div class="edu-desc">
+              Management of operating systems such as Linux, Windows 7, 8, 10. 
+              Computer security and its most important bases. 
+              Assembly and disassembly of computers. 
+              Office package and management of office applications.
+              Creation of web pages with HTML and CSS. 
+              Create Scripts on Linux (Ubuntu). 
+              Management and creation of virtual machines and support them remotely.
+            </div>
+          </div>
+          <!-- END Education entry -->
+
+        </section>
+        <!-- END EDUCATION -->
+
+
+        <!-- ============================================
+             BEYOND THE CODE
+        -->
+        <section class="beyond-section" id="beyond" aria-labelledby="beyond-title">
+          <h2 class="section-title" id="beyond-title">Beyond the Code</h2>
+          <div class="beyond-card sr">
+
+            <div class="beyond-card-inner">
+
+              <!-- Text column (left) -->
+              <div class="beyond-text-col">
+                <div class="top-content">
+                  <p class="beyond-text">By day, I tend to a small jungle of plants and a chaotic family.</p>
+                  <p class="beyond-text">Life partner to Alf (an old, wise dog), a slug with a house, and a cat who definitely has a second family nearby.</p>
+                  <p class="beyond-text">By night, I weave worlds. As a published poet, I'm currently deep into the lore of my first fantasy trilogy.</p>
+                </div>
+
+                <p class="beyond-quote">
+                "Every project is part of the spell. Every bug is part of the ritual"
+                </p>
+              </div>
+
+              <!-- Book widget (right) -->
+              <div class="book-wrapper" aria-label="Currently reading">
+                <div class="book-pages" aria-hidden="true"></div>
+                <a href="https://amzn.eu/d/00L4UFdw" target="_blank" rel="noopener noreferrer" class="book-link">
+                  <div class="book-cover">
+                    <img src="img/book/mdm.jpg" alt="My book cover" class="book-cover-img" />
+                  </div>
+                </a>
+              </div>
+
+            </div><!-- /beyond-card-inner -->
+
+            <!-- ============================================
+                 LANGUAGES 
+            -->
+            <div class="lang-grid" aria-label="Languages">
+
+              <div class="lang-item">
+                <div class="lang-header">
+                  <span class="lang-name">Spanish</span>
+                  <span class="lang-badge">Native</span>
+                </div>
+                <div class="lang-bar-track" role="progressbar" aria-valuenow="100" aria-valuemin="0" aria-valuemax="100" aria-label="Spanish: Native">
+                  <div class="lang-bar-fill" data-width="100"></div>
+                </div>
+              </div>
+
+              <div class="lang-item">
+                <div class="lang-header">
+                  <span class="lang-name">Italian</span>
+                  <span class="lang-badge">C1</span>
+                </div>
+                <div class="lang-bar-track" role="progressbar" aria-valuenow="85" aria-valuemin="0" aria-valuemax="100" aria-label="Italian: C1">
+                  <div class="lang-bar-fill" data-width="85"></div>
+                </div>
+              </div>
+
+              <div class="lang-item">
+                <div class="lang-header">
+                  <span class="lang-name">English</span>
+                  <span class="lang-badge">B2</span>
+                </div>
+                <div class="lang-bar-track" role="progressbar" aria-valuenow="55" aria-valuemin="0" aria-valuemax="100" aria-label="English: B2">
+                  <div class="lang-bar-fill" data-width="55"></div>
+                </div>
+              </div>
+
+              <div class="lang-item">
+                <div class="lang-header">
+                  <span class="lang-name">German</span>
+                  <span class="lang-badge">B2</span>
+                </div>
+                <div class="lang-bar-track" role="progressbar" aria-valuenow="55" aria-valuemin="0" aria-valuemax="100" aria-label="German: B2">
+                  <div class="lang-bar-fill" data-width="55"></div>
+                </div>
+              </div>
+
+            </div>
+            <!-- END LANGUAGES -->
+
+          </div>
+        </section>
+        <!-- END BEYOND THE CODE -->
+
+
+        <!-- ============================================
+             CONTACT AND FOOTER
+        -->
+        <section class="connect-section" id="contact" aria-labelledby="contact-title">
+          <h2 class="connect-title" id="contact-title">Let's Connect</h2>
+
+<form class="contact-form" id="contactForm" aria-label="Contact form" method="POST" novalidate>
+    <div class="contact-top-row">
+        <input 
+          class="newsletter-input" 
+          type="email" 
+          id="contactEmail"
+          name="from_email"
+          placeholder="Your email address..."
+          required
+          aria-label="Your email address"
+        />
+        <button type="submit" class="newsletter-btn" id="contactBtn">
+          Email me!
+        </button>
+    </div>
+
+    <textarea
+      class="newsletter-input contact-textarea"
+      id="contactMessage"
+      name="message"
+      placeholder="Your message..."
+      required
+      aria-label="Your message"
+      rows="4"
+    ></textarea>
+  
+    <div id="toast-container"></div>
+</form>
+
+          <div class="footer">
+            <div class="signature" aria-hidden="true">&#8212;<em> mdm </em>&#8212;</div>
+            <div class="footer-icons">
+              <!-- GitHub link -->
+              <a href="https://github.com/mirinez" class="footer-icon" aria-label="GitHub profile">
+                <img src="img/svg/github.svg" alt="GitHub" class="footer-icon-img" />
+              </a>
+              <!-- Business card link -->
+              <a href="https://mirinez.github.io/business-card" class="footer-icon" aria-label="Business card">
+                <img src="img/svg/bnss-card.svg" alt="Business card" class="footer-icon-img" />
+              </a>
+              <!-- LinkedIn link -->
+              <a href="https://linkedin.com/in/miriam-dominguezm" class="footer-icon" aria-label="LinkedIn profile">
+                <img src="img/svg/linkedin.svg" alt="LinkedIn" class="footer-icon-img" />
+              </a>
+            </div>
+            <p class="copyright">© Míriam Domínguez Martínez</p>
+          </div>
+        </section>
+        <!-- END CONTACT AND FOOTER -->
+
+
+      </div><!-- /main-content -->
+    </div><!-- /center-col -->
+
+    <div class="side side-right"></div>
+  </div>
+  <!-- END PAGE WRAPPER / MAIN VIEW -->
+
+
+  <!-- ============================================
+       PROJECT DETAIL VIEW - SPA
+  -->
+  <div class="page-wrapper detail-view" id="detailView" aria-hidden="true">
+    <div class="side side-left"></div>
+    <div class="center-col">
+
+      <!-- Theme toggle (mirrored in detail view) -->
+      <button class="theme-toggle" onclick="toggleTheme()" title="Toggle theme" aria-label="Toggle light/dark mode">
+        <span class="icon-sun" aria-hidden="true">&#9728;</span>
+        <span class="icon-moon" aria-hidden="true">&#9790;</span>
+      </button>
+
+      <div class="detail-content">
+
+        <!-- Back button -->
+        <button class="detail-back" id="detailBack" aria-label="Back to portfolio">
+          <span class="detail-back-arrow" aria-hidden="true">&#8592;</span>
+          Back
+        </button>
+
+        <!-- Hero image gallery -->
+        <div class="detail-gallery" id="detailGallery" aria-label="Project screenshots"></div>
+
+        <!-- Project header -->
+        <div class="detail-header">
+          <h1 class="detail-title" id="detailTitle"></h1>
+          <div class="detail-action-btns">
+            <a class="detail-btn detail-btn-primary" id="detailDemoBtn" href="#" target="_blank" rel="noopener noreferrer">
+              Live Demo &#8599;
+            </a>
+            <a class="detail-btn detail-btn-secondary" id="detailGithubBtn" href="#" target="_blank" rel="noopener noreferrer">
+              <img src="img/svg/github.svg" alt="" class="detail-btn-icon" aria-hidden="true" />
+              GitHub
+            </a>
+          </div>
+        </div>
+
+        <!-- Description -->
+        <section class="detail-section" aria-labelledby="detail-about-label">
+          <h2 class="detail-section-label" id="detail-about-label">About the project</h2>
+          <p class="detail-desc" id="detailDesc"></p>
+        </section>
+
+        <!-- Features list -->
+        <section class="detail-section" aria-labelledby="detail-features-label">
+          <h2 class="detail-section-label" id="detail-features-label">Features</h2>
+          <ul class="detail-features" id="detailFeatures" aria-label="Project features"></ul>
+        </section>
+
+        <!-- Tech stack -->
+        <section class="detail-section" aria-labelledby="detail-stack-label">
+          <h2 class="detail-section-label" id="detail-stack-label">Tech stack</h2>
+          <div class="detail-tags" id="detailTags"></div>
+        </section>
+
+      </div><!-- /detail-content -->
+
+      <!-- ============================================
+           FOOTER (SPA page) 
+      -->
+      <div class="detail-footer">
+        <p class="copyright">© Míriam Domínguez Martínez</p>
+      </div>
+
+    </div><!-- /center-col -->
+    <div class="side side-right"></div>
+  </div>
+  <!-- END PROJECT DETAIL VIEW -->
+
+
+  <!-- ============================================
+       PROJECT MODAL
+  -->
+  <div class="modal-backdrop" id="projectModal" aria-hidden="true">
+    <div class="modal-box" role="dialog" aria-modal="true" aria-labelledby="modalTitle">
+      <button class="modal-close" id="modalClose" aria-label="Close modal">&#10005;</button>
+      <div class="modal-img-wrap" id="modalImgWrap"></div>
+      <div class="modal-body">
+        <h2 class="modal-title" id="modalTitle"></h2>
+        <p  class="modal-desc"  id="modalDesc"></p>
+        <div class="modal-tags" id="modalTags"></div>
+        <!-- "Full page" link, navigates to the detail SPA view -->
+        <div class="modal-actions">
+          <a class="modal-btn" id="modalLink" href="#" target="_blank" rel="noopener noreferrer">
+            View Project &#8599;
+          </a>
+          <button class="modal-btn modal-btn-detail" id="modalDetailBtn">
+            Full Details &#8594;
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+  <!-- END PROJECT MODAL -->
+
+
+  <!-- ============================================
+       TO THE TOP BUTTON 
+  -->
+  <button class="scroll-top" id="scrollTop" aria-label="Scroll to top" title="Back to top">
+    &#8593;
+  </button>
+  <!-- END TOP BUTTON -->
+
+  <script src="https://cdn.jsdelivr.net/npm/@emailjs/browser@4/dist/email.min.js"></script>
+  <script src="main.js"></script>
+</body>
+</html>
